@@ -109,7 +109,7 @@ be allowed.
 @tindex FL_PLACE_FREE
 @item FL_PLACE_FREE
 Both the position and size are completely free. The initial size used is
-the designed size. Initial position, if setvia
+the designed size. Initial position, if set via
 @code{@ref{fl_set_form_position()}}, will be used otherwise interactive
 positioning may be possible if the window manager allows it.
 

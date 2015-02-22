@@ -74,9 +74,9 @@ flimage_setup( FLIMAGE_SETUP * setup )
 {
     current_setup = *setup;
 
-    if ( ( *setup ).max_frames == 0 )
+    if ( setup->max_frames == 0 )
         current_setup.max_frames = 30;
-    if ( ( *setup ).delay > 2000 )
+    if ( setup->delay > 2000 )
         current_setup.delay = 2000;
 
     add_default_formats( );
@@ -157,9 +157,9 @@ flimage_alloc( void )
 }
 
 
-/**}***********************************************************************
+/*************************************************************************
  * Image identification
- *********************************************************************{****/
+ *************************************************************************/
 
 /* it's important that this routine be silient. is_supported calls this */
 
@@ -168,10 +168,10 @@ identify_image( const char *file )
 {
     FILE *fp;
     FLIMAGE_IO *io;
-    FL_IMAGE *image = 0;
+    FL_IMAGE *image = NULL;
 
     if ( ! file || ! *file )
-        return 0;
+        return NULL;
 
     if ( ! ( fp = fopen( file, "rb" ) ) )
     {
@@ -194,16 +194,17 @@ identify_image( const char *file )
             image->infile[ MaxImageFileNameLen - 5 ] = '\0';
             return image;
         }
-        else
-            rewind( fp );
+
+        rewind( fp );
     }
 
-    return 0;
+    fclose( fp );
+    return NULL;
 }
 
 
 /***************************************
- * check if the file is an image file. Should never bitch
+ * Check if the file is an image file. Should never bitch
  ***************************************/
 
 int
@@ -213,7 +214,7 @@ flimage_is_supported( const char * file )
     FLIMAGE_IO *io;
     int n;
 
-    if ( ! file || ! ( fp = fopen( file, "rb" ) ) )
+    if ( ! file || ! *file || ! ( fp = fopen( file, "rb" ) ) )
         return 0;
 
     if ( ! ppm_added )
@@ -236,9 +237,9 @@ flimage_is_supported( const char * file )
 }
 
 
-/*}********************************************************************
- * basic image file open routines
- ******************************************************************{**/
+/*********************************************************************
+ * Basic image file open routines
+ ********************************************************************/
 
 
 FL_IMAGE *
@@ -270,8 +271,8 @@ flimage_close( FL_IMAGE * im )
     if ( im->fpout )
         status = fclose( im->fpout );
 
-    im->fpin = 0;
-    im->fpout = 0;
+    im->fpin = NULL;
+    im->fpout = NULL;
 
     return status;
 }
@@ -296,7 +297,7 @@ flimage_read( FL_IMAGE * im )
     if ( ! io->read_description || ! io->read_pixels )
         return NULL;
 
-    /* copy some default info */
+    /* Copy some default info */
 
     image->type = io->type;
     image->fmt_name = io->short_name;
@@ -406,10 +407,14 @@ flimage_load( const char * file )
 
     image->current_frame = 1;
 
-    /* we have multi-frames */
+    /* We have multi-frames */
 
-    for ( err = 0, im = image;
-          ! err && im->more && im->current_frame < current_setup.max_frames; )
+    err = 0;
+    im = image;
+
+    while (    ! err
+            && im->more
+            && im->current_frame < current_setup.max_frames )
     {
         if ( ! ( err = ! ( im->next = flimage_dup_( im, 0 ) ) ) )
         {
@@ -441,9 +446,9 @@ flimage_load( const char * file )
 }
 
 
-/*}*********************************************************************
+/**********************************************************************
  * Output routines
- *******************************************************************{**/
+ *********************************************************************/
 
 static void convert_type( FL_IMAGE *,
                           FLIMAGE_IO * );
@@ -533,7 +538,7 @@ flimage_dump( FL_IMAGE   * image,
 
 
 /***************************************
- * convert the image to a type the output routine can handle
+ * Convert the image to a type the output routine can handle
  ***************************************/
 
 static void
@@ -601,12 +606,12 @@ convert_type( FL_IMAGE   * im,
 }
 
 
-/*}********************************************************************* */
+/***********************************************************************/
 
 
 /***********************************************************************
- *  memory related routines
- ********************************************************************{**/
+ *  Memory related routines
+ ***********************************************************************/
 
 void
 flimage_free( FL_IMAGE * image )
@@ -822,9 +827,9 @@ flimage_getcolormap( FL_IMAGE * im )
     if ( len > FLIMAGE_MAXLUT )
         len = im->map_len = FLIMAGE_MAXLUT;
 
-    im->red_lut   = fl_realloc( im->red_lut,   len * sizeof *im->red_lut );
+    im->red_lut   = fl_realloc( im->red_lut,   len * sizeof *im->red_lut   );
     im->green_lut = fl_realloc( im->green_lut, len * sizeof *im->green_lut );
-    im->blue_lut  = fl_realloc( im->blue_lut,  len * sizeof *im->blue_lut );
+    im->blue_lut  = fl_realloc( im->blue_lut,  len * sizeof *im->blue_lut  );
     im->alpha_lut = fl_realloc( im->alpha_lut, len * sizeof *im->alpha_lut );
 
     if ( ! im->alpha_lut )
@@ -857,7 +862,7 @@ flimage_getcolormap( FL_IMAGE * im )
 
 
 /***************************************
- * before we modify the current image, need to invalidate/free all
+ * Before we modify the current image, need to invalidate/free all
  * other types
  ***************************************/
 
@@ -896,7 +901,7 @@ flimage_invalidate_pixels( FL_IMAGE * im )
 
 
 /***************************************
- * free all allocated memory associated with the image
+ * Free all allocated memory associated with the image
  ***************************************/
 
 void
@@ -1097,14 +1102,14 @@ flimage_set_annotation_support( int in,
 #define VN( a )  {a,#a}
 static FLI_VN_PAIR types[ ] =
 {
-    VN( FL_IMAGE_NONE ),
-    VN( FL_IMAGE_CI ),
-    VN( FL_IMAGE_MONO ),
-    VN( FL_IMAGE_RGB ),
+    VN( FL_IMAGE_NONE   ),
+    VN( FL_IMAGE_CI     ),
+    VN( FL_IMAGE_MONO   ),
+    VN( FL_IMAGE_RGB    ),
     VN( FL_IMAGE_PACKED ),
-    VN( FL_IMAGE_GRAY ),
+    VN( FL_IMAGE_GRAY   ),
     VN( FL_IMAGE_GRAY16 ),
-    VN( FL_IMAGE_FLEX ),
+    VN( FL_IMAGE_FLEX   ),
     { -1, NULL }
 };
 
@@ -1175,8 +1180,8 @@ flimage_replace_image( FL_IMAGE * im,
                        void     * g,
                        void     * b )
 {
-    /* if we replace an image, all old backingstore pixels are invalid. Free
-       all images */
+    /* If we replace an image, all old backingstore pixels are invalid.
+       Free all images */
 
     flimage_invalidate_pixels( im );
 
@@ -1193,7 +1198,7 @@ flimage_replace_image( FL_IMAGE * im,
         im->green = g;
         im->blue = b;
 
-        /* dont' have to preserve the alpha. remember to doc it */
+        /* Dont' have to preserve the alpha. remember to doc it */
 
         im->alpha = fl_get_matrix( h, w, sizeof **im->alpha );
     }
@@ -1234,7 +1239,7 @@ flimage_add_comments( FL_IMAGE   * im,
                       const char * s,
                       int          len )
 {
-    /* null entry clears comments */
+    /* Null entry clears comments */
 
     if ( ! s || len <= 0 )
     {
@@ -1577,7 +1582,7 @@ pack_bits( unsigned char  * out,
 
 
 /***************************************
- * default supported image formats
+ * Default supported image formats
  ***************************************/
 
 static void
@@ -1595,7 +1600,7 @@ add_default_formats( void )
 
 
 /***************************************
- * given a format, find the corresponding io handler
+ * Given a format, find the corresponding io handler
  ***************************************/
 
 FLIMAGE_IO *
@@ -1786,8 +1791,8 @@ read_text( FLIMAGE_TEXT * t,
         br,
         bg,
         bb;
-    char *p = buf + 1,
-         *s = name,
+    char *p  = buf + 1,
+         *s  = name,
          *ss = name + sizeof name - 1;
 
     if ( fgets( buf, sizeof buf - 1, fp ) )
@@ -1857,7 +1862,7 @@ flimage_write_annotation( FL_IMAGE * im )
 
     fp = im->fpout;
 
-    /* write markers first */
+    /* Write markers first */
 
     if ( im->nmarkers )
     {
