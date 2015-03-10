@@ -186,8 +186,8 @@ draw_slider( FL_OBJECT * ob )
             sprintf( valstr, "%.*f", sp->prec, sp->val );
 
         fl_draw_box( ob->boxtype, bx, by, bw, bh, ob->col1, ob->bw );
-        fl_draw_text_beside( FL_ALIGN_CENTER, bx, by, bw, bh,
-                             ob->lcol, ob->lstyle, ob->lsize, valstr );
+        fl_draw_text( FL_ALIGN_CENTER, bx, by, bw, bh,
+                      ob->lcol, ob->lstyle, ob->lsize, valstr );
     }
 
     if (    ( sp->draw_type == SLIDER_MOTION || sp->draw_type == SLIDER_JUMP )
