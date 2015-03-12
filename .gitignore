@@ -129,7 +129,7 @@ demos/pmbrowse
 demos/popup
 demos/positioner
 demos/positionerXOR
-demos/position_overlay
+demos/positioner_overlay
 demos/preemptive
 demos/pup
 demos/pushbutton
