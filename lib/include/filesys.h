@@ -73,6 +73,6 @@ FL_EXPORT int fl_set_dirlist_sort( int method );
 
 FL_EXPORT int fl_set_dirlist_filterdir( int yes );
 
-FL_EXPORT void fl_free_dirlist( FL_Dirlist * dl );
+FL_EXPORT void fl_free_dirlist( const FL_Dirlist * dl );
 
 #endif /* ! defined FL_FILESYS_H */

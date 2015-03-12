@@ -73,12 +73,11 @@ static int
 BMP_identify( FILE * fp )
 {
     char buf[ 2 ];
-    size_t c;
 
-    c = fread( buf, 1, 2, fp );
+    if ( fread( buf, 1, 2, fp ) != 2 )
+        return 0;
     rewind( fp );
-
-    return c == 2 && buf[ 0 ] == 'B' && buf[ 1 ] == 'M';
+    return ! strncmp( buf, "BM", 2 );
 }
 
 

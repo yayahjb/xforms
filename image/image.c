@@ -414,6 +414,7 @@ flimage_load( const char * file )
 
     while (    ! err
             && im->more
+            && im->more > im->completed
             && im->current_frame < current_setup.max_frames )
     {
         if ( ! ( err = ! ( im->next = flimage_dup_( im, 0 ) ) ) )

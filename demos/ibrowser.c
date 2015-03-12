@@ -35,6 +35,9 @@
 #include "include/forms.h"
 #include "image/flimage.h"
 #include "fd/ibrowser_gui.h"   /* from fd/ directory */
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 static FL_IMAGE *curr_image;
 
@@ -104,6 +107,10 @@ load_and_show( const char * filename,
     int r,
         g,
         b;
+    struct stat sbuf;
+
+    if ( stat( filename, &sbuf ) < 0 || S_ISDIR( sbuf.st_mode ) )
+        return 1;
 
     image = flimage_load( filename );
 

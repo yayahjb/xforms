@@ -54,16 +54,14 @@
 static int
 GIF_identify( FILE * fp )
 {
-    char buf[ 7 ];
+    char buf[ 6 ];
 
     if ( fread( buf, 1, 6, fp ) != 6 )
         return 0;
     rewind( fp );
-    return    buf[ 0 ] == 'G'
-           && buf[ 1 ] == 'I'
-           && buf[ 2 ] == 'F'
-           && buf[ 5 ] == 'a';
+    return ! strncmp( buf, "GIFa", 4 );
 }
+
 
 static int read_descriptor_block( FL_IMAGE * im );
 static int skip_extension( FILE * fp,

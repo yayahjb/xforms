@@ -39,12 +39,12 @@
 static int
 PNG_identify( FILE * fp )
 {
-    char buf[ 9 ];
-    static unsigned char sig[ 9 ] = { 137, 80, 78, 71, 13, 10, 26, 10 };
+    char buf[ 8 ];
 
     if ( fread( buf, 1, 8, fp ) != 8 )
         return 0;
-    return strncmp( ( char * ) sig, buf, 8 ) == 0;
+    rewind( fp );
+    return  ! strncmp( buf, "\x89PNG\x0d\x0a\x1a\x0a", 8 );
 }
 
 

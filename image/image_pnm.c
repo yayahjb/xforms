@@ -59,8 +59,7 @@ PPM_identify( FILE * fp )
     if ( fread( buf, 1, 2, fp ) != 2 )
         return 0;
     rewind( fp );
-
-    return buf[ 0 ] == 'P' && ( buf[ 1 ] == '3' || buf[ 1 ] == '6' );
+    return ! strncmp( buf, "P3", 2 ) || ! strncmp( buf, "P6", 2 );
 }
 
 
@@ -75,8 +74,7 @@ PGM_identify(FILE * fp)
     if ( fread(buf, 1, 2, fp) != 2 )
         return 0;
     rewind(fp);
-
-    return buf[ 0 ] == 'P' && ( buf[ 1 ] == '2' || buf[ 1 ] == '5' );
+    return ! strncmp( buf, "P2", 2 ) || ! strncmp( buf, "P5", 2 );
 }
 
 
@@ -91,8 +89,7 @@ PBM_identify( FILE * fp )
     if ( fread(buf, 1, 2, fp ) != 2 )
         return 0;
     rewind(fp);
-
-    return buf[ 0 ] == 'P' && ( buf[ 1 ] == '1' || buf[ 1 ] == '4' );
+    return ! strncmp( buf, "P1", 2 ) || ! strncmp( buf, "P4", 2 );
 }
 
 

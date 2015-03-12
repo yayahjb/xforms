@@ -55,12 +55,11 @@ static int
 GENESIS_identify( FILE * fp )
 {
     char buf[ 4 ];
-    size_t c;
 
-    c = fread( buf, 1, 4, fp );
+    if ( fread( buf, 1, 4, fp ) == 4 )
+        return 0;
     rewind( fp );
-
-    return c == 4 && strncmp( buf, "IMGF", 4 ) == 0;
+    return ! strncmp( buf, "IMGF", 4 );
 }
 
 

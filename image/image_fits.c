@@ -91,9 +91,10 @@ FITS_identify( FILE * fp )
     char buf[ 6 ];
     size_t c;
 
-    c = fread( buf, 1, 6, fp );
+    if ( fread( buf, 1, 6, fp ) != 6 )
+        return 0;
     rewind( fp );
-    return c == 6 && ! strncmp( buf, "SIMPLE", 6 );
+    return ! strncmp( buf, "SIMPLE", 6 );
 }
 
 

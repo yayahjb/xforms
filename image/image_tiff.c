@@ -96,15 +96,14 @@ static void initialize_tiff_io( SPEC *,
 static int
 TIFF_identify( FILE * fp )
 {
-    char c[ 4 ];
-    size_t i;
+    char buf[ 4 ];
 
-    i = fread( c, 1, 4, fp );
+    if ( fread( buf, 1, 4, fp ) != 4 )
+        return 0;
     rewind( fp );
-    return    i == 4
-           && (    ( c[ 0 ] == 'I' && c[ 1 ] == 'I' )
-                || ( c[ 0 ] == 'M' && c[ 1 ] == 'M' ) );
+    return ! strncmp( buf, "II", 2 ) || ! strncmp( buf, "MM", 2 );
 }
+
 
 static int read_tiff_ifd( FILE * fp,
                           SPEC * sp );

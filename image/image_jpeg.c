@@ -83,12 +83,14 @@ static unsigned int jpeg_getc( j_decompress_ptr cinfo );
 static int
 JPEG_identify( FILE * fp )
 {
-    unsigned char buf[ 129 ];
-    size_t i;
+    char buf[ 128 ];
+    size_t cnt;
+    int i;
 
-    i = fread( buf, 1, sizeof buf - 1, fp );
+    cnt = fread( buf, 1, 128, fp );
     rewind( fp );
-    buf[ i ] = '\0';
+    if ( cnt < 3 )
+        return 0;
 
     /* Clive Stubbings.
      * Test for a JPEG SOI code (0xff, 0xd8) followed by the start of
@@ -96,14 +98,14 @@ JPEG_identify( FILE * fp )
      * A 'raw' JPEG will not have the JFIF (JPEG file interchange format)
      * header but is still readable
      */
+ 
+    if ( ! strncmp( buf, "\xff\xd8\xff", 3 ) )
+         return 1;
 
-    if ( buf[ 0 ] == 0xff && buf[ 1 ] == 0xd8 && buf[ 2 ] == 0xff )
-        return 1;
-
-    for ( i = 0; i < sizeof buf - 3 && buf[ i ] != 'J'; i++ )
+    for ( i = 0; i < cnt - 3 && buf[ i ] != 'J'; i++ )
         /* empty */ ;
 
-    return ! strncmp( ( char * ) buf + i, "JFIF", 4 );
+    return i < cnt - 3 && ! strncmp( buf + i, "JFIF", 4 );
 }
 
 

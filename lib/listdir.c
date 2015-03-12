@@ -172,8 +172,6 @@ fl_b2f_slash( char *dir )
 
 /************* local variables ****************/
 
-static const char *cpat;    /* current pattern          */
-static const char *cdir;    /* current working directory */
 static char fname[ MAXFL + 2 ];
 
 #define FL_NONE 0
@@ -239,12 +237,14 @@ mode2type( unsigned int   mode,
 static int
 fselect( const char  * d_name,
          struct stat * ffstat,
-         int         * type )
+         int         * type,
+         const char  * dir,
+         const char  * pat )
 {
     int ret = 0;
     unsigned int mode;
 
-    strcat( strcpy( fname, cdir), d_name );
+    strcat( strcpy( fname, dir), d_name );
     stat( fname, ffstat );
     mode = ffstat->st_mode;
     mode2type( mode, type );
@@ -257,7 +257,7 @@ fselect( const char  * d_name,
 
         ret =    S_ISDIR(mode)
               || (    ( S_ISREG( mode ) || S_ISLNK( mode ) )
-                   && fli_wildmat( d_name, cpat ) );
+                   && fli_wildmat( d_name, pat ) );
     }
     else
     {
@@ -265,9 +265,9 @@ fselect( const char  * d_name,
 
         if ( ! filter_directory )
            ret =    *type == FT_DIR
-                 || ( fli_wildmat( d_name, cpat ) && ffilter( fname, *type ) );
+                 || ( fli_wildmat( d_name, pat ) && ffilter( fname, *type ) );
         else
-            ret =    ( *type == FT_DIR || fli_wildmat( d_name, cpat ) )
+            ret =    ( *type == FT_DIR || fli_wildmat( d_name, pat ) )
                   && ffilter( fname, *type );
     }
 
@@ -281,7 +281,9 @@ fselect( const char  * d_name,
 
 static int
 fselect( struct _finddata_t * c_file,
-         FL_Dirlist         * dl )
+         FL_Dirlist         * dl,
+         const char         * dir,
+         const char         * pat )
 {
     int type,
         ret = 0;
@@ -294,12 +296,12 @@ fselect( struct _finddata_t * c_file,
     if ( ! ffilter )
         ret = 1;
     else if ( ffilter == default_filter ) /* always keep directory and links */
-        ret = type == FT_DIR || fli_wildmat( c_file->name, cpat );
+        ret = type == FT_DIR || fli_wildmat( c_file->name, pat );
     else
     {
-        strcat( strcpy( fname, cdir ), c_file->name );
+        strcat( strcpy( fname, dir ), c_file->name );
         ret =    type == FT_DIR
-              || (    flo_wildmat( c_file->name, cpat )
+              || (    flo_wildmat( c_file->name, pat )
                    && ffilter( fname, type ) );
     }
 
@@ -377,9 +379,6 @@ scandir_get_entries( const char  * dir,
     static struct stat ffstat;
     int n = 0;
 
-    cpat = pat;
-    cdir = dir;
-
     /* Free all memory used last time we were here */
 
     if ( dlist )
@@ -399,7 +398,7 @@ scandir_get_entries( const char  * dir,
 
         for ( i = n = 0; i < lastn; i++ )
         {
-            if ( fselect( dlist[ i ]->d_name, &ffstat, &dl->type ) )
+            if ( fselect( dlist[ i ]->d_name, &ffstat, &dl->type, dir, pat ) )
             {
                 dl->name = fl_strdup( dlist[ i ]->d_name );
                 dl->dl_mtime = ffstat.st_mtime;
@@ -434,8 +433,6 @@ scandir_get_entries( const char  * dir,
     long hFile;
     int n, lastn;
 
-    cpat = pat;
-    cdir = dir;
     n = 0;
 
     /* Save the working directory */
@@ -457,7 +454,7 @@ scandir_get_entries( const char  * dir,
     lastn = 10;
     dl = *dirlist = fl_malloc( ( lastn + 1 ) * sizeof **dirlist );
 
-    if ( fselect( &c_file, dl ) )
+    if ( fselect( &c_file, dl, dir, pat ) )
     {
         dl++;
         n++;
@@ -467,7 +464,7 @@ scandir_get_entries( const char  * dir,
 
     while ( _findnext( hFile, &c_file ) == 0 )
     {
-        if ( fselect( &c_file, dl ) )
+        if ( fselect( &c_file, dl, dir, pat ) )
         {
             dl++;
             n++;
@@ -551,7 +548,7 @@ is_cached( const char * dir,
  ***************************************/
 
 void
-fl_free_dirlist( FL_Dirlist * dl )
+fl_free_dirlist( const FL_Dirlist * dl )
 {
     size_t i;
 
@@ -567,8 +564,7 @@ fl_free_dirlist( FL_Dirlist * dl )
 
     while ( dl && dl->name )
     {
-        fl_free( dl->name );
-        dl->name = NULL;        /* important: signifies empty list */
+        fli_safe_free( ( ( FL_Dirlist * ) dl )->name );
         dl++;
     }
 
