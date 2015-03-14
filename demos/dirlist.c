@@ -53,16 +53,15 @@ fill_browser( FL_OBJECT * ob )
     fl_set_object_label( fdui->total, buf );
     fl_clear_browser( fdui->browser );
 
-    for ( ds = dl; dl < dlend; dl++ )
+    for ( ds = dl; ds < dlend; ds++ )
     {
-        sprintf( buf, "%-10s\t\t%5ldK\t%s", dl->name, dl->dl_size >> 10,
-                 ctime( &dl->dl_mtime ) + 3 );
+        sprintf( buf, "%-20s\t\t%5ldK\t%s", ds->name, ds->dl_size >> 10,
+                 ctime( &ds->dl_mtime ) + 3 );
         fl_addto_browser_chars( fdui->browser, buf );
     }
 
+    fl_free_dirlist( dl );
     fl_unfreeze_form( ob->form );
-
-    fl_free_dirlist( ( FL_Dirlist * ) ds );
 }
 
 
@@ -101,7 +100,7 @@ main( int    argc,
 {
     FD_fbform *fd_fbform;
 
-    fl_initialize( &argc, argv, 0, 0, 0 );
+    fl_initialize( &argc, argv, "FormDemo", NULL, 0 );
     fd_fbform = create_form_fbform( );
     fl_set_browser_fontstyle( fd_fbform->browser, FL_FIXED_STYLE );
 

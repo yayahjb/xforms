@@ -79,7 +79,7 @@ can only be removed programmatically
 @findex fl_hide_oneliner()
 @anchor{fl_hide_oneliner()}
 @example
-void fl_show_oneliner(const char *str, FL_Coord x, FL_Coord y);
+void fl_show_oneliner(const char *str, FL_COORD x, FL_COORD y);
 void fl_hide_oneliner(void);
 @end example
 @noindent
@@ -885,9 +885,12 @@ on return is the total number of entries in directory @code{dirname}
 that match the pattern specified by @code{pattern} (not exactly true,
 see below). The function returns the address of an array of type
 @code{FL_Dirlist} with @code{nfiles} if successful and @code{NULL}
-otherwise. By default, directory entries are cached. Passing the
-function a true (non-zero) value for the @code{rescan} argument requests
-a re-read.
+otherwise. By default, directory entries are cached, i.e. when called
+with the same arguments for @code{dirname} and @code{pattern} again
+the exact same list is usually returned (and no checks are done if
+any files have been added or removed in the mean time). By passing
+the function a true (non-zero) value for the @code{rescan} argument
+requests a re-read, whch then returns
 
 @code{FL_Dirlist} is a structure defined as follows
 @example
@@ -901,9 +904,11 @@ typedef struct @{
 @noindent
 where @code{type} is one of the following file types
 @table @code
+@tindex FT_REG
+@item FT_REG
+a regular file (note: in older versions instead
 @tindex FT_FILE
-@item FT_FILE
-a regular file
+@code{FT_FILE} was used!)
 @tindex FT_DIR
 @item FT_DIR
 a directory
@@ -926,18 +931,18 @@ a character device
 ?
 @end table
 
-To free the list cache returned by @code{@ref{fl_get_dirlist()}}, use
-the following call
+Once you're done with the directory list obtained from
+@code{@ref{fl_get_dirlist()}} you must free it, using the following
+call:
 @findex fl_free_dirlist()
 @anchor{fl_free_dirlist()}
 @example
 void fl_free_dirlist(const FL_Dirlist *dl);
 @end example
 @noindent
-Note that a cast may be required to get rid of compiler warnings due
-to the @code{const} qualifier of the return value of
-@code{@ref{fl_get_dirlist()}}. See demo program @file{dirlist.c} for
-an example use of @code{@ref{fl_get_dirlist()}}.
+Of course, the argument passed to @code{@ref{fl_free_dirlist()}} must
+be a pointer you obtained from a call of @code{@ref{fl_get_dirlist()}}.
+See demo program @file{dirlist.c} for an example use of these functions.
 
 Per default not all types of files are returned by
 @code{@ref{fl_get_dirlist()}}. The specific rules for which

@@ -102,7 +102,7 @@ typedef struct
 
 static FD_fselect * create_form_fselect( void );
 
-static FD_fselect *fd_fselector[ FL_MAX_FSELECTOR ] = { 0 },
+static FD_fselect *fd_fselector[ FL_MAX_FSELECTOR ] = { NULL },
                   *fs;
 
 
@@ -298,7 +298,11 @@ fli_del_tail_slash( char * d )
 {
     int i = strlen( d ) - 1;
 
+#ifndef FL_WIN32
     if ( d[ i ] == '/' )
+#else
+    if ( d[ i ] == '/' || d[ i ] == '\\' )
+#endif
         d[ i ] = '\0';
     return d;
 }
@@ -317,17 +321,19 @@ select_cb( FL_OBJECT * obj,
     char seltext[ FL_PATH_MAX ];
     int thisline;
     FD_fselect *lfs = obj->form->fdui;
+    int is_dir;
 
     if ( ( thisline = fl_get_browser( obj ) ) <= 0 )
         return;
 
     fli_sstrcpy( seltext, fl_get_browser_line( obj, thisline ),
                  sizeof seltext );
+    is_dir = seltext[ 0 ] == dirmarker && seltext[ 1 ] == ' ';
     lfs->last_len = strlen( seltext + 2 );
     lfs->last_line = thisline;
     memmove( seltext, seltext + 2, lfs->last_len + 1 );
 
-    if ( seltext[ 0 ] == dirmarker && seltext[ 1 ] == ' ' )  /* directory */
+    if ( is_dir )  /* directory */
     {
         if ( isdblclick )
         {
@@ -469,7 +475,7 @@ fill_entries( FL_OBJECT  * br,
 {
     const FL_Dirlist *dirlist,
                      *dl;
-    char tt[ FL_FLEN ];
+    char * tt = NULL;
     int n, i;
     FD_fselect *lfs = br->form->fdui;
     int dcount = 1;
@@ -485,12 +491,12 @@ fill_entries( FL_OBJECT  * br,
     if ( ! ( dirlist = fl_get_dirlist( lfs->dname, lfs->pattern, &n,
                                        lfs->rescan || lfs->disabled_cache ) ) )
     {
-        char tmpbuf[ 256 ],
+        char * tmpbuf,
              *p;
 
-        fli_snprintf( tmpbuf, sizeof tmpbuf, "Can't read %s", lfs->dname );
-        tmpbuf[ sizeof tmpbuf - 1 ] = '\0';
+        asprintf( tmpbuf, "Can't read %s", lfs->dname );
         fl_show_alert( "ReadDir", tmpbuf, fli_get_syserror_msg( ), 0 );
+        fl_free( tmpbuf );
         M_err( "fill_entries", "Can't read %s", lfs->dname );
 
         /* Backup */
@@ -506,7 +512,7 @@ fill_entries( FL_OBJECT  * br,
     fl_set_object_label( lfs->dirbutt, contract_dirname( lfs->dname, 38 ) );
     fl_clear_browser( br );
 
-    for ( i = 0, dl = dirlist; dl->name; i++, dl++ )
+    for ( i = 0, dl = dirlist; i < n; i++, dl++ )
     {
         int cur_line;
         char marker;
@@ -534,7 +540,7 @@ fill_entries( FL_OBJECT  * br,
                 marker = filemarker;
         }
 
-        fli_snprintf( tt, sizeof tt, "%c %s", marker, dl->name );
+        asprintf( &tt, "%c %s", marker, dl->name );
 
         if ( dl->type == FT_DIR && listdirfirst )
         {
@@ -548,6 +554,8 @@ fill_entries( FL_OBJECT  * br,
             cur_line = lcount;
             fl_add_browser_line( br, tt );
         }
+
+        fli_safe_free( tt );
 
         lcount++;
 
