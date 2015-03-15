@@ -84,7 +84,7 @@ static int
 JPEG_identify( FILE * fp )
 {
     char buf[ 128 ];
-    size_t cnt;
+    int cnt;
     int i;
 
     cnt = fread( buf, 1, 128, fp );

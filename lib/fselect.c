@@ -475,7 +475,6 @@ fill_entries( FL_OBJECT  * br,
 {
     const FL_Dirlist *dirlist,
                      *dl;
-    char * tt = NULL;
     int n, i;
     FD_fselect *lfs = br->form->fdui;
     int dcount = 1;
@@ -494,9 +493,11 @@ fill_entries( FL_OBJECT  * br,
         char * tmpbuf,
              *p;
 
-        asprintf( tmpbuf, "Can't read %s", lfs->dname );
-        fl_show_alert( "ReadDir", tmpbuf, fli_get_syserror_msg( ), 0 );
-        fl_free( tmpbuf );
+        if ( asprintf( &tmpbuf, "Can't read %s", lfs->dname ) != -1 )
+        {
+            fl_show_alert( "ReadDir", tmpbuf, fli_get_syserror_msg( ), 0 );
+            fl_free( tmpbuf );
+        }
         M_err( "fill_entries", "Can't read %s", lfs->dname );
 
         /* Backup */
@@ -517,6 +518,7 @@ fill_entries( FL_OBJECT  * br,
         int cur_line;
         char marker;
         char *p;
+        char * tt = fl_malloc( strlen( dl->name ) + 3 );
 
         switch ( dl->type )
         {
@@ -540,7 +542,7 @@ fill_entries( FL_OBJECT  * br,
                 marker = filemarker;
         }
 
-        asprintf( &tt, "%c %s", marker, dl->name );
+        sprintf( tt, "%c %s", marker, dl->name );
 
         if ( dl->type == FT_DIR && listdirfirst )
         {
@@ -555,7 +557,7 @@ fill_entries( FL_OBJECT  * br,
             fl_add_browser_line( br, tt );
         }
 
-        fli_safe_free( tt );
+        fl_free( tt );
 
         lcount++;
 

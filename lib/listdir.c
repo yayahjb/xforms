@@ -151,11 +151,11 @@ getcwd( char * a,
 #ifdef FL_WIN32
 
 /***************************************
- * Convert the backslash to slash
+ * Convert all backslashes in a string to slashes
  ***************************************/
 
 static char *
-fl_b2f_slash( char *dir )
+b2f_slash( char *dir )
 {
     char *p = dir;
 
@@ -166,7 +166,7 @@ fl_b2f_slash( char *dir )
 }
 
 #else
-#define fl_b2f_slash( a )
+#define b2f_slash( a )
 #endif
 
 /************* local variables ****************/
@@ -240,7 +240,8 @@ fselect( const char  * d_name,
     unsigned int mode;
 
 
-    asprintf( &fname, "%s%s", dir, d_name );
+    if ( asprintf( &fname, "%s%s", dir, d_name ) == -1 )
+        return 0;
     stat( fname, ffstat );
     mode = ffstat->st_mode;
     mode2type( mode, type );
@@ -299,11 +300,15 @@ fselect( struct _finddata_t * c_file,
     {
         char * fname;
 
-        asprintf( &fname, "%s%s" dir, c_file->name );
-        ret =    type == FT_DIR
-              || (    flo_wildmat( c_file->name, pat )
-                   && ffilter( fname, type ) );
-        fl_free( fname );
+        if ( asprintf( &fname, "%s%s" dir, c_file->name ) == -1 )
+            ret = 0;
+        else
+        {
+            ret =    type == FT_DIR
+                  || (    flo_wildmat( c_file->name, pat )
+                       && ffilter( fname, type ) );
+            fl_free( fname );
+        }
     }
 
     if ( ret )
@@ -573,7 +578,7 @@ fl_get_dirlist( const char * directory,
 {
     char * dir;
     char * pat;
-    FL_Dirlist * dl;
+    FL_Dirlist * dl = NULL;
     int i;
 
     if ( ! directory || ! *directory )
@@ -594,8 +599,11 @@ fl_get_dirlist( const char * directory,
          || directory[ strlen( directory ) - 1 ] == '\\')
 #endif
         dir = fl_strdup( directory );
-    else
-        asprintf( &dir, "%s/", directory );
+    else if ( asprintf( &dir, "%s/", directory ) == -1 )
+    {
+        fl_free( pat );
+        return NULL;
+    }
 
     /* First check if it's not already cached (unless we're asked to rescan
        anyway) */
@@ -609,6 +617,7 @@ fl_get_dirlist( const char * directory,
     }
 
     *n = scandir_get_entries( dir, pat, &dl );
+
     if ( ! dl )
     {
         fl_free( dir );
@@ -633,7 +642,7 @@ fli_is_valid_dir( const char * name )
 {
     struct stat stbuf;
 
-#ifdef __EMX__ || defined FL_WIN32
+#if defined __EMX__ || defined FL_WIN32
     if (    name
          && isalpha( ( unsigned char ) name[ 0 ] )
          && name[ 1 ] == ':'
@@ -665,7 +674,7 @@ fli_fix_dirname( char * dir )
     char *p = ldir,
          *q = one;
 
-    fl_b2f_slash( dir );
+    b2f_slash( dir );
 
     if ( ! *dir )    /* Here's some bullshit going one, what's ldir set to ? */
         return fli_getcwd( dir ? dir : ldir, FL_PATH_MAX - 2 );
@@ -754,7 +763,7 @@ fli_fix_dirname( char * dir )
     }
 #endif
 
-    fl_b2f_slash( dir );
+    b2f_slash( dir );
 
     return dir;
 }
@@ -1040,7 +1049,7 @@ fli_getcwd( char * buf,
            int    len )
 {
 #ifdef FL_WIN32
-    return fl_b2f_slash( getcwd( buf, len ) );
+    return b2f_slash( getcwd( buf, len ) );
 #else
     return getcwd( buf, len );
 #endif
