@@ -507,14 +507,14 @@ fl_create_browser( int          type,
                    FL_Coord     h,
                    const char * label )
 {
-    FL_OBJECT *ob;
+    FL_OBJECT *obj;
     FLI_BROWSER_SPEC *sp;
     int D;
 
-    ob = fl_make_object( FL_BROWSER, type, x, y, w, h, label,
-                         handle_browser );
+    obj = fl_make_object( FL_BROWSER, type, x, y, w, h, label,
+                          handle_browser );
 
-    sp = ob->spec = fl_calloc( 1, sizeof *sp );
+    sp = obj->spec = fl_calloc( 1, sizeof *sp );
     sp->tb = fli_create_tbox( type, x, y, w, h, NULL );
 
     sp->callback  = NULL;
@@ -527,11 +527,11 @@ fl_create_browser( int          type,
 
     /* Copy browser attributes from textbox */
 
-    ob->boxtype  = sp->tb->boxtype;
-    ob->lcol     = sp->tb->lcol;
-    ob->col1     = sp->tb->col1;
-    ob->col2     = sp->tb->col2;
-    ob->align    = sp->tb->align;
+    obj->boxtype  = sp->tb->boxtype;
+    obj->lcol     = sp->tb->lcol;
+    obj->col1     = sp->tb->col1;
+    obj->col2     = sp->tb->col2;
+    obj->align    = sp->tb->align;
 
     /* Textbox handlers */
  
@@ -542,7 +542,7 @@ fl_create_browser( int          type,
 
     /* Scrollbars */
 
-    D = sp->vw_def = sp->hh_def = fli_get_default_scrollbarsize( ob );
+    D = sp->vw_def = sp->hh_def = fli_get_default_scrollbarsize( obj );
     sp->v_pref = sp->h_pref = FL_AUTO;
 
     sp->hsl = fl_create_scrollbar( fli_context->hscb, x, y + h - D,
@@ -561,9 +561,9 @@ fl_create_browser( int          type,
     fl_set_scrollbar_bounds( sp->hsl, 0.0, 1.0 );
     sp->vsl->resize = FL_RESIZE_NONE;
 
-    fl_add_child( ob, sp->tb  );
-    fl_add_child( ob, sp->hsl );
-    fl_add_child( ob, sp->vsl );
+    fl_add_child( obj, sp->tb  );
+    fl_add_child( obj, sp->hsl );
+    fl_add_child( obj, sp->vsl );
 
     /* In older versions scrollbars and browsers weren't returned to e.g.
        fl_do_forms() but still a callback associated with the object
@@ -573,16 +573,16 @@ fl_create_browser( int          type,
        in fl_set_object_callback()) */
 
 #if ! USE_BWC_BS_HACK
-    fl_set_object_return( ob, FL_RETURN_SELECTION | FL_RETURN_DESELECTION );
+    fl_set_object_return( obj, FL_RETURN_SELECTION | FL_RETURN_DESELECTION );
 #else
-    fl_set_object_return( ob, FL_RETURN_NONE );
+    fl_set_object_return( obj, FL_RETURN_NONE );
 #endif
 
     fl_set_object_return( sp->hsl, FL_RETURN_ALWAYS );
     fl_set_object_return( sp->vsl, FL_RETURN_ALWAYS );
     fl_set_object_return( sp->tb,  FL_RETURN_ALWAYS );
 
-    return ob;
+    return obj;
 }
 
 

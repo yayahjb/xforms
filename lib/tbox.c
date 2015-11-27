@@ -614,7 +614,7 @@ fli_tbox_add_chars( FL_OBJECT  * obj,
        would be to re-evaluate the combined string to mean "@C37", setting
        a different color. But since in older versions this didn't happen
        (and some users may rely on this), it is assumed that this isn't the
-       users intention and to avoid the two digits to become collated and
+       user's intention and to avoid the two digits to become collated and
        interpreted as the number of a different color "@ " is inserted in
        between the digits, with "@ " treated as a separator between digits
        (the intended use of "@ " is to allow lines like "@C3@ 2. Chapter", i.
@@ -2245,7 +2245,7 @@ handle_mouse( FL_OBJECT * obj,
                 ret |= FL_RETURN_DESELECTION;
             }
         }
-        else
+        else if ( line != last_multi )
         {
             /* Mouse may have been moved that fast that one or more lines
                got skipped */
@@ -2278,7 +2278,6 @@ handle_mouse( FL_OBJECT * obj,
                      && ! sp->lines[ line ]->selected )
                 {
                     fli_tbox_select_line( obj, line );
-                    last_multi = line;
                     ret |= FL_RETURN_SELECTION;
                 }
                 else if (    mode == DESELECT
@@ -2286,8 +2285,9 @@ handle_mouse( FL_OBJECT * obj,
                 {
                     fli_tbox_deselect_line( obj, line );
                     ret |= FL_RETURN_DESELECTION;
-                    last_multi = line;
                 }
+
+                last_multi = line;
             }
 
             if ( ev == FL_RELEASE )

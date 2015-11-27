@@ -10,7 +10,7 @@ packages for the XForms library and its documetation.
 
 2) After having run
 
-     ./configure --enable docs
+     ./configure --enable-docs
 
    successfully create the rpm package with
 

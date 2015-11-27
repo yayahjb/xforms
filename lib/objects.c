@@ -2163,14 +2163,16 @@ mark_object_for_redraw( FL_OBJECT * obj )
 
     obj->redraw = 1;
 
+    /* Also mark all child objects for redraw */
+
     for ( o = obj->child; o; o = o->nc )
         mark_object_for_redraw( o );
 
     /* If an object is marked as being under another object we have to find
        the object(s) it is beneath and also mark them for a redraw. For the
-       special case that the object to be redraw is the first object of
+       special case that the object to be redrawn is the first object of
        the form (i.e. the one for the background) we don't have to check
-       if the other object are on top of it, they all are. */
+       if the other objects are on top of it, they all are. */
 
     if ( obj == bg_object( obj->form ) )
     {
@@ -3140,17 +3142,21 @@ object_is_under( const FL_OBJECT * obj )
     /* The first object of a form is always below all others */
 
     if ( obj == bg_object( obj->form ) )
-        return 1;
+    {
+        for ( o = obj->next; o; o = o->next )
+            if (    obj->objclass != FL_BEGIN_GROUP 
+                 && obj->objclass != FL_END_GROUP )
+                cnt++;
+        return cnt;
+    }
 
-    if (    obj->parent
-         || obj->objclass == FL_BEGIN_GROUP 
+    if (    obj->objclass == FL_BEGIN_GROUP 
          || obj->objclass == FL_END_GROUP )
         return 0;
 
     for ( o = obj->next; o; o = o->next )
     {
-        if (    o->parent
-             || o->objclass == FL_BEGIN_GROUP 
+        if (    o->objclass == FL_BEGIN_GROUP 
              || o->objclass == FL_END_GROUP )
             continue;
 

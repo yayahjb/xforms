@@ -118,6 +118,7 @@ set_entry( int i )
     fl_freeze_form( cl );
     fl_mapcolor( FL_FREE_COL4 + i, db->r, db->g, db->b );
     fl_mapcolor( FL_FREE_COL4, db->r, db->g, db->b );
+    fl_redraw_object( rescol );
     fl_set_slider_value( rs, db->r );
     fl_set_slider_value( gs, db->g );
     fl_set_slider_value( bs, db->b );
@@ -309,6 +310,7 @@ search_rgb( FL_OBJECT * ob  FL_UNUSED_ARG,
 
     fl_freeze_form( cl );
     fl_mapcolor( FL_FREE_COL4, r, g, b );
+    fl_redraw_object( rescol );
     i = search_entry( r, g, b );
 
     /* Change topline only if necessary */

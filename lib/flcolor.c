@@ -231,6 +231,7 @@ static FLI_IMAP fli_imap[ FL_MAX_COLS ] =
 	{ NV( FL_VIOLET               ), 238, 130, 238, 0, 0 },
 	{ NV( FL_WHITESMOKE           ), 245, 245, 245, 0, 0 },
 	{ NV( FL_YELLOWGREEN          ), 154, 205,  50, 0, 0 },
+    { NV( FL_COLOR_CHOOSER_COLOR  ),   0,   0,   0, 0, 0 },
 	{ NV( FL_FREE_COL1            ),   0,   0,   0, 0, 0 },
 	{ NV( FL_FREE_COL2            ),   0,   0,   0, 0, 0 },
 	{ NV( FL_FREE_COL3            ),   0,   0,   0, 0, 0 },

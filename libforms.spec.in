@@ -19,12 +19,19 @@ Source0:         %{name}-%{version}.tar.gz
 License:         LGPLv2+
 Group:           Development/Libraries
 
-# To build the libraries we need the libXpm and libjpeg development
-# packages (which in turn depend on the corresponding library packages)
+# To build the libraries we need the libXpm, libjpeg and libGL development
+# packages (which in turn depend on the corresponding library packages).
+# The package names seem to differ a bit between distributions, though...
 
-BuildRequires:   libXpm-devel
 BuildRequires:   libjpeg-devel
+
+%if %{_host_vendor} == mageia
+BuildRequires:   libxpm-devel
+BuildRequires:   libmesagl1-devel
+%else
+BuildRequires:   libXpm-devel
 BuildRequires:   mesa-libGL-devel
+%endif
 
 BuildRoot:       %{_tmppath}/%{name}-buildroot
 Prefix:          %{_prefix}

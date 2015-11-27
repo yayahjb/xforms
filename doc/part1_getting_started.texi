@@ -237,11 +237,11 @@ have exactly the same effect.
 The above program only shows one of the event handling methods
 provided by the library. The direct method of event handling shown is
 appropriate for simple programs. But, obviously, already for a program
-with just a few nmore objects it would become rather tedious to have
+with just a few more objects it would become rather tedious to have
 to check each time @code{@ref{fl_do_forms()}} returns each of those
 objects to find out which of them was responsible and react
 accordingly. Utilizing object callback functions is then typically
-much easier and thus os strongly recommended.
+much easier and thus is strongly recommended.
 
 We demonstrate the use of object callbacks using the previous example
 with some modifications so that event processing via callbacks is
