@@ -338,12 +338,12 @@ fl_create_spinner( int          type,
     obj->col2  = sp->input->col2;
 
     sp->i_val  = sp->old_ival = 0;
-    sp->i_min  = - 10000;
+    sp->i_min  = -10000;
     sp->i_max  = 10000;
     sp->i_incr = 1;
 
     sp->f_val  = sp->old_fval = 0.0;
-    sp->f_min  = - 10000.0;
+    sp->f_min  = -10000.0;
     sp->f_max  = 10000.0;
     sp->f_incr = 1.0;
 

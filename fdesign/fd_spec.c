@@ -522,10 +522,7 @@ ff_read_sp_bounds( FL_OBJECT * obj,
 {
     int r;
 
-    if (    (    obj->objclass == FL_SPINNER
-              && ( r = ff_read( "%F%F", &sp->dmin, &sp->dmax ) ) < 0 )
-         || (    obj->objclass != FL_SPINNER
-              && ( r = ff_read( "%F%F", &sp->min, &sp->max ) ) < 0 )  )
+    if ( ( r = ff_read( "%F%F", &sp->min, &sp->max ) ) < 0 )
         return ff_err( "Can't read expected object bounds" );
 
     if ( r == 0 )
@@ -594,11 +591,6 @@ ff_read_sp_value( FL_OBJECT * obj,
         if ( ISBUTTON( obj->objclass ) )
             fl_set_button( obj, sp->int_val );
     }
-    else if ( obj->objclass == FL_SPINNER )
-    {
-        if ( ( r = ff_read( "%F", &sp->dval ) ) < 0 )
-            return ff_err( "Can't read expected object value" );
-    }
     else if ( ( r = ff_read( "%F", &sp->val ) ) < 0 )
         return ff_err( "Can't read expected object value" );
 
@@ -636,10 +628,7 @@ ff_read_sp_step( FL_OBJECT * obj  FL_UNUSED_ARG,
 {
     int r;
 
-    if (    (    obj->objclass == FL_SPINNER
-              && ( r = ff_read( "%F", &sp->dstep ) ) < 0 )
-         || (    obj->objclass != FL_SPINNER
-              && ( r = ff_read( "%F", &sp->step ) ) < 0 ) )
+    if ( ( r = ff_read( "%F", &sp->step ) ) < 0 )
         return ff_err( "Can't read expected object step" );
 
     if ( r == 0 )

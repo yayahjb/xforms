@@ -72,12 +72,12 @@ spec_to_superspec( FL_OBJECT * obj )
     {
         obj->u_vdata = ssp = fl_calloc( 1, sizeof *ssp );
 
-        ssp->content    = NULL;
-        ssp->shortcut   = NULL;
-        ssp->callback   = NULL;
-        ssp->mode       = NULL;
-        ssp->mval       = NULL;
-        ssp->misc_char  = NULL;
+        ssp->content     = NULL;
+        ssp->shortcut    = NULL;
+        ssp->callback    = NULL;
+        ssp->mode        = NULL;
+        ssp->mval        = NULL;
+        ssp->misc_char   = NULL;
 
         ssp->new_menuapi = 0;
         ssp->nlines      = 0;
@@ -188,14 +188,14 @@ spec_to_superspec( FL_OBJECT * obj )
     {
         FLI_SLIDER_SPEC *sp = obj->spec;
 
-        ssp->val        = sp->val;
-        ssp->min        = sp->min;
-        ssp->max        = sp->max;
-        ssp->step       = sp->step;
-        ssp->prec       = sp->prec;
-        ssp->ldelta     = sp->ldelta;
-        ssp->rdelta     = sp->rdelta;
-        ssp->slsize     = sp->slsize;
+        ssp->val    = sp->val;
+        ssp->min    = sp->min;
+        ssp->max    = sp->max;
+        ssp->step   = sp->step;
+        ssp->prec   = sp->prec;
+        ssp->ldelta = sp->ldelta;
+        ssp->rdelta = sp->rdelta;
+        ssp->slsize = sp->slsize;
     }
     else if (    ISBUTTON( obj->objclass )
               || obj->objclass == FL_PIXMAP
@@ -214,37 +214,37 @@ spec_to_superspec( FL_OBJECT * obj )
     {
         FLI_POSITIONER_SPEC *sp = obj->spec;
 
-        ssp->xstep      = sp->xstep;
-        ssp->ystep      = sp->ystep;
-        ssp->xmin       = sp->xmin;
-        ssp->xmax       = sp->xmax;
-        ssp->xval       = sp->xval;
-        ssp->ymin       = sp->ymin;
-        ssp->ymax       = sp->ymax;
-        ssp->yval       = sp->yval;
+        ssp->xstep = sp->xstep;
+        ssp->ystep = sp->ystep;
+        ssp->xmin  = sp->xmin;
+        ssp->xmax  = sp->xmax;
+        ssp->xval  = sp->xval;
+        ssp->ymin  = sp->ymin;
+        ssp->ymax  = sp->ymax;
+        ssp->yval  = sp->yval;
     }
     else if ( obj->objclass == FL_COUNTER )
     {
         FLI_COUNTER_SPEC *sp = obj->spec;
 
-        ssp->val        = sp->val;
-        ssp->lstep      = sp->lstep;
-        ssp->sstep      = sp->sstep;
-        ssp->min        = sp->min;
-        ssp->max        = sp->max;
-        ssp->prec       = sp->prec;
+        ssp->val   = sp->val;
+        ssp->lstep = sp->lstep;
+        ssp->sstep = sp->sstep;
+        ssp->min   = sp->min;
+        ssp->max   = sp->max;
+        ssp->prec  = sp->prec;
     }
     else if ( obj->objclass == FL_DIAL )
     {
         FLI_DIAL_SPEC *sp = obj->spec;
 
-        ssp->min        = sp->min;
-        ssp->max        = sp->max;
-        ssp->val        = sp->val;
-        ssp->step       = sp->step;
-        ssp->thetai     = sp->thetai;
-        ssp->thetaf     = sp->thetaf;
-        ssp->direction  = sp->direction;
+        ssp->min       = sp->min;
+        ssp->max       = sp->max;
+        ssp->val       = sp->val;
+        ssp->step      = sp->step;
+        ssp->thetai    = sp->thetai;
+        ssp->thetaf    = sp->thetaf;
+        ssp->direction = sp->direction;
     }
     else if ( obj->objclass == FL_XYPLOT )
     {
@@ -281,10 +281,10 @@ spec_to_superspec( FL_OBJECT * obj )
     {
         FLI_SPINNER_SPEC *sp = obj->spec;
 
-        ssp->val = fl_get_spinner_value( obj );
+        ssp->val    = fl_get_spinner_value( obj );
         fl_get_spinner_bounds( obj, &ssp->min, &ssp->max );
-        ssp->step = fl_get_spinner_step( obj );
-        ssp->prec = fl_get_spinner_precision( obj );
+        ssp->step   = fl_get_spinner_step( obj );
+        ssp->prec   = fl_get_spinner_precision( obj );
         ssp->orient = sp->orient;
     }
 
@@ -386,25 +386,25 @@ superspec_to_spec( FL_OBJECT * obj )
     {
         FLI_POSITIONER_SPEC *sp = obj->spec;
 
-        sp->xstep      = ssp->xstep;
-        sp->ystep      = ssp->ystep;
-        sp->xmin       = ssp->xmin;
-        sp->xmax       = ssp->xmax;
-        sp->xval       = ssp->xval;
-        sp->ymin       = ssp->ymin;
-        sp->ymax       = ssp->ymax;
-        sp->yval       = ssp->yval;
+        sp->xstep = ssp->xstep;
+        sp->ystep = ssp->ystep;
+        sp->xmin  = ssp->xmin;
+        sp->xmax  = ssp->xmax;
+        sp->xval  = ssp->xval;
+        sp->ymin  = ssp->ymin;
+        sp->ymax  = ssp->ymax;
+        sp->yval  = ssp->yval;
     }
     else if ( obj->objclass == FL_COUNTER )
     {
         FLI_COUNTER_SPEC *sp = obj->spec;
 
-        sp->val        = ssp->val;
-        sp->sstep      = ssp->sstep;
-        sp->lstep      = ssp->lstep;
-        sp->min        = ssp->min;
-        sp->max        = ssp->max;
-        sp->prec       = ssp->prec;
+        sp->val   = ssp->val;
+        sp->sstep = ssp->sstep;
+        sp->lstep = ssp->lstep;
+        sp->min   = ssp->min;
+        sp->max   = ssp->max;
+        sp->prec  = ssp->prec;
     }
     else if ( obj->objclass == FL_SPINNER )
     {
@@ -463,10 +463,10 @@ superspec_to_spec( FL_OBJECT * obj )
     {
         FLI_SPINNER_SPEC *sp = obj->spec;
 
-        ssp->val = fl_get_spinner_value( obj );
+        ssp->val    = fl_get_spinner_value( obj );
         fl_get_spinner_bounds( obj, &ssp->min, &ssp->max );
-        ssp->step = fl_get_spinner_step( obj );
-        ssp->prec = fl_get_spinner_precision( obj );
+        ssp->step   = fl_get_spinner_step( obj );
+        ssp->prec   = fl_get_spinner_precision( obj );
         ssp->orient = sp->orient;
     }
     else if ( obj->objclass == FL_INPUT )
@@ -506,11 +506,11 @@ copy_superspec( FL_OBJECT * target,
 
     *t = *s;
 
-    t->content = NULL;
+    t->content  = NULL;
     t->shortcut = NULL;
     t->callback = NULL;
-    t->mode = NULL;
-    t->mval = NULL;
+    t->mode     = NULL;
+    t->mval     = NULL;
 
     /* Take care of pointers in the SuperSPEC */
 

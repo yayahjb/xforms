@@ -176,6 +176,12 @@ C_output( const char * filename,
              xform_header,
              xform_header[ 0 ] == '"' ? ' ' : '>' );
 
+    fprintf( fn,
+             "\n#if defined __cplusplus\n"
+             "extern \"C\"\n"
+             "{\n"
+             "#endif\n" );
+
     for ( i = 0; i < fnumb && ! use_glcanvas; i++ )
     {
         obj = forms[ i ].form->first;
@@ -202,6 +208,11 @@ C_output( const char * filename,
     if ( fdopt.altformat )
         fprintf( fn, "\n/* Creation Routine */\n\n"
                      "void %s( void );\n", main_name );
+
+    fprintf( fn,
+             "\n#if defined __cplusplus\n"
+             "}\n"
+             "#endif\n" );
 
     fprintf( fn, "\n#endif /* %s_h_ */\n", get_fd_name( forms[ 0 ].fname ) );
     fclose( fn );

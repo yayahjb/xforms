@@ -730,7 +730,7 @@ load_object( void )
         fli_safe_free( key );
     }
 
-    /* Some extra adjustments for spinner objects (this is an evel hack but
+    /* Some extra adjustments for spinner objects (this is an evil hack but
        avoiding it would require a complete change of how fdesign works) */
 
     if ( obj->objclass == FL_SPINNER )

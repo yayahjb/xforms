@@ -245,7 +245,19 @@ do_shortcut( FL_FORM  * form,
             else
             {
                 if ( obj->radio )
-                    fli_do_radio_push( obj, x, y, FL_MBUTTON1, xev, 0 );
+                {
+                    int b;
+                    FL_BUTTON_STRUCT *sp = obj->spec;
+
+                    for ( b == FL_MBUTTON1; b <= FL_MBUTTON5; ++b )
+                        if ( sp->react_to[ b - 1 ] )
+                            break;
+
+                    if ( b > FL_MBUTTON5 )
+                        break;
+
+                    fli_do_radio_push( obj, x, y, b, xev, 0 );
+                }
 
                 XAutoRepeatOff( flx->display );
                 if ( ! obj->radio )
@@ -501,9 +513,6 @@ fli_handle_form( FL_FORM * form,
             if ( ! obj || ! obj->active )
                 break;
 
-            /* Radio button only get handled on button release, other objects
-               get the button press unless focus is overriden */
-
             if (    ! obj->radio
                  && (    ! obj->input
                       || ( obj->input && obj->active && obj->focus ) ) )
@@ -512,7 +521,12 @@ fli_handle_form( FL_FORM * form,
                 fli_handle_object( obj, FL_PUSH, x, y, key, xev, 1 );
             }
             else if ( obj->radio )
-                fli_do_radio_push( obj, x, y, key, xev, 0 );
+            {
+                FL_BUTTON_STRUCT *sp = obj->spec;
+
+                if ( sp->react_to[ key - 1 ] )
+                    fli_do_radio_push( obj, x, y, key, xev, 0 );
+            }
             break;
 
         case FL_RELEASE :       /* mouse button was released inside the form */
@@ -521,7 +535,8 @@ fli_handle_form( FL_FORM * form,
                 obj = fli_int.pushobj;
                 fli_int.pushobj = NULL;
 
-                fli_handle_object( obj, FL_RELEASE, x, y, key, xev, 1 );
+                if ( ! obj->radio )
+                    fli_handle_object( obj, FL_RELEASE, x, y, key, xev, 1 );
             }
             break;
 

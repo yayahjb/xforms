@@ -50,10 +50,30 @@ spinner_change_type( FL_OBJECT * obj,
     }
     else
     {
-        sp->i_min  = sp->f_min;
-        sp->i_max  = sp->f_max;
-        sp->i_val  = sp->f_val;
-        sp->i_incr = sp->f_incr;
+        if ( sp->f_min < INT_MIN )
+            sp->i_min = INT_MIN;
+        else if ( sp->f_min > INT_MAX )
+            sp->i_min = INT_MAX;
+        else
+            sp->i_min = sp->f_min;
+
+
+        if ( sp->f_max > INT_MAX )
+            sp->i_max = INT_MAX;
+        else if ( sp->f_max > INT_MAX )
+            sp->i_max = INT_MAX;
+        else
+            sp->i_max = sp->f_max;
+
+        if ( sp->f_val < INT_MIN )
+            sp->i_val = INT_MIN;
+        else if ( sp->f_val > INT_MAX )
+            sp->i_val = INT_MAX;
+        else
+            sp->i_val = sp->f_val;
+\
+        if ( ( sp->i_incr = sp->f_incr ) == 0 )
+            sp->i_incr = 1;
     }
 
     obj->type = new_type;
@@ -90,9 +110,7 @@ spinner_adjust_spec_form( FL_OBJECT * obj )
     curobj = obj;
 
     if ( obj->type == FL_INT_SPINNER )
-    {
         fl_hide_object( spn_attrib->prec );
-    }
     else
     {
         fl_set_counter_step( spn_attrib->prec, 1, 2 );
@@ -187,7 +205,7 @@ spinner_emit_spec_fd_code( FILE      * fp,
     else
     {
         if ( sp->f_min != defsp->f_min || sp->f_max != defsp->f_max )
-            fprintf( fp, "    bounds: %.*fd %.*f\n",
+            fprintf( fp, "    bounds: %.*f %.*f\n",
                      sp->prec, sp->f_min, sp->prec, sp->f_max );
 
         if ( sp->f_val != defsp->f_val )
