@@ -180,7 +180,7 @@ value is changed or not.
 
 @item @ref{FL_RETURN_ALWAYS}
 Return or invoke callback when the value changed or at end (mouse
-release).
+release). This is a shorthand for @code{FL_RETURN_CHANGED|FL_RETURN_END}.
 @end table
 
 See the demo program @file{objreturn.c} for an example use of this.

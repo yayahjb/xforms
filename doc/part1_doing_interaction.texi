@@ -657,11 +657,17 @@ single notification after the mouse button has been released and
 the value of the slider was changed in the process would call
 the function
 @findex fl_set_object_return()
+@findex fl_get_object_return()
 @anchor{fl_set_object_return()}
+@anchor{fl_get_object_return()}
 @example
-int fl_set_object_return(FL_OBJECT *obj, unsigned int when);
+unsigned int fl_set_object_return(FL_OBJECT *obj, unsigned int when);
+unsigned int fl_get_object_return(FL_OBJECT *obj);
 @end example
-with @code{when} set to @code{FL_RETURN_END_CHANGED}.
+The first function sets when to return the object to what's set via
+@code{when} set to desired condition (and returns the previou
+setting). Note that the object may adjust the value if necessary.
+The second function just returns the current setting for the object.
 
 There are several values @code{when} can take:
 @table @code

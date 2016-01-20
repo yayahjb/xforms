@@ -101,7 +101,7 @@ void
 handle_how_return_changes( FL_OBJECT * menu,
                            FL_OBJECT * target )
 {
-    int hr = FL_RETURN_NONE;
+    unsigned int hr = FL_RETURN_NONE;
 
     if (    fl_get_menu_item_mode( menu, 1 ) & FL_PUP_CHECK
          && target->how_return != FL_RETURN_NONE )
@@ -131,8 +131,7 @@ handle_how_return_changes( FL_OBJECT * menu,
     }
 
     fl_set_object_return( target, hr );
-
-    reset_how_return_menu( menu, hr );
+    reset_how_return_menu( menu, fl_get_object_return( target ) );
 }
 
 

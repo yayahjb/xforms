@@ -3779,7 +3779,7 @@ fl_set_object_helper_f( FL_OBJECT  * obj,
  * only be called once an object has been fully created!
  ***************************************/
 
-int
+unsigned int
 fl_set_object_return( FL_OBJECT    * obj,
                       unsigned int   when )
 {
@@ -3802,6 +3802,16 @@ fl_set_object_return( FL_OBJECT    * obj,
         obj->how_return = when;
 
     return old_when;
+}
+
+
+/***************************************
+ ***************************************/
+
+unsigned int
+fl_get_object_return( FL_OBJECT * obj )
+{
+    return obj->how_return;
 }
 
 

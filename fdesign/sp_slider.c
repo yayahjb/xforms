@@ -165,7 +165,7 @@ slider_reread_spec_form( FL_OBJECT * obj )
         fl_set_slider_size( obj, r1 );
 
     if (    get_checked_float( fl_get_input( sl_attrib->ldelta ), &r1 )
-         && get_checked_float( fl_get_input( sl_attrib->ldelta ), &r2 ) )
+         && get_checked_float( fl_get_input( sl_attrib->rdelta ), &r2 ) )
         fl_set_slider_increment( obj, r1, r2 );
 
     redraw_the_form( 0 );

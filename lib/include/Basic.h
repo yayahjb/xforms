@@ -1188,8 +1188,10 @@ FL_EXPORT void fl_set_object_lcol( FL_OBJECT * ob,
 
 FL_EXPORT FL_COLOR fl_get_object_lcol( FL_OBJECT * obj );
 
-FL_EXPORT int fl_set_object_return( FL_OBJECT    * ob,
-                                    unsigned int   when );
+FL_EXPORT unsigned int fl_set_object_return( FL_OBJECT    * ob,
+											 unsigned int   when );
+
+FL_EXPORT unsigned int fl_get_object_return( FL_OBJECT * ob );
 
 FL_EXPORT void fl_set_object_lalign( FL_OBJECT * obj,
                                      int         align );
