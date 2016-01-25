@@ -2,7 +2,7 @@
 
 @setfilename xforms.info
 @settitle XForms (Forms Library) - Version 1.2 (Rev. 4)@*A Graphical User Interface Toolkit for X
-@set lastupdate June 6, 2014
+@set lastupdate January 20, 2016
 @paragraphindent 0
 
 @titlepage
@@ -12,9 +12,9 @@
 @sp 1
 @center @titlefont{A Graphical User Interface Toolkit for X}
 @sp 8
-@center Library Version 1.2 (Rev. 4)
+@center Library Version 1.2 (Rev. 5)
 @sp 2
-@center June 2014
+@center January 2016
 @sp 8
 @end titlepage
 

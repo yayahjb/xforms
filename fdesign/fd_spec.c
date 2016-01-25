@@ -1666,7 +1666,10 @@ skip_spec_info( char * key )
         if ( ( r = ff_read( "%k", &key ) ) < 0 )
             return ff_err( "Failed to read from file" );
 
-    } while ( r != 0 && strcmp( key, "Name" ) && strcmp( key, "class" ) );
+    } while ( r && key && strcmp( key, "Name" ) && strcmp( key, "class" ) );
+
+    if ( ! key )
+        return ff_err( "Something's wrong with file" );
 
     /* Check if we arrived at the start of a form or class */
 

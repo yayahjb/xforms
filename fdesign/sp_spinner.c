@@ -318,14 +318,14 @@ spn_minmax_change( FL_OBJECT * obj   FL_UNUSED_ARG,
  ***************************************/
 
 void
-spn_stepchange_cb( FL_OBJECT * obj,
+spn_stepchange_cb( FL_OBJECT * obj   FL_UNUSED_ARG,
                    long        data  FL_UNUSED_ARG )
 {
     FLI_SPINNER_SPEC *sp = curobj->spec;
 
-    set_finput_value( obj, get_finput_value( obj ),
+    set_finput_value( spn_attrib->step, get_finput_value( spn_attrib->step ),
                       curobj->type == FL_INT_SPINNER ? 0 : sp->prec );
-    fl_set_spinner_step( curobj, get_finput_value( obj ) );
+    fl_set_spinner_step( curobj, get_finput_value( spn_attrib->step ) );
     redraw_the_form( 0 );
 }
 
@@ -334,14 +334,15 @@ spn_stepchange_cb( FL_OBJECT * obj,
  ***************************************/
 
 void
-spn_initialvalue_change( FL_OBJECT * obj,
+spn_initialvalue_change( FL_OBJECT * obj   FL_UNUSED_ARG,
                          long        data  FL_UNUSED_ARG )
 {
     FLI_SPINNER_SPEC *sp = curobj->spec;
 
-    set_finput_value( obj, get_finput_value( obj ),
+    set_finput_value( spn_attrib->initialval,
+                      get_finput_value( spn_attrib->initialval ),
                       curobj->type == FL_INT_SPINNER ? 0 : sp->prec );
-    fl_set_spinner_value( curobj, get_finput_value( obj ) );
+    fl_set_spinner_value( curobj, get_finput_value( spn_attrib->initialval ) );
     redraw_the_form( 0 );
 }
 

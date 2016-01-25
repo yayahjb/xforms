@@ -914,7 +914,7 @@ ff_match_key( char ** p )
 
     np = ep-- + 1;
 
-    while ( ep > ff.pos && isspace( ( unsigned char ) *ep ) )
+    while ( ep > ff.pos && isspace( ( int ) *ep ) )
         ep--;
 
     if ( ep == ff.pos )

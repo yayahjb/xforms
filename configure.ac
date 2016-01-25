@@ -1,7 +1,10 @@
 dnl Process with autoconf to generate configure script   -*- sh -*-
 
 AC_PREREQ(2.59)
-AC_INIT([xforms],[1.2.4],[xforms-development@nongnu.org])
+
+dnl !!! THIS NEEDS CHANCHING FOR EACH RELEASE !!!
+
+AC_INIT([xforms],[1.2.5pre1],[xforms-development@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_SRCDIR(lib/forms.c)
 XFORMS_CHECK_VERSION
@@ -16,7 +19,13 @@ AC_CONFIG_MACRO_DIR([config])
 ### This defines the version number of the installed .so files
 ### using libtool's versioning system.
 
-AC_SUBST(SO_VERSION, ["3:3:1"])
+dnl !!! THIS NEEDS CHANCHING FOR EACH RELEASE !!!
+dnl !!! the first number minus one becomes the major version number
+dnl !!! the second number becomes the sub-release number
+dnl !!! the third becomes the minor version number
+dnl !!! i.e '["3:5:1"]' results in libforms.so.2.1.5
+
+AC_SUBST(SO_VERSION, ["3:5:1"])
 
 # Fix the value of the prefixes.
 
