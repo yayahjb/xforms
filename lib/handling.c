@@ -249,7 +249,7 @@ do_shortcut( FL_FORM  * form,
                     int b;
                     FL_BUTTON_STRUCT *sp = obj->spec;
 
-                    for ( b == FL_MBUTTON1; b <= FL_MBUTTON5; ++b )
+                    for ( b = FL_MBUTTON1; b <= FL_MBUTTON5; ++b )
                         if ( sp->react_to[ b - 1 ] )
                             break;
 

@@ -517,7 +517,7 @@ emit_objclass_spec_global( FILE      * fp,
  ***************************************/
 
 static int 
-ff_read_sp_bounds( FL_OBJECT * obj,
+ff_read_sp_bounds( FL_OBJECT * obj  FL_UNUSED_ARG,
                    SuperSPEC * sp )
 {
     int r;

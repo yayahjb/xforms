@@ -944,7 +944,7 @@ fl_show_fselector( const char * message,
         {
             if ( *tmp != '/' && *tmp != '~' )
             {
-                strncat( append_slash( fs->dname ), tmp, sizeof fs->dname );
+                strncat( append_slash( fs->dname ), tmp, sizeof fs->dname - 1 );
                 fs->dname[ sizeof fs->dname - 1 ] = '\0';
             }
             else
