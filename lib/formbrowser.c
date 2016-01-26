@@ -865,7 +865,7 @@ canvas_handler( FL_OBJECT * ob,
 
 /***************************************
  * Before canvas is destroyed, this routine will be called.
- * we need to close the form that is attached to this canvas
+ * We need to close the forms that are attached to this canvas
  ***************************************/
 
 static int
@@ -881,8 +881,8 @@ canvas_cleanup( FL_OBJECT * ob )
     sp->v_on = FL_OFF;
 
     for ( i = 0; i < sp->nforms; i++ )
-    if ( sp->form[ i ]->visible )
-        fl_hide_form( sp->form[ i ] );
+        if ( sp->form[ i ]->visible )
+            fl_hide_form( sp->form[ i ] );
 
     return 0;
 }
@@ -1018,7 +1018,7 @@ static void
 parentize_form( FL_FORM   * form,
                 FL_OBJECT * ob )
 {
-    form->parent = ob->form;    /* This is probably the wrong way to do it. */
+    form->parent = ob->form;    /* this is probably the wrong way to do it */
 }
 
 
@@ -1098,7 +1098,7 @@ check_scrollbar( FL_OBJECT * ob )
         sp->hh = 0;
     }
 
-    /* Recheck vertical */
+    /* Recheck vertical slider */
 
     if (    ! sp->v_on
          && sp->canvas->w - 2 * absbw - sp->vw_def > 0
@@ -1156,8 +1156,8 @@ check_scrollbar( FL_OBJECT * ob )
 
 
 /***************************************
- * Sets under which conditions the object is to be returned to the
- * application. This function is for interal use only, the user
+ * Sets the conditions under which the object is to be returned to
+ * the application. This function is for interal use only, the user
  * must call fl_set_object_return() (which then will call this
  * function).
  ***************************************/

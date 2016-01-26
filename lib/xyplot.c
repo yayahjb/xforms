@@ -201,14 +201,12 @@ draw_square( FL_OBJECT * ob  FL_UNUSED_ARG,
              int         w,
              int         h )
 {
-    int w2 = w / 2,
-        h2 = h / 2;
     FL_POINT *ps = p + n;
 
     if ( flx->win != None )
         for ( ; p < ps; p++ )
             XDrawRectangle( flx->display, flx->win, flx->gc,
-                            p->x - w2, p->y - h2, w, h );
+                            p->x - w / 2, p->y - h / 2, w, h );
 }
 
 
@@ -223,14 +221,12 @@ draw_circle( FL_OBJECT * ob  FL_UNUSED_ARG,
              int         w,
              int         h )
 {
-    int w2 = w / 2,
-        h2 = h / 2;
     FL_POINT *ps = p + n;
 
     if ( flx->win != None )
         for ( ; p < ps; p++ )
-            XDrawArc( flx->display, flx->win, flx->gc, p->x - w2, p->y - h2,
-                      w, h, 0, 64 * 360 );
+            XDrawArc( flx->display, flx->win, flx->gc,
+                      p->x - w / 2, p->y - h / 2, w, h, 0, 64 * 360 );
 }
 
 
@@ -248,18 +244,17 @@ draw_points( FL_OBJECT * ob  FL_UNUSED_ARG,
     FL_POINT *pe = p + n;
 
     w /= 2;
-    h /= h;
+    h /= 2;
 
     if ( flx->win != None )
         for ( ; p < pe; p++ )
         {
-            XSegment seg[ ] = { { p->x - w, p->y,     p->x + w, p->y     },
-                                { p->x,     p->y - h, p->x,     p->y + h },
-                                { p->x - w, p->y - h, p->x + w, p->y + h },
-                                { p->x + w, p->y - h, p->x - w, p->y + h } };
+            XSegment seg[ 4 ] = { { p->x - w, p->y,     p->x + w, p->y     },
+                                  { p->x,     p->y - h, p->x,     p->y + h },
+                                  { p->x - w, p->y - h, p->x + w, p->y + h },
+                                  { p->x + w, p->y - h, p->x - w, p->y + h } };
 
-            XDrawSegments( flx->display, flx->win, flx->gc,
-                           seg, sizeof seg / sizeof *seg );
+            XDrawSegments( flx->display, flx->win, flx->gc, seg, 4 );
         }
 }
 
