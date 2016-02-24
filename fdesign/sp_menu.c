@@ -65,7 +65,7 @@ menu_create_spec_form( void )
     fl_set_choice_item_shortcut( menu_attrib->mode, 1, "Cc#C" );
     fl_set_choice_item_shortcut( menu_attrib->mode, 1, "Rr#R" );
     fl_set_browser_dblclick_callback( menu_attrib->content_br,
-                                          change_menu_item_cb, 0 );
+                                      change_menu_item_cb, 0 );
 
     return menu_attrib->menuattrib;
 }
@@ -436,7 +436,7 @@ replace_menu_item_cb( FL_OBJECT * obj   FL_UNUSED_ARG,
 
     fl_replace_menu_item( curobj, k, s );
 
-    fl_set_menu_item_shortcut( menu_attrib->vdata, k, sc );
+    fl_set_menu_item_shortcut( curobj, k, sc );
 
     fl_set_menu_item_mode( curobj, k, get_pupmode_value( mode ) );
 
@@ -493,6 +493,8 @@ change_menu_item_cb( FL_OBJECT * obj   FL_UNUSED_ARG,
 
     if ( sp->shortcut[ i ] )
         fl_set_input( menu_attrib->shortcut, sp->shortcut[ i ] );
+    else
+        fl_set_input( menu_attrib->shortcut, "" );
 
     fl_set_choice_text( menu_attrib->mode,
                         get_pupmode_name( sp->mode[ i ] ) + 3 );

@@ -1738,17 +1738,22 @@ visible, not all window managers honor such requests once the window
 is visible. Also note that the constraints only apply to the next call
 of @code{@ref{fl_show_form()}} for the form.
 
-To set or change the icon shown when a form is iconified use the
-following routine
+To set or change the icon shown when a form is iconified use one of the
+following routines
 @findex fl_set_form_icon()
 @anchor{fl_set_form_icon()}
+@findex fl_set_form_icon_data()
+@anchor{fl_set_form_icon_data()}
 @example
 void fl_set_form_icon(FL_FORM *form, Pixmap icon, Pixmap mask);
+void fl_set_form_icon_data(FL_FORM  *form, char **data);
 @end example
 @noindent
 where @code{icon} can be any valid pixmap ID. (@pxref{Pixmap Object}
 for some of the routines that can be used to create pixmaps.) Note
-that a previously set icon if not freed or modified in anyway.
+that a previously set icon is not freed or modified in anyway. The
+second functions can be used to instead used if you have valid pixmap
+data as an array of strings (e.g., by having included an 'xpm' file).
 
 If, for any reason, you would like to change the form title after the
 form has been made visible, the following calls can be used (they will

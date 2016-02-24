@@ -976,7 +976,7 @@ main( int    argc,
     fl_set_form_position( fd_control->control, x, y );
 
     fl_set_app_mainform( fd_control->control );
-    fli_set_form_icon_data( fd_control->control, fd_logo_pixels );
+    fl_set_form_icon_data( fd_control->control, fd_logo_pixels );
     fl_show_form( fd_control->control, FL_PLACE_GEOMETRY,
                  ( 1 || fd_cntlborder ) ? FL_FULLBORDER : FL_TRANSIENT,
                  "Control" );

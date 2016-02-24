@@ -609,6 +609,12 @@ readback_attributes( FL_OBJECT * obj )
     set_object_name( obj, name, cbname,
                      fl_get_input( fd_generic_attrib->argobj ) );
 
+    /* in fdesign, FL_BOX has no choice() for type but a boxtype:
+       copy boxtype to type to generate the correct source code files */
+
+    if ( obj->objclass == FL_BOX )
+        obj->type = obj->boxtype;
+
     fl_free( cbname );
     fl_free( name );
 

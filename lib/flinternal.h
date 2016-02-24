@@ -894,9 +894,6 @@ char * fli_sstrcpy( char       * dest,
                     const char * src,
                     size_t       n );
 
-void fli_set_form_icon_data( FL_FORM *,
-                             char ** );
-
 char *fli_getcwd( char *,
                   int );
 
