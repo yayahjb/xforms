@@ -6,6 +6,7 @@ Internal Form Definition File
 Number of forms: 1
 Unit of measure: FL_COORD_PIXEL
 Border Width: -1
+SnapGrid: 5
 
 =============== FORM ===============
 Name: menuattrib
@@ -70,7 +71,7 @@ argument:
 --------------------
 class: FL_LABELFRAME
 type: FL_ENGRAVED_FRAME
-box: 225 67 111 140
+box: 225 67 111 80
 boxtype: FL_NO_BOX
 colors: FL_BLACK FL_COL1
 alignment: FL_ALIGN_LEFT_TOP
@@ -142,7 +143,7 @@ argument: 0
 --------------------
 class: FL_BUTTON
 type: FL_NORMAL_BUTTON
-box: 235 143 84 24
+box: 235 113 84 24
 boxtype: FL_UP_BOX
 colors: FL_COL1 FL_COL1
 alignment: FL_ALIGN_CENTER
@@ -160,15 +161,15 @@ argument: 0
 --------------------
 class: FL_BUTTON
 type: FL_NORMAL_BUTTON
-box: 235 172 84 24
+box: 245 157 64 24
 boxtype: FL_UP_BOX
 colors: FL_COL1 FL_COL1
 alignment: FL_ALIGN_CENTER
 style: FL_NORMAL_STYLE
 size: FL_DEFAULT_SIZE
 lcol: FL_BLACK
-label: Change
-shortcut: #C
+label: <= Get
+shortcut: 
 resize: FL_RESIZE_ALL
 gravity: FL_NoGravity FL_NoGravity
 name: 
@@ -215,15 +216,15 @@ argument:
 --------------------
 class: FL_BUTTON
 type: FL_NORMAL_BUTTON
-box: 235 112 84 26
+box: 245 187 64 26
 boxtype: FL_UP_BOX
 colors: FL_COL1 FL_COL1
 alignment: FL_ALIGN_CENTER
 style: FL_NORMAL_STYLE
 size: FL_DEFAULT_SIZE
 lcol: FL_BLACK
-label: Replace
-shortcut: #R
+label: => Set
+shortcut: 
 resize: FL_RESIZE_ALL
 gravity: FL_NoGravity FL_NoGravity
 name: 

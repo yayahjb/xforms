@@ -705,13 +705,6 @@ Finally there is a routine that can be used to free a Pixmap
 void fl_free_pixmap(Pixmap id);
 @end example
 
-You will need the XPM library (version 3.4c or later)m developed by
-Arnaud Le Hors and Groupe Bull, to use pixmaps. The XPM library is
-avalialble as a package for most distributions, but can also be
-obtained from many X mirror sites, e.g., via anonymous FTP from
-(@uref{ftp://ftp.x.org/contrib/libraries/}. Its home page is
-@uref{http://old.koalateam.com/lehors/xpm.html}.
-
 
 @node Clock Object
 @section Clock Object
