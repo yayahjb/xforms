@@ -75,7 +75,7 @@ rgb2hsv( const int rgb[ 3 ],
 
     for ( i = RED; i <= BLUE; i++ )
     {
-        /* Check that value is within the interval [0, 255], otherwise
+        /* Check that RGB values are within the interval [0, 255], otherwise
            return -1. */
 
         if ( rgb[ i ] < 0 || rgb[ i ] > 255 )
@@ -91,7 +91,7 @@ rgb2hsv( const int rgb[ 3 ],
         }
     }
 
-    /* If all three values are identical there's no unique mapping to a
+    /* If all three RGB values are identical there's no unique mapping to a
        HSV triple, set saturation and value, arbitrarily set hue to 0 and
        return 1 to indicate that there's no unique value for hue. */
 

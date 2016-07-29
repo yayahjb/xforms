@@ -2392,26 +2392,32 @@ get_decoration_sizes_from_wm( Atom      a,
     int actual_format;
     unsigned long nitems;
     unsigned long bytes_after;
-    static unsigned char *prop;
+    unsigned char *prop_ret = NULL;
 
-    XGetWindowProperty( fl_get_display( ), form->window, a, 0,
-                        4, False, XA_CARDINAL,
-                        &actual_type, &actual_format, &nitems,
-                        &bytes_after, &prop );
+    int ret = XGetWindowProperty( fl_get_display( ), form->window, a, 0,
+                                  4, False, XA_CARDINAL,
+                                  &actual_type, &actual_format, &nitems,
+                                  &bytes_after, &prop_ret );
 
     /* If no properties are returne the window probably has no decorations */
 
-    if (    actual_type == XA_CARDINAL
+    if (    ret == Success
+         && actual_type == XA_CARDINAL
          && actual_format == 32
          && nitems == 4 )
     {
-        *top    = ( ( long * ) prop )[ 2 ];
-        *right  = ( ( long * ) prop )[ 1 ];
-        *bottom = ( ( long * ) prop )[ 3 ];
-        *left   = ( ( long * ) prop )[ 0 ];
+        long *prop = ( long * ) prop_ret;
+
+        *top    = prop[ 2 ];
+        *right  = prop[ 1 ];
+        *bottom = prop[ 3 ];
+        *left   = prop[ 0 ];
     }
     else
         *top = *right =*bottom = *left = 0;
+
+    if ( prop_ret )
+        XFree( prop_ret );
 }
 
 

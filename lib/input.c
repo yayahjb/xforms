@@ -1449,7 +1449,11 @@ handle_input( FL_OBJECT * obj,
                     sp->position = strlen( sp->str );
             }
             else
+            {
                 sp->position = 0;
+            }
+
+            fl_get_input_cursorpos( obj, &sp->xpos, &sp->ypos );
 
             sp->changed = 0;
             fl_redraw_object( sp->input );
@@ -1473,7 +1477,6 @@ handle_input( FL_OBJECT * obj,
             if ( ev )
                 ret =   ( sp->changed ? FL_RETURN_CHANGED : FL_RETURN_NONE )
                       | FL_RETURN_END;
-
             break;
 
         case FL_UPDATE:
@@ -1552,8 +1555,12 @@ handle_input( FL_OBJECT * obj,
     /* In some places the x- and y-coordinates (column and row) of the cursor
        aren't set consistently, so repair it here... */
 
-    if ( obj->spec )
-    fl_get_input_cursorpos( obj, &sp->xpos, &sp->ypos );
+    if ( sp ) {
+        int x = sp->xpos;
+
+        if (fl_get_input_cursorpos( obj, &sp->xpos, &sp->ypos ) == -1)
+            sp->xpos = x;
+    }
 
     return ret;
 }
@@ -1846,6 +1853,7 @@ fl_set_input( FL_OBJECT  * obj,
     int len;
     char *p;
     const char *q;
+    int old_pos = sp->position;
 
     if ( ! str )
         str = "";
@@ -1865,18 +1873,17 @@ fl_set_input( FL_OBJECT  * obj,
             *p++ = *q;
     *p = '\0';
 
-    /* Set position of cursor in string to the end (if object doesn't has
-       focus must be negative of length of strig minus one) */
-
-    if ( sp->position >= 0 )
-        sp->position = len;
-    else
-        sp->position = - len - 1;
-
+    sp->position = len;
     sp->endrange = -1;
 
     sp->lines = fl_get_input_numberoflines( obj );
     fl_get_input_cursorpos( obj, &sp->xpos, &sp->ypos );
+
+    /* Set position of cursor in string to the end (if object doesn't has
+       focus must be negative of length of strig minus one) */
+
+    if ( old_pos < 0 )
+        sp->position = - len - 1;
 
     /* Get max string width - it's possible that fl_set_input() is used before
        the form is show, draw_object is a no-op, thus we end up with a wrong
@@ -2199,21 +2206,26 @@ fl_get_input_cursorpos( FL_OBJECT * obj,
     FLI_INPUT_SPEC *sp = obj->spec;
     char *s = sp->str;
     int cnt = 0;
+    int max = sp->position >= 0 ? sp->position : -sp->position - 1;
 
-    if ( ! obj->focus )
-        return sp->position = *x = -1;
-
-    *y = 1;
     *x = 0;
+    *y = 1;
 
-    for ( ; s && *s && cnt < sp->position; s++, cnt++ )
+    for ( ; s && *s && cnt < max; s++, cnt++ )
         if ( *s == '\n' )
         {
             *y += 1;
             *x = 0;
         }
         else
+        {
             *x += 1;
+        }
+
+    if ( sp->position < 0 )
+    {
+        return *x = -1;
+    }
 
     return sp->position;
 }

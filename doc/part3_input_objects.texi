@@ -508,7 +508,7 @@ set to the number of the line (starting from 1) the cursor is on, and
 @code{xpos} set to the number of characters in front of the cursor
 measured from the beginning of the current line as indicated by
 @code{ypos}. If the input field does not have input focus the
-@code{xpos} is set to -1.
+@code{xpos} is set to -1 and @code{ypos} is left unmodified.
 
 It is possible to move the cursor within the input field
 programmatically using the following routine
