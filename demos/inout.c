@@ -47,8 +47,8 @@
  ***************************************/
 
 static int
-plc_running( XEvent * ev,
-			 void   * b )
+plc_running( XEvent * ev  FL_UNUSED_ARG,
+			 void   * b   FL_UNUSED_ARG )
 {
     char hstr1[ 20 ];
     char hstr2[ 20 ];
@@ -106,9 +106,6 @@ int
 main( int    argc,
       char * argv[ ] )
 {
-    int dummy_data;
-  
-  
     fl_initialize( &argc, argv, 0, 0, 0 );
 
     fd_f = create_form_f( );
@@ -150,7 +147,7 @@ cb_write_to_plc( FL_OBJECT * obj,
 
 void
 cb_term3_onoff( FL_OBJECT * obj,
-                long        data )
+                long        data  FL_UNUSED_ARG )
 {
     int mode = fl_get_choice( obj ) == 1;
 

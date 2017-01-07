@@ -34,7 +34,7 @@ FL_OBJECT *curobj;
 
 
 #define IS_INT_SPINNER( o ) \
-    ( (o)->type == FL_INT_SPINNER || ( o ) >type == FL_INT_MIDDLE_SPINNER )
+    ( (o)->type == FL_INT_SPINNER || ( o )->type == FL_INT_MIDDLE_SPINNER )
 
 
 /***************************************
@@ -352,7 +352,7 @@ spn_initialvalue_change( FL_OBJECT * obj   FL_UNUSED_ARG,
 
     set_finput_value( spn_attrib->initialval,
                       get_finput_value( spn_attrib->initialval ),
-                      FL_INT_SPINNER( curobj ) ? 0 : sp->prec );
+                      IS_INT_SPINNER( curobj ) ? 0 : sp->prec );
     fl_set_spinner_value( curobj, get_finput_value( spn_attrib->initialval ) );
     redraw_the_form( 0 );
 }

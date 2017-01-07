@@ -1001,7 +1001,6 @@ fl_set_pixmapbutton_focus_data( FL_OBJECT  * obj,
                                 char      ** bits )
 {
     FL_BUTTON_STRUCT *sp;
-    PixmapSPEC *psp;
     Window win;
     Pixmap p,
            shape_mask = None;
@@ -1015,7 +1014,6 @@ fl_set_pixmapbutton_focus_data( FL_OBJECT  * obj,
         return;
 
     sp = obj->spec;
-    psp = sp->cspecv;
     win = FL_ObjWin( obj ) ? FL_ObjWin( obj ) : fl_default_win( );
 
     xpmattrib = fl_calloc( 1, XpmAttributesSize( ) );
