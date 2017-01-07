@@ -34,13 +34,14 @@
 #define TRUE    ( ! FALSE )
 #endif
 
-/* since MAGIC4 all coordinates are relative to the top-left */
+/* since MAGIC4 all coordinates are relative to the top-left corner */
 
 #define MAGIC2   12321
 #define MAGIC3   12322
 #define MAGIC4   13000
 #define MAGIC5   14000     /* since XForms 1.0.92 */
 #define MAGIC6   15000     /* since XForms 1.0.94pre4 */
+#define MAGIC7   16000     /* since XForms 1.3.0  UTF8 Version */
 
 
 /* general limits */
@@ -63,6 +64,7 @@ typedef struct {
     int    compensate;      /* if emit font size compensation code */
     int    unit;
     char * output_dir;
+    int    use_x11_fonts;   /* for compatibility with Version >=1.3 */
 } FD_Opt;
 
 enum {

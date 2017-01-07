@@ -1083,7 +1083,7 @@ get reset immediately when the mouse button is released.
 @tindex FL_HOLD_BROWSER
 @anchor{FL_HOLD_BROWSER}
 @item FL_HOLD_BROWSER
-Same as @code{FL_SELECT_BROSER} but the selection remains visible till
+Same as @code{FL_SELECT_BROWSER} but the selection remains visible till
 the next selection.
 
 @tindex FL_DESELECTABLE_HOLD_BROWSER
@@ -1754,7 +1754,7 @@ in pixels for the text area
 @anchor{fl_get_browser_dimension()}
 @example
 void fl_get_browser_dimension(FL_OBJECT *obj, FL_Coord *x, FL_Coord *y,
-                              FL_COORD *w, FL_COORD *h);
+                              FL_Coord *w, FL_Coord *h);
 @end example
 @noindent
 where @code{x} and @code{y} are measured from the top-left corner of

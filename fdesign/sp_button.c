@@ -231,11 +231,11 @@ button_emit_spec_fd_code( FILE      * fp,
 
     if ( memcmp( sp->react_to, defsp->react_to, sizeof sp->react_to ) )
     {
-        unsigned int rt =   ( sp->react_to[ 0 ] &  1 )
-                          | ( sp->react_to[ 1 ] &  2 )
-                          | ( sp->react_to[ 2 ] &  4 )
-                          | ( sp->react_to[ 3 ] &  8 )
-                          | ( sp->react_to[ 4 ] & 16 );
+        unsigned int rt =   ( sp->react_to[ 0 ] << 0 )
+                          | ( sp->react_to[ 1 ] << 1 )
+                          | ( sp->react_to[ 2 ] << 2 )
+                          | ( sp->react_to[ 3 ] << 3 )
+                          | ( sp->react_to[ 4 ] << 4 );
 
         fprintf( fp, "    mbuttons: %u\n", rt );
     }
@@ -307,11 +307,11 @@ button_emit_spec_c_code( FILE      * fp,
 
     if ( memcmp( sp->react_to, defsp->react_to, sizeof sp->react_to ) )
     {
-        unsigned int rt =   ( sp->react_to[ 0 ] &  1 )
-                          | ( sp->react_to[ 1 ] &  2 )
-                          | ( sp->react_to[ 2 ] &  4 )
-                          | ( sp->react_to[ 3 ] &  8 )
-                          | ( sp->react_to[ 4 ] & 16 );
+        unsigned int rt =   ( sp->react_to[ 0 ] << 0 )
+                          | ( sp->react_to[ 1 ] << 1 )
+                          | ( sp->react_to[ 2 ] << 2 )
+                          | ( sp->react_to[ 3 ] << 3 )
+                          | ( sp->react_to[ 4 ] << 4 );
 
         fprintf( fp, "    fl_set_button_mouse_buttons( obj, %u );\n", rt );
     }
@@ -420,10 +420,10 @@ usedata_change( FL_OBJECT * obj,
  ***************************************/
 
 void
-fullpath_cb( FL_OBJECT * ob,
+fullpath_cb( FL_OBJECT * obj,
              long        data  FL_UNUSED_ARG )
 {
-    get_iconinfo( curobj )->fullpath = fl_get_button( ob );
+    get_iconinfo( curobj )->fullpath = fl_get_button( obj );
 }
 
 
@@ -606,6 +606,8 @@ create_default_button( FL_OBJECT * ob )
         defobj = fl_create_checkbutton( ob->type, 0, 0, 0, 0, "" );
     else if ( ob->objclass == FL_ROUND3DBUTTON )
         defobj = fl_create_round3dbutton( ob->type, 0, 0, 0, 0, "" );
+    else if ( ob->objclass == FL_SCROLLBUTTON )
+        defobj = fl_create_scrollbutton( ob->type, 0, 0, 0, 0, "" );
     else
         fprintf( stderr, "Unknown Button Class: %d\n", ob->objclass );
 

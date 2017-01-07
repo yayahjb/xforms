@@ -74,6 +74,10 @@ typedef struct {
                     attrib;
     int             cursor_visible;
     int             field_char;
+    int             inout_mode;     /* in-output mode is activated            */
+    int             inout_active;   /* InOut mode is active                   */
+    int             inout_changed;  /* changed while in in InOut mode         */
+    char          * inout_savestr; /* string to be saved while in InOut mode */
 } FLI_INPUT_SPEC;
 
 

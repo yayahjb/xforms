@@ -890,7 +890,7 @@ with the same arguments for @code{dirname} and @code{pattern} again
 the exact same list is usually returned (and no checks are done if
 any files have been added or removed in the mean time). By passing
 the function a true (non-zero) value for the @code{rescan} argument
-requests a re-read, whch then returns
+requests a re-read, which then returns
 
 @code{FL_Dirlist} is a structure defined as follows
 @example

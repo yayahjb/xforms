@@ -256,6 +256,8 @@ fli_set_composite_gravity( FL_OBJECT *  obj,
 
 
 /***************************************
+ * Called when an object with sub-objects has been resized to inform
+ * the sub-objects about it.
  ***************************************/
 
 void

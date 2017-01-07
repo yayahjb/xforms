@@ -38,10 +38,10 @@
 #define FL_POSITIONER_ALIGN     FL_ALIGN_BOTTOM
 
 typedef int ( * FL_POSITIONER_VALIDATOR )( FL_OBJECT * obj,
-										   double      x,
-										   double      y,
-										   double    * x_repl,
-										   double    * y_repl );
+                                           double      x,
+                                           double      y,
+                                           double    * x_repl,
+                                           double    * y_repl );
 
 #define FL_POSITIONER_INVALID  0
 #define FL_POSITIONER_VALID    1
@@ -68,7 +68,7 @@ FL_EXPORT int fl_set_positioner_values( FL_OBJECT * obj,
 										double      new_y );
 
 FL_EXPORT int fl_set_positioner_xvalue( FL_OBJECT * ob,
-										double      val );
+                                        double      val );
 
 FL_EXPORT double fl_get_positioner_xvalue( FL_OBJECT * ob );
 
@@ -81,7 +81,7 @@ FL_EXPORT void fl_get_positioner_xbounds( FL_OBJECT * ob,
                                           double    * max );
 
 FL_EXPORT int fl_set_positioner_yvalue( FL_OBJECT * ob,
-										double      val );
+                                        double      val );
 
 FL_EXPORT double fl_get_positioner_yvalue( FL_OBJECT * ob );
 
@@ -107,16 +107,16 @@ FL_EXPORT void fl_set_positioner_return( FL_OBJECT    * ob,
                                          unsigned int   when );
 
 FL_EXPORT void fl_set_positioner_mouse_buttons( FL_OBJECT    * obj,
-												unsigned int   mouse_buttons );
+                                                unsigned int   mouse_buttons );
 
 FL_EXPORT void fl_get_positioner_mouse_buttons( FL_OBJECT    * obj,
-												unsigned int * mouse_buttons );
+                                                unsigned int * mouse_buttons );
 
 FL_EXPORT int fl_get_positioner_numb( FL_OBJECT * obj );
 
 FL_EXPORT FL_POSITIONER_VALIDATOR
 fl_set_positioner_validator( FL_OBJECT               * obj,
-							 FL_POSITIONER_VALIDATOR   validator );
+                             FL_POSITIONER_VALIDATOR   validator );
 
 FL_EXPORT void fl_reset_positioner( FL_OBJECT * obj );
 

@@ -66,7 +66,7 @@ handle_background( FL_OBJECT * obj,
                    int         clear_pms )
 {
     FLI_POSITIONER_SPEC *sp = obj->spec;
-    
+
     FL_Coord absbw = FL_abs( obj->bw );
     FL_Coord x0 = obj->x + absbw + 1,
              y0 = obj->y + absbw + 1;
@@ -81,7 +81,7 @@ handle_background( FL_OBJECT * obj,
              yn = FL_crnd( flinear( sp->yval, sp->ymin, sp->ymax,
                                     y0 + h - 1, y0 ) );
 
-    /* Return immediatel if we're called for an invisible positioner or
+    /* Return immediately if we're called for an invisible positioner or
        there's no window yet. */
 
     if ( obj->type == FL_INVISIBLE_POSITIONER || FL_ObjWin( obj ) == None )
@@ -396,15 +396,15 @@ fl_create_positioner( int          type,
 
     obj->spec = sp = fl_calloc( 1, sizeof *sp );
 
-    sp->xmin = 0.0;
-    sp->ymin = 0.0;
-    sp->xmax = 1.0;
-    sp->ymax = 1.0;
-    sp->xval = 0.5;
-    sp->yval = 0.5;
-    sp->xpm = sp->ypm = None;
-    sp->copy_gc = None;
-    sp->validator = NULL;
+    sp->xmin        = 0.0;
+    sp->ymin        = 0.0;
+    sp->xmax        = 1.0;
+    sp->ymax        = 1.0;
+    sp->xval        = 0.5;
+    sp->yval        = 0.5;
+    sp->xpm         = sp->ypm = None;
+    sp->copy_gc     = None;
+    sp->validator   = NULL;
 
     /* Per default a positioner reacts to the left mouse button only */
 

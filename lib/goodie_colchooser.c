@@ -406,7 +406,7 @@ rgb_input_cb( FL_OBJECT * obj,
     COLOR_CHOOSER *cc = obj->u_vdata;
     int value = strtol( fl_get_input( obj ), NULL, 10 );
 
-    cc->rgb[ data ] = FL_clamp( value, 0, 100 );
+    cc->rgb[ data ] = FL_clamp( value, 0, 255 );
     fl_set_input_f( obj, "%d", cc->rgb[ data ] );
 
     rgb2hsv( cc->rgb, cc->hsv );

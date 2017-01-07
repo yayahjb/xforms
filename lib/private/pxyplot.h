@@ -149,7 +149,7 @@ typedef struct {
 } FLI_XYPLOT_SPEC;
 
 
-#endif /* PXYPLOT.H */
+#endif /* PXYPLOT_H */
 
 
 /*

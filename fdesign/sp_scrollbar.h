@@ -23,6 +23,9 @@
 #include "include/forms.h"
 #include <stdio.h>
 
+
+void scrollbar_change_type( FL_OBJECT * obj,
+                            int         new_type );
 FL_FORM * scrollbar_create_spec_form( void );
 void scrollbar_adjust_spec_form( FL_OBJECT * obj );
 void scrollbar_fill_in_spec_form( FL_OBJECT * obj );

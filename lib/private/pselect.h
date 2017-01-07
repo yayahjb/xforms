@@ -32,7 +32,7 @@ typedef struct {
 } FLI_SELECT_SPEC;
 
 
-#endif
+#endif  /* PSELECT_H_ */
 
 
 /*

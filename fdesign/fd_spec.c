@@ -231,7 +231,7 @@ static ObjSPEC objspec[ ] =
 
     {
         { FL_SCROLLBAR },
-        NULL,
+        scrollbar_change_type,
         scrollbar_create_spec_form,
         scrollbar_adjust_spec_form,
         scrollbar_fill_in_spec_form,
@@ -1102,7 +1102,7 @@ ff_read_sp_handler( FL_OBJECT * obj,
     if ( r == 0 )
         return ff_err( "\"handler\" key with no or invalid value" );
 
-    obj->c_vdata = p;
+    obj->c_cdata = p;
 
     return 0;
 }

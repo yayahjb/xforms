@@ -81,8 +81,11 @@ known to the button driver via the following function
 @findex fl_add_button_class()
 @anchor{fl_add_button_class()}
 @example
-void fl_add_button_class(int objclass, void (*draw)(FL_OBJECT *), void
-(*cleanup)(FL_BUTTON_SPEC *));
+typedef void (* FL_DrawButton) (FL_OBJECT *, int);
+typedef void (* FL_CleanupButton) (FL_OBJECT *);
+
+void fl_add_button_class(int objclass, FL_DrawButton drawit,
+                         FL_CleanupButton cleanup);
 @end example
 @noindent
 where @code{objclass} is the class ID, and @code{draw} is a function
@@ -90,7 +93,7 @@ that will be called to draw the button. @code{cleanup} is a function
 that will be called prior to destroying the button. You need a cleanup
 function only if the drawing routine uses the @code{cspecv} field of
 @code{FL_BUTTON_STRUCT} to hold memory allocated dynamically by the new
-button.
+button, otherwise set it to @code{NULL}.
 
 We use two examples to show how new buttons are created. The first
 example is taken from the button class in the Forms Library, i.e.,
@@ -148,7 +151,7 @@ static void draw_nbutton(FL_OBJECT *obj) @{
      /* draw the button label */
      fl_draw_object_label(obj);
 
-     /* if the button is a return button, draw the return symbol.
+     /* If the button is a return button, draw the return symbol.
       * Note that size and style are 0 as they are not used when
       * drawing symbols */
      if (obj->type == FL_RETURN_BUTTON)

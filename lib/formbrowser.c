@@ -288,7 +288,7 @@ fl_addto_formbrowser( FL_OBJECT * ob,
         
     if ( sp->max_width < form->w )
         sp->max_width = form->w;
-        
+
     sp->max_height += form->h;
     display_forms( sp );
 
@@ -881,8 +881,8 @@ canvas_cleanup( FL_OBJECT * ob )
     sp->v_on = FL_OFF;
 
     for ( i = 0; i < sp->nforms; i++ )
-        if ( sp->form[ i ]->visible )
-            fl_hide_form( sp->form[ i ] );
+    	if ( sp->form[ i ]->visible )
+        	fl_hide_form( sp->form[ i ] );
 
     return 0;
 }
@@ -1000,13 +1000,22 @@ static void
 delete_form( FLI_FORMBROWSER_SPEC * sp,
              int                    f )
 {
+    int i;
+
     fl_hide_form( sp->form[ f ] );
     sp->form[ f ]->attached = 0;
     sp->nforms--;
     sp->max_height -= sp->form[ f ]->h;
+
     for ( ; f < sp->nforms; f++ )
         sp->form[ f ] = sp->form[ f + 1 ];
     sp->form = fl_realloc( sp->form, sizeof *sp->form * sp->nforms );
+
+    sp->max_width = 0;
+    for ( i = 0; i < sp->nforms; i++ )
+        if ( sp->form[ f ]->w > sp->max_width )
+            sp->max_width = sp->form[ f ]->w;
+
     display_forms( sp );
 }
 
@@ -1018,7 +1027,7 @@ static void
 parentize_form( FL_FORM   * form,
                 FL_OBJECT * ob )
 {
-    form->parent = ob->form;    /* this is probably the wrong way to do it */
+    form->parent = ob->form; /* this is probably the wrong way to do it */
 }
 
 
@@ -1157,8 +1166,8 @@ check_scrollbar( FL_OBJECT * ob )
 
 /***************************************
  * Sets the conditions under which the object is to be returned to
+ * application. This function is for interal use only, the user
  * the application. This function is for interal use only, the user
- * must call fl_set_object_return() (which then will call this
  * function).
  ***************************************/
 

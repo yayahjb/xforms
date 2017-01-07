@@ -152,8 +152,8 @@ typedef enum {
 /* How to display a form onto screen */
 
 typedef enum {
-    FL_PLACE_FREE       =   0,      /* size remain resizable      */
-    FL_PLACE_MOUSE      =   1,      /* mouse centered on form     */
+    FL_PLACE_FREE       =   0,         /* size remain resizable      */
+    FL_PLACE_MOUSE      =   1,         /* mouse centered on form     */
     FL_PLACE_CENTER     =   2,         /* center of the screen       */
     FL_PLACE_POSITION   =   4,         /* specific position          */
     FL_PLACE_SIZE       =   8,         /* specific size              */
@@ -179,7 +179,7 @@ enum {
     FL_FULLBORDER = 1,      /* normal                                  */
     FL_TRANSIENT,           /* set TRANSIENT_FOR property              */
     FL_NOBORDER             /* use override_redirect to supress decor. */
- };
+};
 
 /* All box types */
 
@@ -541,7 +541,7 @@ typedef enum {
 } FL_EVENTS;
 
 
-/* Resize policies */
+/* Resizing policies */
 
 typedef enum {
     FL_RESIZE_NONE,
@@ -584,7 +584,7 @@ enum {
 
 /* Popup and menu entries */
 
-typedef int ( * FL_PUP_CB )( int );        /* callback prototype  */
+typedef int ( * FL_PUP_CB )( int );        /* popup callback prototype  */
 
 typedef struct {
     const char * text;           /* label of a popup/menu item   */
@@ -671,7 +671,8 @@ typedef struct FL_pixmap_  FL_pixmap;
 
 struct FL_OBJECT_ {
     FL_FORM        * form;           /* the form this object belongs to */
-    void           * u_vdata;        /* anything the user likes */
+    void           * u_vdata;        /* anything the user likes, in fdesign
+										also used for SuperSPEC */
     char           * u_cdata;        /* anything the user likes */
     long             u_ldata;        /* anything the user likes */
 
@@ -759,8 +760,10 @@ struct FL_OBJECT_ {
     int              is_under;       /* if (partially) hidden by other object */
     int              clip;
     unsigned long    click_timeout;
-    void           * c_vdata;        /* for class use */
-    char           * c_cdata;        /* for class use */
+    void           * c_vdata;        /* for class use, in fdesign also used
+										for IconInfo */
+    char           * c_cdata;        /* for class use in fdesign also used
+										for fl_free handler name */
     long             c_ldata;        /* for class use */
     FL_COLOR         dbl_background; /* double buffer background */
     char           * tooltip;

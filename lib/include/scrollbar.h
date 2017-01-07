@@ -17,6 +17,9 @@
 
 /********************** crop here for forms.h **********************/
 
+/**
+ *  Object Class: Scrollbar
+ */
 
 #ifndef FL_SCROLLBAR_H
 #define FL_SCROLLBAR_H

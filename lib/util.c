@@ -91,26 +91,41 @@ fl_XFlush( void )
 
 #define VN( v )  { v, #v }
 
+/* parameters like Basic.h */
 static FLI_VN_PAIR flevent[ ] =
 {
-    VN( FL_ENTER     ),
-    VN( FL_LEAVE     ),
-    VN( FL_PUSH      ),
-    VN( FL_RELEASE   ),
-    VN( FL_STEP      ),
-    VN( FL_SHORTCUT  ),
-    VN( FL_UPDATE    ),
-    VN( FL_MOTION    ),
-    VN( FL_KEYPRESS  ),
-    VN( FL_DRAW      ),
-    VN( FL_FOCUS     ),
-    VN( FL_UNFOCUS   ),
-    VN( FL_FREEMEM   ),
-    VN( FL_DRAWLABEL ),
-    VN( FL_DBLCLICK  ),
-    VN( FL_OTHER     ),
-    VN( FL_ATTRIB    ),
-    { -1, NULL }
+    VN( FL_NOEVENT   ),     /*  0 No event */
+    VN( FL_DRAW      ),     /*  1 object is asked to redraw itself */
+    VN( FL_PUSH      ),     /*  2 mouse button was pressed on the object */
+    VN( FL_RELEASE   ),     /*  3 mouse button was release again */
+    VN( FL_ENTER     ),     /*  4 mouse entered the object */
+    VN( FL_LEAVE     ),     /*  5 mouse left the object */
+    VN( FL_MOTION    ),     /*  6 mouse motion over the object happend */
+    VN( FL_FOCUS     ),     /*  7 object obtained focus */
+    VN( FL_UNFOCUS   ),     /*  8 object lost focus */
+    VN( FL_KEYPRESS  ),     /*  9 key was pressed while object has focus */
+    VN( FL_UPDATE    ),     /* 10 for objects that need to update something
+                                  from time to time */
+    VN( FL_STEP      ),     /* 11 */
+    VN( FL_SHORTCUT  ),     /* 12 */
+    VN( FL_FREEMEM   ),     /* 13 object is asked to free all its memory */
+    VN( FL_OTHER     ),     /* 14 property, selection etc */
+    VN( FL_DRAWLABEL ),     /* 15 */
+    VN( FL_DBLCLICK  ),     /* 16 double click on object */
+    VN( FL_TRPLCLICK ),     /* 17 triple click on object */
+    VN( FL_ATTRIB    ),     /* 18 an object attribute changed */
+    VN( FL_KEYRELEASE ),    /* 19 key was released while object has focus */
+    VN( FL_PS        ),     /* 20 dump a form into EPS      */
+    VN( FL_MOVEORIGIN ),    /* 21 dragging the form across the screen,
+                                  changing its absolute x,y coords. Objects
+                                  that themselves contain forms should
+                                  ensure that they are up to date. */
+    VN( FL_RESIZED   ),      /* 22 the object has been resized by scale_form,
+                                   tells it that this has happened so that it
+                                   can resize any FL_FORMs that it contains. */
+    VN( FL_PASTE     ),      /* 23 text was pasted into input object */
+    VN( FL_TRIGGER     ),    /* 24 result of fl_trigger_object() */
+    { -1, NULL }             /* -1 sentinel */
 };
 
 
@@ -123,9 +138,10 @@ fli_event_name( int ev )
     return fli_get_vn_name( flevent, ev );
 }
 
-
+/* parameters like Basic.h */
 static FLI_VN_PAIR flclass[ ] =
 {
+    VN( FL_INVALID_CLASS ),      /*  0 */
     VN( FL_BUTTON        ),
     VN( FL_LIGHTBUTTON   ),
     VN( FL_ROUNDBUTTON   ),
@@ -159,9 +175,17 @@ static FLI_VN_PAIR flclass[ ] =
     VN( FL_SCROLLBAR     ),
     VN( FL_SCROLLBUTTON  ),
     VN( FL_MENUBAR       ),
-    VN( FL_IMAGECANVAS   ),
-    VN( FL_TEXTBOX       ),
-    VN( FL_SPINNER       ),
+    VN( FL_TEXTBOX       ),  /* 34, for internal use only */
+    VN( FL_LABELBUTTON   ),  /* 35 */
+    VN( FL_COMBOBOX      ),  /* 36 */
+    VN( FL_IMAGECANVAS   ),  /* 37 */
+    VN( FL_THUMBWHEEL    ),  /* 38 */
+    VN( FL_COLORWHEEL    ),  /* 39 */
+    VN( FL_FORMBROWSER   ),  /* 40 */
+    VN( FL_SELECT        ),  /* 41 */
+    VN( FL_NMENU         ),  /* 42 */
+    VN( FL_SPINNER       ),  /* 43 */
+    VN( FL_TBOX          ),  /* 44 */
     { -1, NULL }
 };
 

@@ -411,8 +411,8 @@ fli_filter_returns( FL_OBJECT * obj )
 
 
 /***************************************
- * Reads an object from the queue, calls the callback for the object
- * (if it exists) or passes it on to the user via fl_do_forms() etc.
+ * Reads an object from the queue, calls callbacks for the object (if
+ * they exist) or passes it on to the user via fl_do_forms() etc.
  ***************************************/
 
 FL_OBJECT *

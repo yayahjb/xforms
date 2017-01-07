@@ -74,7 +74,7 @@ static FL_RECT *tmp_rects = NULL;
                                  || i == FL_PIXMAPBUTTON )
 
 
-/* Macro for checking of a FL_FORM pointer points to a form that should
+/* Macro for checking if a FL_FORM pointer points to a form that should
    be actually drawn to */
 
 #define FORM_IS_UPDATABLE( form ) (    form                             \
@@ -156,6 +156,7 @@ fl_make_object( int            objclass,
 
     obj->u_vdata = NULL;
     obj->u_cdata = NULL;
+    obj->c_cdata = NULL;
 
     switch ( fli_cntl.coordUnit )
     {
@@ -215,7 +216,7 @@ fl_make_object( int            objclass,
         obj->lsize = FL_DEFAULT_SIZE;
 
     obj->lstyle             = FL_NORMAL_STYLE;
-    obj->shortcut           = fl_calloc( 1, sizeof( long ) );
+    obj->shortcut           = fl_calloc( 1, sizeof *obj->shortcut );
     *obj->shortcut          = 0;
     obj->active             = 1;
     obj->visible            = FL_VISIBLE;
@@ -2251,7 +2252,7 @@ fl_redraw_object( FL_OBJECT * obj )
             mark_object_for_redraw( o );
 
         if ( need_finish )
-            finish_recalc( obj->form, obj->next ); 
+            finish_recalc( obj->form, obj->next );
     }
     else
         mark_object_for_redraw( obj );

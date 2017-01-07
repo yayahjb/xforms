@@ -263,10 +263,12 @@ per line for input fields of type @code{@ref{FL_NORMAL_INPUT}}
 void fl_set_input_maxchars(FL_OBJECT *obj, int maxchars);
 @end example
 @noindent
-To reset the limit to unlimited, set @code{maxchars} to 0. Note that
-input objects of type @code{@ref{FL_DATE_INPUT}} are limited to 10
-characters per default and those of type @code{@ref{FL_SECRET_INPUT}}
-to 16.
+When setting the limit the content of the input field may become
+truncated if it did contain more characters than would fit into the
+more restricted buffer. To reset the limit to unlimited, set
+@code{maxchars} to 0. Note that input objects of type
+@code{@ref{FL_DATE_INPUT}} are limited to 10 characters per default
+and those of type @code{@ref{FL_SECRET_INPUT}} to 16.
 
 Although an input of type @code{@ref{FL_RETURN_ALWAYS}} can be used in
 combination with the callback function to check the validity of
@@ -634,6 +636,29 @@ int fl_set_input_fieldchar(FL_OBJECT *obj, int field_char);
 @noindent
 The function returns the old field char.
 
+In some situations an input field needs to be updated by some
+external instance (by e.g., an idle callback, while still being
+editable (think of a measurement device that monitors some
+value and is also able to set a value, like SCADA systems in
+industrial automation). So, most of the time such an input
+object actuallly works as an output, but is also reuired to
+accept input. To switch such a mode on and off you can use
+the function
+@findex fl_set_input_inout_mode()
+@anchor{fl_set_input_inout_mode()}
+@example
+int fl_set_input_inout_mode( FL_OBJECT * obj, int mode );
+@end example
+If called with @code{mode} set to @code{0} (which is the default for
+all inputs) the object behaves like a normal input. But when called
+with @code{1} the special "InOut" mode is enabled: external updates
+are suppressed once it has the focus and the @code{<Backspace>} key
+has been entered. Now it can be edited like a normal input object and
+calls of @code{@ref{fl_set_input()}} have no effect on it. Once editing
+is finished, external updates are again enabled. Editing can also be
+ended by presing the @code{<Esc>} key, in which case the input field
+reverts to the value it had when editing started. See the demo program
+@file{inout.c} for an example use of this mode.
 
 @node Input Attributes
 @section Input Attributes

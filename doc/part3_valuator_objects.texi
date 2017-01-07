@@ -1501,8 +1501,16 @@ the (editable) input field. I.e., the user can change the spinners
 value by either editing the value of the input field or by using the
 up/down buttons shown beside the input field.
 
-There are two types of spinner objects, one for integer and one for
-floating point values. You can set limits on the values that can be
+@ifhtml
+@center @image{xforms_images/spinner}
+@end ifhtml
+@ifnothtml
+@center @image{xforms_images/spinner,5cm}
+@end ifnothtml
+
+There are two basic types of spinner objects, one for integer and
+one for floating point values (with subtypes that differ in the way
+they are drwan). You can set limits on the values that can be
 input and you can also set the amount of increment/decrement achieved
 when clicking on its buttons.
 
@@ -1536,26 +1544,44 @@ placed on the left of the spinner object.
 @node Spinner Types
 @subsection Spinner Types
 
-There are two types of spinners, one for input of integer and
-one for floating point values:
+There are four types of spinners, two for input of integer and
+two for floating point values:
 @table @code
 @tindex FL_INT_SPINNER
 @anchor{FL_INT_SPINNER}
 @item FL_INT_SPINNER
-A spinner that allows input of integer values.
+A spinner that allows input of integer values, both buttons are 
+drawn at the right or bottom.
 
 @tindex FL_FLOAT_SPINNER
 @anchor{FL_FLOAT_SPINNER}
 @item FL_FLOAT_SPINNER
-A spinner that allows input of floating point values.
+A spinner that allows input of floating point values, both buttons are 
+drawn at the right or bottom.
+
+@tindex FL_INT_MIDDLE_SPINNER
+@anchor{FL_INT_MIDDLE_SPINNER}
+@item FL_INT_MIDDLE_SPINNER
+A spinner that allows input of integer values with the input field being
+drawn between the buttons.
+
+@tindex FL_FLOAT_MIDDLE_SPINNER
+@anchor{FL_FLOAT_MIDDLE_SPINNER}
+@item FL_FLOAT_MIDDLE_SPINNER
+A spinner that allows input of floating point values with the input
+field being drawn between the buttons.
+
 @end table
 
 The way a spinner looks like depends on its dimensions. If it's at
-least as wide as it's high the two buttons are drawn above each other
-to the right of the input field (and are marked with and up and
-down pointing triangle), while when the object is higher than it's
-wide they are drawn beside each other and below the input field
-(and the markers are then left and right pointing arrows).
+least as wide as it's high the two buttons are either drawn above each
+other to the right of the input field (and are marked with up and down
+pointing triangle) or, for the @code{FL_INT_MIDDLE_SPINNER} and
+@code{FL_FLOAT_MIDDE_SPINNER}, to the left and right (and marked with
+triangles pointing to left and right). When the object is higher than
+it is wide they are drawn beside each other below the input field or,
+for for @code{FL_INT_MIDDLE_SPINNER} and
+@code{FL_FLOAT_MIDDE_SPINNER}, above and below.
 
 
 @node Spinner Interaction
@@ -1704,6 +1730,10 @@ decreasing the spinner's value. These then can be used to set or query
 the way the individual component objects are drawn. The addresses of these
 sub-objects shouldn't be used for any other purposes, especially their
 callback function may never be changed!
+
+InOut mode may be set at the input part of the spinner, (see
+@code{@ref{fl_set_input_inout_mode()}}). The function of the buttons
+is not affected.
 
 
 @node Thumbwheel Object

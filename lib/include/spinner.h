@@ -17,12 +17,18 @@
 
 /********************** crop here for forms.h **********************/
 
+/**
+ *  Object Class: Spinner
+ */
+
 #ifndef FL_SPINNER_H
 #define FL_SPINNER_H
 
 typedef enum {
     FL_INT_SPINNER,
-    FL_FLOAT_SPINNER
+    FL_FLOAT_SPINNER,
+    FL_INT_MIDDLE_SPINNER,
+    FL_FLOAT_MIDDLE_SPINNER
 } FL_SPINNER_TYPE;
 
 FL_EXPORT FL_OBJECT * fl_create_spinner( int            type,

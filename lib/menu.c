@@ -834,7 +834,7 @@ fl_get_menu( FL_OBJECT * ob )
 
 
 /***************************************
- * Returns rhe number of items in a menu
+ * Returns the number of items in a menu
  ***************************************/
 
 int

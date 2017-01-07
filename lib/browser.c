@@ -39,7 +39,7 @@
 
 
 /***************************************
- * Some attribue of the object changed, we better recalculate how
+ * Some attributes of the object changed, we better recalculate how
  * it should oook like
  ***************************************/
 
@@ -450,7 +450,7 @@ tbpost( FL_OBJECT * ob,
         int         ev,
         FL_Coord    mx,
         FL_Coord    my,
-       int          key,
+        int         key,
         void      * xev )
 {
     FL_OBJECT *br = ob->parent;
@@ -467,7 +467,7 @@ tbpre( FL_OBJECT * ob,
        int         ev,
        FL_Coord    mx,
        FL_Coord    my,
-      int          key,
+       int         key,
        void      * xev )
 {
 

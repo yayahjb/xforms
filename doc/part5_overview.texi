@@ -1003,7 +1003,7 @@ functions
 void fl_set_object_geometry(FL_OBJECT *obj, FL_Coord x, FL_Coord y,
                             FL_Coord w, FL_Coord h);
 void fl_get_object_geometry(FL_OBJECT *obj, FL_Coord *x, FL_Coord *y,
-                            FL_Coord (*w, FL_Coord *h);
+                            FL_Coord *w, FL_Coord *h);
 @end example
 @noindent
 can be used.
@@ -1746,13 +1746,14 @@ following routines
 @anchor{fl_set_form_icon_data()}
 @example
 void fl_set_form_icon(FL_FORM *form, Pixmap icon, Pixmap mask);
-void fl_set_form_icon_data(FL_FORM  *form, char **data);
+void fl_set_form_icon_data(FL_FORM *form, char **data);
 @end example
 @noindent
-where @code{icon} can be any valid pixmap ID. (@pxref{Pixmap Object}
+where the arguments for the first function, @code{icon} and
+@code{mask}, can be any valid pixmap ID. (See @pxref{Pixmap Object}
 for some of the routines that can be used to create pixmaps.) Note
 that a previously set icon is not freed or modified in anyway. The
-second functions can be used to instead used if you have valid pixmap
+second function can be used instead if you have valid pixmap
 data as an array of strings (e.g., by having included an 'xpm' file).
 
 If, for any reason, you would like to change the form title after the

@@ -62,7 +62,7 @@ typedef struct {
 #define memmove( a, b, c )   bcopy( b, a, c )
 #endif
 
-#endif
+#endif  /* PFORMBROWSER_H */
 
 
 /*

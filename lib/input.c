@@ -610,7 +610,7 @@ handle_movement( FL_OBJECT * obj,
         if ( shiftkey_down( kmask ) )
             sp->position = startpos;
         else if ( sp->position > 0 )
-            sp->position--;
+            sp->position--; 
 
         if ( sp->str[ sp->position ] == '\n' )
         {
@@ -1082,6 +1082,44 @@ handle_key( FL_OBJECT    * obj,
     int oldx = sp->xoffset;
     int oldmax = sp->max_pixels;
 
+    /* InOut mode */
+
+    if ( sp->inout_mode )
+    {
+        if ( ! sp->inout_active )
+        {
+            if ( key == kmap.del_prev_char || key == kmap.backspace )
+            {
+                /* Start InOutput mode, save actual string contents */
+
+                if ( sp->inout_savestr )
+                    fli_safe_free( sp->inout_savestr );
+                sp->inout_savestr = fl_strdup( sp->str );
+                sp->inout_active = 1;
+            }
+
+            return FL_RETURN_NONE;
+        }
+
+        if ( key == 0x1b )       /* <Esc> */
+        {
+            /* Ignore changes and restore former input, reset inout_active */
+
+            if ( sp->str )
+                fli_safe_free( sp->str );
+            sp->str = sp->inout_savestr;
+            sp->inout_savestr = NULL;
+            sp->inout_active = 0;
+            sp->inout_changed = 0;
+            sp->position = strlen( sp->str );
+
+            fl_freeze_form( obj->form );
+            fl_redraw_object( sp->input );
+            fl_unfreeze_form( obj->form );
+            return FL_RETURN_NONE;
+        }
+    }
+
     /* Increase the size of the buffer for the text if it's full */
 
     slen = strlen( sp->str );
@@ -1166,7 +1204,11 @@ handle_key( FL_OBJECT    * obj,
         }
     }
     else
+    {
         ret = handle_edit( obj, key, slen );
+        if ( sp->inout_active )
+            sp->inout_changed |= ret;
+    }
 
     sp->endrange = -1;
 
@@ -1438,6 +1480,9 @@ handle_input( FL_OBJECT * obj,
                 sp->dummy->focus = 1;
             }
 
+            sp->inout_changed  = 0;
+            sp->inout_active   = 0;
+
             // Put the cursor back into the position where it was (except
             // for DOS mode where it's always positioned at the start)
 
@@ -1454,7 +1499,6 @@ handle_input( FL_OBJECT * obj,
             }
 
             fl_get_input_cursorpos( obj, &sp->xpos, &sp->ypos );
-
             sp->changed = 0;
             fl_redraw_object( sp->input );
             break;
@@ -1462,6 +1506,16 @@ handle_input( FL_OBJECT * obj,
         case FL_UNFOCUS:
             if ( obj->type == FL_MULTILINE_INPUT )
                 sp->dummy->focus = 0;
+
+             // on inout_mode : reset changed if not changed in inout_active */
+            if ( sp->inout_mode )
+            {
+                if  ( sp->inout_changed )
+                    sp->changed = 1;
+                else
+                    sp->changed = 0;
+                sp->inout_active   = 0;
+            }
 
             if ( sp->position >= 0 )
                 sp->position = - sp->position - 1;
@@ -1477,6 +1531,8 @@ handle_input( FL_OBJECT * obj,
             if ( ev )
                 ret =   ( sp->changed ? FL_RETURN_CHANGED : FL_RETURN_NONE )
                       | FL_RETURN_END;
+
+            sp->inout_active = 0; /* reset active, on leaving the field */
             break;
 
         case FL_UPDATE:
@@ -1708,12 +1764,18 @@ fl_create_input( int          type,
             break;
 
         default :
-            sp->maxchars = 0;
+            sp->maxchars = 0; // 0 meens string not limited yet
     }
 
     sp->dummy      = obj;
     sp->input      = obj;
     sp->field_char = ' ';
+
+    /* variables for InOutput mode */
+    sp->inout_mode = 0;
+    sp->inout_active = 0;
+    sp->inout_changed = 0;
+    sp->inout_savestr = NULL;
 
     if ( obj->type == FL_INT_INPUT )
         sp->validate = int_validator;
@@ -1855,6 +1917,11 @@ fl_set_input( FL_OBJECT  * obj,
     const char *q;
     int old_pos = sp->position;
 
+    /* When in inout mode don't update while editing is active */
+
+    if ( sp->inout_active )
+        return;
+
     if ( ! str )
         str = "";
 
@@ -1874,6 +1941,7 @@ fl_set_input( FL_OBJECT  * obj,
     *p = '\0';
 
     sp->position = len;
+
     sp->endrange = -1;
 
     sp->lines = fl_get_input_numberoflines( obj );
@@ -1883,7 +1951,7 @@ fl_set_input( FL_OBJECT  * obj,
        focus must be negative of length of strig minus one) */
 
     if ( old_pos < 0 )
-        sp->position = - len - 1;
+       sp->position = - len - 1;
 
     /* Get max string width - it's possible that fl_set_input() is used before
        the form is show, draw_object is a no-op, thus we end up with a wrong
@@ -1988,7 +2056,9 @@ fl_set_input_fieldchar( FL_OBJECT * obj,
 const char *
 fl_get_input( FL_OBJECT * obj )
 {
-    return ( ( FLI_INPUT_SPEC * ) obj->spec )->str;
+    FLI_INPUT_SPEC *sp = obj->spec;
+
+    return sp->str;
 }
 
 
@@ -2222,7 +2292,7 @@ fl_get_input_cursorpos( FL_OBJECT * obj,
             *x += 1;
         }
 
-    if ( sp->position < 0 )
+if ( sp->position < 0 )
     {
         return *x = -1;
     }
@@ -3035,6 +3105,29 @@ fl_set_input_mode( int mode )
     return old_mode;
 }
 
+
+// >> Heisch InOut mode
+/***************************************
+ * de-/activate inout mode
+ ***************************************/
+
+int
+fl_set_input_inout_mode( FL_OBJECT * obj,
+                         int         mode )
+{
+    FLI_INPUT_SPEC *sp = obj->spec;
+    int old_mode = sp->inout_mode;
+
+    if ( obj->type == FL_MULTILINE_INPUT )
+        return 0;
+
+    if ( ! ( sp->inout_mode = mode ) )
+        sp->inout_active = 0;
+
+    return old_mode;
+}
+
+// << Heisch InOut mode
 
 /*
  * Local variables:

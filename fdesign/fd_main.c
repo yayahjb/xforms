@@ -60,7 +60,7 @@ static const char *fd_version[ ] =
 {
     "fdesign (FORM Designer) " LIBVERSION( FL_VERSION, FL_REVISION ) "." FL_FIXLEVEL,
     "Copyright (c) 1996-2002 by T.C. Zhao and Mark Overmars",
-    "GNU Lesser General Public License sinc 2002",
+    "GNU Lesser General Public License since 2002",
     NULL
 };
 
@@ -379,31 +379,31 @@ main_loop( void )
 
 static FL_CMD_OPT fd_cmdopt[ ] =
 {
-    { "-geometry",   "*geometry",       XrmoptionSepArg, NULL     },
-    { "-border",     ".XForm.Border",   XrmoptionNoArg, "1"       },
-    { "-convert",    ".convert",        XrmoptionNoArg, "1"       },
-    { "-dir",        ".dir",            XrmoptionSepArg, NULL     },
-    { "-unit",       "*unit",           XrmoptionSepArg, NULL     },
-    { "-altformat",  "*altformat",      XrmoptionNoArg, "1"       },
-    { "-I",          "*xformHeader",    XrmoptionSepArg, NULL     },
-    { "-G",          "*glcanvasHeader", XrmoptionSepArg, NULL     },
-    { "-main",       "*main",           XrmoptionNoArg, "1"       },
-    { "-callback",   "*callback",       XrmoptionNoArg, "1"       },
-    { "-lax",        "*lax",            XrmoptionNoArg, "1"       },
-    { "-nocode",     "*nocode",         XrmoptionNoArg, "0"       },
-    { "-version",    ".fdversion",      XrmoptionNoArg, "1"       },
-    { "-compensate", ".compensate",     XrmoptionNoArg, "1"       },
-    { "-ada",        ".language",       XrmoptionNoArg, "ada95"   },
-    { "-ada95",      ".language",       XrmoptionNoArg, "ada95"   },
-    { "-perl",       ".language",       XrmoptionNoArg, "perl"    },
-    { "-python",     ".language",       XrmoptionNoArg, "python"  },
-    { "-fortran",    ".language",       XrmoptionNoArg, "fortran" },
-    { "-pascal",     ".language",       XrmoptionNoArg, "pascal"  },
-    { "-scm",        ".language",       XrmoptionNoArg, "scm"     },
-    { "-ps",         ".language",       XrmoptionNoArg, "ps"      },
-    { "-filter",     ".filter",         XrmoptionSepArg, NULL     },
-    { "-migrate",    ".migrate",        XrmoptionNoArg, "1"       },
-    { "-help",       ".help",           XrmoptionNoArg, "1"       }
+    { "-geometry",      "*geometry",       XrmoptionSepArg, NULL     },
+    { "-border",        ".XForm.Border",   XrmoptionNoArg, "1"       },
+    { "-convert",       ".convert",        XrmoptionNoArg, "1"       },
+    { "-dir",           ".dir",            XrmoptionSepArg, NULL     },
+    { "-unit",          "*unit",           XrmoptionSepArg, NULL     },
+    { "-altformat",     "*altformat",      XrmoptionNoArg, "1"       },
+    { "-I",             "*xformHeader",    XrmoptionSepArg, NULL     },
+    { "-G",             "*glcanvasHeader", XrmoptionSepArg, NULL     },
+    { "-main",          "*main",           XrmoptionNoArg, "1"       },
+    { "-callback",      "*callback",       XrmoptionNoArg, "1"       },
+    { "-lax",           "*lax",            XrmoptionNoArg, "1"       },
+    { "-nocode",        "*nocode",         XrmoptionNoArg, "0"       },
+    { "-version",       ".fdversion",      XrmoptionNoArg, "1"       },
+    { "-compensate",    ".compensate",     XrmoptionNoArg, "1"       },
+    { "-ada",           ".language",       XrmoptionNoArg, "ada95"   },
+    { "-ada95",         ".language",       XrmoptionNoArg, "ada95"   },
+    { "-perl",          ".language",       XrmoptionNoArg, "perl"    },
+    { "-python",        ".language",       XrmoptionNoArg, "python"  },
+    { "-fortran",       ".language",       XrmoptionNoArg, "fortran" },
+    { "-pascal",        ".language",       XrmoptionNoArg, "pascal"  },
+    { "-scm",           ".language",       XrmoptionNoArg, "scm"     },
+    { "-ps",            ".language",       XrmoptionNoArg, "ps"      },
+    { "-filter",        ".filter",         XrmoptionSepArg, NULL     },
+    { "-migrate",       ".migrate",        XrmoptionNoArg, "1"       },
+    { "-help",          ".help",           XrmoptionNoArg, "1"       }
 };
 
 #define Ncopt ( sizeof fd_cmdopt / sizeof *fd_cmdopt )
@@ -877,6 +877,8 @@ main( int    argc,
 
     if ( ! ( fd_display = fl_initialize( &argc, argv, 0, fd_cmdopt, Ncopt ) ) )
         exit( 1 );
+
+    fdopt.use_x11_fonts = 1;
 
     fl_get_app_resources( fdres, Nropt );
     fl_add_signal_callback( SIGINT, interrupted, 0 );

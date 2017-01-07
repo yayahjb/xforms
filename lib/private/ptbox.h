@@ -62,11 +62,13 @@ typedef struct {
     int               def_style;     /* default font style */
     int               def_align;     /* default alignment */
     int               def_height;    /* height of line with default font size */
+
     GC                defaultGC;     /* text drawing GC */
     GC                backgroundGC;  /* background GC */
     GC                selectGC;      /* background for selection GC */
     GC                nonselectGC;   /* for text of non-selectable lines */
     GC                bw_selectGC;   /* b&w selection text GC */
+
     int               specialkey;   /* Key that indicates a special symbol */
     FL_CALLBACKPTR    callback;      /* double and triple click callback */
     long              callback_data; /* data for callback */
@@ -189,13 +191,14 @@ extern int fli_tbox_get_bottomline( FL_OBJECT * );
 
 extern void fli_tbox_react_to_vert( FL_OBJECT *,
                                     int );
+
 extern void fli_tbox_react_to_hori( FL_OBJECT *,
                                     int );
 
 extern int fli_tbox_get_line_yoffset( FL_OBJECT *,
                                       int );
 
-#endif
+#endif /* PTBOX_H */
 
 
 

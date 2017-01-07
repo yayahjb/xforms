@@ -4,7 +4,7 @@ AC_PREREQ(2.59)
 
 dnl !!! THIS NEEDS CHANCHING FOR EACH RELEASE !!!
 
-AC_INIT([xforms],[1.2.5pre1],[xforms-development@nongnu.org])
+AC_INIT([xforms],[1.2.5pre2],[xforms-development@nongnu.org])
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_SRCDIR(lib/forms.c)
 XFORMS_CHECK_VERSION

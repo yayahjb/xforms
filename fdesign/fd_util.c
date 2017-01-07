@@ -118,7 +118,7 @@ is_duplicate_info( const char * s )
                                      ++n_dup_info * sizeof dup_info_cache ) )
              && ( dup_info_cache[ n_dup_info - 1 ] = fl_strdup( s ) ) ) )
     {
-        fprintf( stderr, "Running oit of memory\n" );
+        fprintf( stderr, "Running out of memory\n" );
         exit( 1 );
     }
 

@@ -224,6 +224,7 @@ fd_add_free( int          type,
     FL_OBJECT *obj = fl_add_free( type, x, y, w, h, l, noop_handle );
 
     obj->c_vdata = NULL;
+    obj->c_cdata = NULL;
     return obj;
 }
 
@@ -527,6 +528,8 @@ init_classes( void )
     add_class_def( VN( FL_SPINNER ), OBJNAME( spinner ), ++bl );
     add_type_def( FL_SPINNER, FL_INT_SPINNER, "INT_SPINNER" );
     add_type_def( FL_SPINNER, FL_FLOAT_SPINNER, "FLOAT_SPINNER" );
+    add_type_def( FL_SPINNER, FL_INT_MIDDLE_SPINNER, "INT_MIDDLE_SPINNER" );
+    add_type_def( FL_SPINNER, FL_FLOAT_MIDDLE_SPINNER, "FLOAT_MIDDLE_SPINNER" );
 
     fl_add_browser_line( fd_control->objectbrowser, "@-" );
     bl++;
@@ -620,7 +623,7 @@ init_classes( void )
     bl++;
 
     fl_add_browser_line( fd_control->objectbrowser, "freeobject" );
-    add_class_def( VN( FL_FREE ), "free", fd_create_free, fd_add_free,
+    add_class_def( VN( FL_FREE ), "freeobject", fd_create_free, fd_add_free,
                    ++bl );
     add_type_def( FL_FREE, FL_NORMAL_FREE,     "NORMAL_FREE" );
     add_type_def( FL_FREE, FL_INACTIVE_FREE,   "INACTIVE_FREE" );

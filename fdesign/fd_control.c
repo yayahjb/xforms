@@ -15,7 +15,6 @@
  *  along with XForms.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /**
  * \file fd_control.c
  *
@@ -268,14 +267,15 @@ static MenuEntry opmenu[ ] =
  ***************************************/
 
 void
-optionmenu_callback( FL_OBJECT * ob,
+optionmenu_callback( FL_OBJECT * obj,
                      long        data  FL_UNUSED_ARG )
 {
-    int n = fl_get_menu( ob ) - 1;
-    char buf[ 32 ];
+    int n = fl_get_menu( obj ) - 1;
 
     if ( n >= 0 )
     {
+        char buf[ 32 ];
+
         *opmenu[ n ].p = ! *opmenu[ n ].p;
         sprintf( buf, "%s%%%c", opmenu[ n ].entry,
                  *opmenu[ n ].p ? 'B' : 'b' );

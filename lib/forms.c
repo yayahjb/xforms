@@ -748,7 +748,7 @@ fli_scale_form( FL_FORM * form,
     }
 
     /* Only notify objects now - parent objects might have to adjust
-       sizes and positions of child objects and when objects get the
+       sizes and positions of child objects and if objects would get the
        resize notice immediately after resizing above then the parent
        object gets it first, sets a different size for the child, which
        then is overwritten */
@@ -1207,7 +1207,7 @@ fl_prepare_form_window( FL_FORM    * form,
     }
     else if ( place != FL_PLACE_FREE )
     {
-        FL_COORD nmx,
+        FL_Coord nmx,
                  nmy;
 
         switch ( place )
@@ -2401,7 +2401,7 @@ get_decoration_sizes_from_wm( Atom      a,
 
     /* If no properties are returne the window probably has no decorations */
 
-    if (    ret == Success
+    if ( ret == Success
          && actual_type == XA_CARDINAL
          && actual_format == 32
          && nitems == 4 )

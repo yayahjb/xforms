@@ -62,9 +62,9 @@ typedef struct {
 } PixmapSPEC;
 
 
-static int red_closeness   = 40000;
+static int red_closeness = 40000;
 static int green_closeness = 30000;
-static int blue_closeness  = 50000;
+static int blue_closeness = 50000;
 
 
 /***************************************
@@ -72,44 +72,44 @@ static int blue_closeness  = 50000;
  ***************************************/
 
 static void
-init_xpm_attributes( Window          win,
+init_xpm_attributes( Window win,
                      XpmAttributes * xpma,
-                     FL_COLOR        tran  FL_UNUSED_ARG )
+                     FL_COLOR tran FL_UNUSED_ARG )
 {
-    XWindowAttributes xwa;
+	XWindowAttributes xwa;
 
-    XGetWindowAttributes( flx->display, win, &xwa );
-    xpma->valuemask = XpmVisual | XpmDepth | XpmColormap;
-    xpma->depth = xwa.depth;
-    xpma->visual = xwa.visual;
-    xpma->colormap = xwa.colormap;
+	XGetWindowAttributes( flx->display, win, &xwa );
+	xpma->valuemask = XpmVisual | XpmDepth | XpmColormap;
+	xpma->depth = xwa.depth;
+	xpma->visual = xwa.visual;
+	xpma->colormap = xwa.colormap;
 
-    xpma->valuemask      |= XpmRGBCloseness;
-    xpma->red_closeness   = red_closeness;
-    xpma->green_closeness = green_closeness;
-    xpma->blue_closeness  = blue_closeness;
+	xpma->valuemask |= XpmRGBCloseness;
+	xpma->red_closeness = red_closeness;
+	xpma->green_closeness = green_closeness;
+	xpma->blue_closeness = blue_closeness;
 
 #if XpmRevision >= 7
-    xpma->valuemask |= XpmReturnPixels | XpmReturnAllocPixels;
+	xpma->valuemask |= XpmReturnPixels | XpmReturnAllocPixels;
 #else
-    xpma->valuemask |= XpmReturnPixels;
+	xpma->valuemask |= XpmReturnPixels;
 #endif
 
-    /* According to the documentation transparency isn't implemented */
+ /* According to the documentation transparency isn't implemented */
 
-    xpma->colorsymbols = NULL;
+	xpma->colorsymbols = NULL;
 #if 0
-    xpma->valuemask   |= XpmColorSymbols;
-    xpma->colorsymbols = fl_calloc( 2, sizeof *xpma->colorsymbols );
-    xpma->numsymbols   = 2;
+	xpma->valuemask |= XpmColorSymbols;
+	xpma->colorsymbols = fl_calloc( 2, sizeof *xpma->colorsymbols );
+	xpma->numsymbols = 2;
 
-    xpma->colorsymbols[ 0 ].name  = "None";
-    xpma->colorsymbols[ 0 ].value = 0;
-    xpma->colorsymbols[ 0 ].pixel = fl_get_flcolor( tran );
+	xpma->colorsymbols[ 0 ].name = "None";
+	xpma->colorsymbols[ 0 ].value = 0;
+	xpma->colorsymbols[ 0 ].pixel = fl_get_flcolor( tran );
 
-    xpma->colorsymbols[ 1 ].name  = "opaque";
-    xpma->colorsymbols[ 1 ].value = 0;
-    xpma->colorsymbols[ 1 ].pixel = fl_get_flcolor( FL_BLACK );
+	xpma->colorsymbols[ 1 ].name = "opaque";
+	xpma->colorsymbols[ 1 ].value = 0;
+	xpma->colorsymbols[ 1 ].pixel = fl_get_flcolor( FL_BLACK );
 #endif
 }
 
@@ -120,11 +120,11 @@ init_xpm_attributes( Window          win,
 static void
 del_xpm_attributes( XpmAttributes * xpma )
 {
-    if ( ! xpma )
-        return;
+	if ( ! xpma )
+		return;
 
-    fl_free( xpma->colorsymbols );
-    fl_free( xpma );
+	fl_free( xpma->colorsymbols );
+	fl_free( xpma );
 }
 
 
@@ -555,14 +555,14 @@ create_from_pixmapdata( Window          win,
  ***************************************/
 
 Pixmap
-fl_create_from_pixmapdata( Window          win,
-                           char         ** data,
-                           unsigned int  * w,
-                           unsigned int  * h,
-                           Pixmap        * sm,
-                           int           * hotx,
-                           int           * hoty,
-                           FL_COLOR        tran )
+fl_create_from_pixmapdata( Window win,
+                           char ** data,
+                           unsigned int * w,
+                           unsigned int * h,
+                           Pixmap * sm,
+                           int * hotx,
+                           int * hoty,
+                           FL_COLOR tran )
 {
     Pixmap p = None;
     XpmAttributes * xpmattrib = fl_calloc( 1, XpmAttributesSize( ) );
@@ -612,8 +612,8 @@ fl_get_pixmap_pixmap( FL_OBJECT * obj,
 {
     FL_BUTTON_STRUCT *sp;
 
-    if ( ! (    IsValidClass( obj, FL_PIXMAP )
-             || IsValidClass( obj, FL_PIXMAPBUTTON ) ) )
+    if ( ! ( IsValidClass( obj, FL_PIXMAP )
+          || IsValidClass( obj, FL_PIXMAPBUTTON ) ) )
     {
         M_err( "fl_get_pixmap_pixmap", "%s is not Pixmap/pixmapbutton class",
                ( obj && obj->label ) ? obj->label : "" );
@@ -633,17 +633,18 @@ fl_get_pixmap_pixmap( FL_OBJECT * obj,
 
 
 /***************************************
+ * Generic routine to read a pixmap file.
  ***************************************/
 
 static Pixmap
-read_pixmapfile( Window          win,
-                 const char    * file,
-                 unsigned int  * w,
-                 unsigned int  * h,
-                 Pixmap        * shape_mask,
-                 int           * hotx,
-                 int           * hoty,
-                 XpmAttributes * xpmattrib )
+read_pixmapfile( Window win,
+                 const char * file,
+                 unsigned int * w,
+                 unsigned int * h,
+                 Pixmap * shape_mask,
+                 int * hotx,
+                 int * hoty,
+                  XpmAttributes * xpmattrib )
 {
     Pixmap p = None;
     int s;
@@ -666,9 +667,9 @@ read_pixmapfile( Window          win,
     if ( p != None )
     {
         if ( w )
-            *w = xpmattrib->width;
+             *w = xpmattrib->width;
         if ( h )
-            *h = xpmattrib->height;
+             *h = xpmattrib->height;
         if ( hotx )
             *hotx = xpmattrib->x_hotspot;
         if ( hoty )
@@ -684,20 +685,20 @@ read_pixmapfile( Window          win,
  ***************************************/
 
 Pixmap
-fl_read_pixmapfile( Window         win,
-                    const char   * file,
+fl_read_pixmapfile( Window win,
+                    const char * file,
                     unsigned int * w,
                     unsigned int * h,
-                    Pixmap       * shape_mask,
-                    int          * hotx,
-                    int          * hoty,
-                    FL_COLOR       tran )
+                    Pixmap * shape_mask,
+                    int * hotx,
+                    int * hoty,
+                    FL_COLOR tran )
 {
     Pixmap p = None;
     XpmAttributes * xpmattrib = fl_calloc( 1, XpmAttributesSize( ) );
 
     init_xpm_attributes( win, xpmattrib, tran );
-    p  = read_pixmapfile( win, file, w, h, shape_mask, hotx, hoty, xpmattrib);
+    p = read_pixmapfile( win, file, w, h, shape_mask, hotx, hoty, xpmattrib);
     del_xpm_attributes( xpmattrib );
 
     return p;
@@ -1020,7 +1021,7 @@ fl_set_pixmapbutton_focus_data( FL_OBJECT  * obj,
     xpmattrib = fl_calloc( 1, XpmAttributesSize( ) );
     init_xpm_attributes( win, xpmattrib, obj->col1 );
 
-    p = create_from_pixmapdata( win, bits, &psp->focus_w, &psp->focus_h,
+    p = create_from_pixmapdata( win, bits, &sp->bits_w, &sp->bits_h,
                                 &shape_mask, &hx, &hy, xpmattrib );
 
     if ( p != None )

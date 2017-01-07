@@ -523,7 +523,6 @@ fl_create_counter( int          type,
     ob->lcol        = FL_COUNTER_LCOL;
     ob->want_motion = 1;
     ob->want_update = 1;
-//    ob->bw          = FL_COUNTER_BW;
 
     sp = ob->spec     = fl_calloc( 1, sizeof *sp );
     sp->min           = -1000000.0;

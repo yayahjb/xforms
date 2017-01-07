@@ -284,7 +284,8 @@ handle_mouse_wheel( FL_OBJECT * obj,
     if ( key != FL_MBUTTON4 && key != FL_MBUTTON5 )
         return FL_RETURN_NONE;
 
-    step = sp->step > 0.0 ? 10.0 * sp->step : 0.1 * range;
+    /* 1.3.6 : constants have been 5.0 and 0.05 */
+    step = sp->step > 0.0 ? ( 10.0 * sp->step ) : ( 0.1 * range );
 
     if ( shiftkey_down( ( ( XButtonEvent * ) xev )->state ) )
         step *= 0.1;

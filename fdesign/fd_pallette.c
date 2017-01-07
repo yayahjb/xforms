@@ -58,7 +58,7 @@ init_entry_table( FL_FORM * form )
     if ( ! entries )
         entries = fl_calloc( 1, MAXCLASSES * sizeof *entries );
 
-    /* we obtain the class by looking at the callback function */
+    /* We obtain the class by looking at the callback function */
 
     for ( i = 0, ob = form->first; i < MAXCLASSES && ob; ob = ob->next, i++ )
         if ( ob->object_callback )
@@ -77,8 +77,9 @@ init_entry_table( FL_FORM * form )
 /***************************************
  ***************************************/
 
-static FL_FORM *
-create_all( void )
+static
+FL_FORM *
+create_pallette( void )
 {
     FD_buttform *bf;
     FD_staticform *sf;
@@ -129,7 +130,7 @@ dismiss_pallete( FL_OBJECT * ob,
 void
 hide_pallette( void )
 {
-    FL_FORM *form = create_all( );
+    FL_FORM *form = create_pallette( );
 
     if ( form->visible )
         fl_hide_form( form );
@@ -142,7 +143,7 @@ hide_pallette( void )
 void
 show_pallette( void )
 {
-    FL_FORM *form = create_all( );
+    FL_FORM *form = create_pallette( );
     static int first = 1;
 
     if ( first )

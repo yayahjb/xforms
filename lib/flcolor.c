@@ -260,7 +260,7 @@ const char *
 fli_query_colorname( FL_COLOR col )
 {
     FLI_IMAP *flmap;
-    static char buf[ 32 ];
+    static char buf[ 128 ];
 
     for ( flmap = fli_imap; flmap < fli_imap + FL_BUILT_IN_COLS + 1; flmap++ )
         if ( col == flmap->index )
@@ -1464,7 +1464,8 @@ fli_dump_state_info( int          mode,
     if ( fli_cntl.debug )
     {
         fprintf( stderr, "In %s", where );
-        fprintf( stderr, " VClass: %s", fli_vclass_name( fli_class( mode ) ) );
+        fprintf( stderr, " VClass: %s (%d)",
+                 fli_vclass_name( fli_class( mode ) ), mode );
         fprintf( stderr, " VisualID: 0x%lx", fs->xvinfo->visualid );
         fprintf( stderr, " Depth: %d %d",
                  fli_depth( mode ), fs->xvinfo->depth );
@@ -1541,7 +1542,7 @@ rgb2pixel( unsigned int r,
     FL_State *s = fl_state + fl_vmode;
 
     /* This one drops bits and looks bad if primary color resolution is less
-       than 6, but server calculates color this way. A better way  should be
+       than 6, but the server calculates color this way. A better way would be
        r = ((float) r * ((1L << s->rbits) - 1) / 255.0 + 0.1); */
 
     if ( s->rbits < 8 )

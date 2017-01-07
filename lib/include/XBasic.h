@@ -262,7 +262,7 @@ FL_EXPORT void fl_update_display( int block );
 #define fl_diagline( x, y, w, h, c )                                          \
     do                                                                        \
     {                                                                         \
-        FL_COORD fli_x = ( x ), fli_y = ( y );                                \
+        FL_Coord fli_x = ( x ), fli_y = ( y );                                \
         fl_line( fli_x, fli_y, fli_x + ( w ) - 1, fli_y + ( h ) - 1, ( c ) ); \
     } while ( 0 )
 
@@ -296,19 +296,19 @@ FL_EXPORT int fl_get_drawmode( void );
 
 /** Ellipses **/
 
-FL_EXPORT void fl_circ( FL_COORD x,
-                        FL_COORD y,
-                        FL_COORD r,
+FL_EXPORT void fl_circ( FL_Coord x,
+                        FL_Coord y,
+                        FL_Coord r,
                         FL_COLOR col );
 
-FL_EXPORT void fl_circf( FL_COORD x,
-                         FL_COORD y,
-                         FL_COORD r,
+FL_EXPORT void fl_circf( FL_Coord x,
+                         FL_Coord y,
+                         FL_Coord r,
                          FL_COLOR col );
 
-FL_EXPORT void fl_circbound( FL_COORD x,
-                             FL_COORD y,
-                             FL_COORD r,
+FL_EXPORT void fl_circbound( FL_Coord x,
+                             FL_Coord y,
+                             FL_Coord r,
                              FL_COLOR col );
 
 FL_EXPORT void fl_oval( int      fill,
@@ -339,16 +339,16 @@ FL_EXPORT void fl_ovalarc( int      fill,
 
 /* Arcs */
 
-FL_EXPORT void fl_arcf( FL_COORD x,
+FL_EXPORT void fl_arcf( FL_Coord x,
                         FL_Coord y,
-                        FL_COORD r,
+                        FL_Coord r,
                         int      a1,
                         int      a2,
                         FL_COLOR col );
 
-FL_EXPORT void fl_arc( FL_COORD x,
+FL_EXPORT void fl_arc( FL_Coord x,
                        FL_Coord y,
-                       FL_COORD r,
+                       FL_Coord r,
                        int      a1,
                        int      a2,
                        FL_COLOR col );
@@ -794,22 +794,22 @@ FL_EXPORT void fl_set_text_clipping( FL_Coord x,
 
 FL_EXPORT void fl_unset_text_clipping( void );
 
-FL_EXPORT int fl_get_global_clipping( FL_COORD * x,
-                                      FL_COORD * y,
-                                      FL_COORD * w,
-                                      FL_COORD * h );
+FL_EXPORT int fl_get_global_clipping( FL_Coord * x,
+                                      FL_Coord * y,
+                                      FL_Coord * w,
+                                      FL_Coord * h );
 
 FL_EXPORT int fl_get_clipping( int        include_global,
-                               FL_COORD * x,
-                               FL_COORD * y,
-                               FL_COORD * w,
-                               FL_COORD * h );
+                               FL_Coord * x,
+                               FL_Coord * y,
+                               FL_Coord * w,
+                               FL_Coord * h );
 
 FL_EXPORT int fl_get_text_clipping( int        include_global,
-                                    FL_COORD * x,
-                                    FL_COORD * y,
-                                    FL_COORD * w,
-                                    FL_COORD * h );
+                                    FL_Coord * x,
+                                    FL_Coord * y,
+                                    FL_Coord * w,
+                                    FL_Coord * h );
 
 FL_EXPORT void fl_set_gc_clipping( GC       gc,
                                    FL_Coord x,

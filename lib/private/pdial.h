@@ -45,7 +45,7 @@ typedef struct {
 } FLI_DIAL_SPEC;
 
 
-#endif /* pdial_h */
+#endif /* PDIAL_H */
 
 
 /*

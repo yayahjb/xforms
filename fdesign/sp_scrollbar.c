@@ -40,6 +40,60 @@
 static FD_scrollbarattrib *scb_attrib;
 static FL_OBJECT * curobj;
 
+#define is_vert( t ) (    t == FL_VERT_SCROLLBAR      \
+                       || t == FL_VERT_NICE_SCROLLBAR \
+                       || t == FL_VERT_THIN_SCROLLBAR \
+                       || t == FL_VERT_PLAIN_SCROLLBAR)
+
+
+/***************************************
+ ***************************************/
+
+void
+scrollbar_change_type( FL_OBJECT * obj,
+                       int         new_type )
+{
+    FLI_SCROLLBAR_SPEC *sp = obj->spec;
+
+	if ( is_vert( new_type ) )
+	{
+		if ( new_type == FL_VERT_SCROLLBAR )
+			sp->slider->type = FL_VERT_BROWSER_SLIDER2;
+		else if ( new_type == FL_VERT_THIN_SCROLLBAR )
+			sp->slider->type = FL_VERT_THIN_SLIDER;
+		else if ( new_type == FL_VERT_PLAIN_SCROLLBAR )
+			sp->slider->type = FL_VERT_BASIC_SLIDER;
+		else if ( new_type == FL_VERT_NICE_SCROLLBAR )
+			sp->slider->type = FL_VERT_NICE_SLIDER2;
+        else
+            return;
+
+		fl_set_object_label( sp->up , "8" );
+		fl_set_object_label( sp->down , "2" );
+	}
+	else
+	{
+		if ( new_type == FL_HOR_SCROLLBAR )
+			sp->slider->type = FL_HOR_BROWSER_SLIDER2;
+		else if ( new_type == FL_HOR_THIN_SCROLLBAR )
+			sp->slider->type = FL_HOR_THIN_SLIDER;
+		else if ( new_type == FL_HOR_PLAIN_SCROLLBAR )
+			sp->slider->type = FL_HOR_BASIC_SLIDER;
+		else if ( new_type == FL_HOR_NICE_SCROLLBAR )
+			sp->slider->type = FL_HOR_NICE_SLIDER2;
+        else
+            return;
+
+		fl_set_object_label( sp->up , "6" );
+		fl_set_object_label( sp->down , "4" );
+	}
+
+    if ( is_vert( new_type ) != is_vert( obj->type ) )
+        fl_set_object_size( obj, obj->h, obj->w );
+
+	obj->type = new_type;
+}
+
 
 /***************************************
  ***************************************/
@@ -64,11 +118,6 @@ scrollbar_create_spec_form( void )
 
 /***************************************
  ***************************************/
-
-#define is_vert( t ) (    t == FL_VERT_SCROLLBAR      \
-                       || t == FL_VERT_NICE_SCROLLBAR \
-                       || t == FL_VERT_THIN_SCROLLBAR )
-
 
 void
 scrollbar_adjust_spec_form( FL_OBJECT * obj )
@@ -132,7 +181,7 @@ scrollbar_reread_spec_form( FL_OBJECT * obj )
         fl_set_scrollbar_size( obj, r1 );
 
     if (    get_checked_float( fl_get_input( scb_attrib->ldelta ), &r1 )
-         && get_checked_float( fl_get_input( scb_attrib->ldelta ), &r2 ) )
+         && get_checked_float( fl_get_input( scb_attrib->rdelta ), &r2) )
         fl_set_scrollbar_increment( obj, r1, r2 );
 
     redraw_the_form( 0 );

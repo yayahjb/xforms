@@ -48,50 +48,106 @@ set_geom( FL_OBJECT * obj )
     FLI_SPINNER_SPEC *sp = obj->spec;
     FL_Coord bwh;
 
-    if ( obj->w >= obj->h )
+    if ( ( obj->type == FL_INT_SPINNER )
+        || ( obj->type == FL_FLOAT_SPINNER ) )
     {
-        bwh = obj->h / 2;
-        bwh = FL_max( bwh, 1 );
-        obj->h = 2 * bwh;
+        /* Both buttons are on one side of the input field */
 
-        sp->input->x = obj->x;
-        sp->input->y = obj->y;
-        sp->input->w = obj->w - bwh - 1;
-        sp->input->h = obj->h;
-
-        sp->up->x = sp->down->x = obj->x + obj->w - bwh - 1;
-        sp->up->y = obj->y;
-        sp->down->y = obj->y + bwh;
-        sp->up->w = sp->up->h = sp->down->w = sp->down->h = bwh;
-
-        if ( sp->orient == 1 )
+        if ( obj->w >= obj->h )
         {
-            sp->orient = 0;
-            fl_set_object_label( sp->up,   "@8>" );
-            fl_set_object_label( sp->down, "@2>" );
+            /* Buttons are on the right side */
+
+            bwh = FL_max( obj->h / 2, 1 );
+            obj->h = 2 * bwh;
+
+            sp->input->x = obj->x;
+            sp->input->y = obj->y;
+            sp->input->w = obj->w - bwh - 1;
+            sp->input->h = obj->h;
+
+            sp->up->x = sp->down->x = obj->x + obj->w - bwh - 1;
+            sp->up->y = obj->y;
+            sp->down->y = obj->y + bwh;
+            sp->up->w = sp->up->h = sp->down->w = sp->down->h = bwh;
+
+            if ( sp->orient == 1 )
+            {
+                sp->orient = 0;
+                fl_set_object_label( sp->up,   "@8>" );
+                fl_set_object_label( sp->down, "@2>" );
+            }
+        }
+        else
+        {
+            /* Buttons are below the input field */
+
+            bwh = FL_max( obj->w / 2, 1 );
+            obj->w = 2 * bwh;
+
+            sp->input->x = obj->x;
+            sp->input->y = obj->y;
+            sp->input->w = obj->w;
+            sp->input->h = obj->h - bwh - 1;
+
+            sp->up->y = sp->down->y = obj->y + obj->h - bwh - 1;
+            sp->up->x = obj->x + bwh;
+            sp->down->x = obj->x;
+            sp->up->w = sp->up->h = sp->down->w = sp->down->h = bwh;
+
+            if ( sp->orient == 0 )
+            {
+                sp->orient = 1;
+                fl_set_object_label( sp->up,   "@6>" );
+                fl_set_object_label( sp->down, "@4>" );
+            }
         }
     }
     else
     {
-        bwh = obj->w / 2;
-        bwh = FL_max( bwh, 1 );
-        obj->w = 2 * bwh;
+        /* Button left, value, button right */
 
-        sp->input->x = obj->x;
-        sp->input->y = obj->y;
-        sp->input->w = obj->w;
-        sp->input->h = obj->h - bwh - 1;
-
-        sp->up->y = sp->down->y = obj->y + obj->h - bwh - 1;
-        sp->up->x = obj->x + bwh;
-        sp->down->x = obj->x;
-        sp->up->w = sp->up->h = sp->down->w = sp->down->h = bwh;
-
-        if ( sp->orient == 0 )
+        if ( obj->w >= obj->h )
         {
-            sp->orient = 1;
+            bwh = FL_max( obj->h / 2, 1 );
+            obj->h = 2 * bwh;
+
+            sp->up->y = sp->down->y = obj->y;
+            sp->up->w = sp->down->w = FL_min( obj->h, obj->w / 4);
+            sp->up->h = sp->down->h = obj->h;
+
+            sp->up->x = obj->x + obj->w - sp->up->w;
+            sp->down->x = obj->x;
+
+            sp->input->x = obj->x + sp->down->w;
+            sp->input->y = obj->y;
+            sp->input->w = obj->w - 2* sp->up->w;
+            sp->input->h = obj->h;
+
             fl_set_object_label( sp->up,   "@6>" );
             fl_set_object_label( sp->down, "@4>" );
+        }
+        else
+        {
+            /* Button below, value, button up */
+
+            obj->h = 2 * FL_max( obj->h / 2, 1 );
+
+            sp->up->w = sp->down->w = obj->w;
+            sp->up->h = sp->down->h = FL_min( obj->w, obj->h / 4 );
+
+            sp->down->x = obj->x;
+            sp->down->y = obj->y + obj->h - sp->down->h;
+            sp->up->x   = obj->x;
+            sp->up->y   = obj->y;
+
+            sp->input->x = obj->x;
+            sp->input->y = obj->y + sp->up->h;
+            sp->input->w = obj->w;
+            sp->input->h = obj->h - sp->up->h - sp->down->h;
+
+
+            fl_set_object_label( sp->up,   "@8>" );
+            fl_set_object_label( sp->down, "@2>" );
         }
     }
 
@@ -176,8 +232,9 @@ spinner_callback( FL_OBJECT * obj,
 
     obj->parent->returned = FL_RETURN_NONE;
 
-    if ( obj->parent->type == FL_INT_SPINNER )
-    { 
+    if ( ( obj->parent->type == FL_INT_SPINNER )
+        || (  obj->parent->type == FL_INT_MIDDLE_SPINNER ) )
+    {
         int old_i_val = sp->i_val;
 
         if ( data == 0 )    /* spinners input object was modified */
@@ -316,9 +373,15 @@ fl_create_spinner( int          type,
     obj->set_return = set_spinner_return;
     obj->spec       = sp = malloc( sizeof *sp );
 
-    sp->input = fl_create_input( type == FL_INT_SPINNER ?
-                                 FL_INT_INPUT : FL_FLOAT_INPUT,
+    if ( ( type == FL_INT_SPINNER )
+        || ( type == FL_INT_MIDDLE_SPINNER ) )
+
+        sp->input = fl_create_input( FL_INT_INPUT,
                                  0, 0, 0, 0, NULL );
+    else
+        sp->input = fl_create_input( FL_FLOAT_INPUT,
+                                 0, 0, 0, 0, NULL );
+
     sp->up = fl_create_button( FL_TOUCH_BUTTON, 0, 0, 0, 0,
                                orient == 0 ? "@8>" : "@6>" );
     sp->down = fl_create_button( FL_TOUCH_BUTTON, 0, 0, 0, 0,
@@ -351,11 +414,17 @@ fl_create_spinner( int          type,
     sp->prec   = DEFAULT_SPINNER_PRECISION;
     sp->attrib = 1;
 
+
+
     fl_add_child( obj, sp->input );
     fl_add_child( obj, sp->up );
     fl_add_child( obj, sp->down );
 
-    fl_set_input( sp->input, type == FL_INT_SPINNER ? "0" : "0.0" );
+    if ( ( type == FL_INT_SPINNER )
+        || ( type == FL_INT_MIDDLE_SPINNER ) )
+        fl_set_input( sp->input,"0" );
+    else
+        fl_set_input( sp->input,"0.0" );
 
     /* Set default return policy for a spinner object */
 
@@ -395,8 +464,9 @@ fl_get_spinner_value( FL_OBJECT * obj )
     const char *s_val = fl_get_input( sp->input );
     char *eptr;
 
-    if ( obj->type == FL_INT_SPINNER )
-    { 
+    if ( ( obj->type == FL_INT_SPINNER )
+        || ( obj->type == FL_INT_MIDDLE_SPINNER ) )
+    {
         long i_val = strtol( s_val, &eptr, 10 );
 
         if ( eptr == s_val || i_val > sp->i_max || i_val < sp->i_min )
@@ -413,7 +483,7 @@ fl_get_spinner_value( FL_OBJECT * obj )
              || f_val > sp->f_max
              || f_val < sp->f_min )
             f_val = sp->f_val;
-        
+
         if ( *eptr )
         {
             int max_len = 4 + sp->prec + log10( DBL_MAX );
@@ -439,7 +509,8 @@ fl_set_spinner_value( FL_OBJECT * obj,
 {
     FLI_SPINNER_SPEC *sp = obj->spec;
 
-    if ( obj->type == FL_INT_SPINNER )
+    if ( ( obj->type == FL_INT_SPINNER )
+        || ( obj->type == FL_INT_MIDDLE_SPINNER ) )
     {
         sp->i_val = FL_nint( val );
 
@@ -484,7 +555,8 @@ fl_set_spinner_bounds( FL_OBJECT * obj,
         max = tmp;
     }
 
-    if ( obj->type == FL_INT_SPINNER )
+    if ( ( obj->type == FL_INT_SPINNER )
+        || ( obj->type == FL_INT_MIDDLE_SPINNER ) )
     {
         sp->i_min = FL_nint( min );
         sp->i_max = FL_nint( max );
@@ -534,7 +606,8 @@ fl_get_spinner_bounds( FL_OBJECT * obj,
 {
     FLI_SPINNER_SPEC *sp = obj->spec;
 
-    if ( obj->type == FL_INT_SPINNER )
+    if ( ( obj->type == FL_INT_SPINNER )
+        || ( obj->type == FL_INT_MIDDLE_SPINNER ) )
     {
         *min = sp->i_min;
         *max = sp->i_max;
@@ -562,7 +635,8 @@ fl_set_spinner_step( FL_OBJECT * obj,
     if ( step <= 0.0 )
         return;
 
-    if ( obj->type == FL_INT_SPINNER )
+    if ( ( obj->type == FL_INT_SPINNER )
+        || ( obj->type == FL_INT_MIDDLE_SPINNER ) )
     {
         int istep = FL_nint( step );
 
@@ -594,7 +668,11 @@ fl_get_spinner_step( FL_OBJECT * obj )
 {
     FLI_SPINNER_SPEC *sp = obj->spec;
 
-    return obj->type == FL_INT_SPINNER ? sp->i_incr : sp->f_incr;
+    if ( ( obj->type == FL_INT_SPINNER )
+        || ( obj->type == FL_INT_MIDDLE_SPINNER ) )
+        return sp->i_incr;
+    else
+        return sp->f_incr;
 }
 
 
@@ -609,7 +687,9 @@ fl_set_spinner_precision( FL_OBJECT * obj,
 {
     FLI_SPINNER_SPEC *sp = obj->spec;
 
-    if ( obj->type == FL_INT_SPINNER || prec < 0 )
+    if ( ( obj->type == FL_INT_SPINNER 
+        || ( obj->type == FL_INT_MIDDLE_SPINNER )
+        || prec < 0 ) )
         return;
 
     if ( prec > DBL_DIG )
@@ -633,7 +713,8 @@ fl_set_spinner_precision( FL_OBJECT * obj,
 int
 fl_get_spinner_precision( FL_OBJECT * obj )
 {
-    if ( obj->type == FL_INT_SPINNER )
+    if ( ( obj->type == FL_INT_SPINNER )
+        || ( obj->type == FL_INT_MIDDLE_SPINNER ) )
         return 0;
 
     return ( ( FLI_SPINNER_SPEC * ) obj->spec )->prec;

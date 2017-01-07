@@ -13,6 +13,7 @@ EXTRA_DIST = \
 	folder_gui.fd \
 	formbrowser_gui.fd \
 	ibrowser_gui.fd \
+	inout_gui.fd \
 	inputall_gui.fd \
 	is_gui.fd \
 	pmbrowse_gui.fd \

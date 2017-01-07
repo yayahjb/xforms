@@ -64,7 +64,7 @@ fli_calc_slider_size( FL_OBJECT          * ob,
     double val  = sp->min == sp->max ?
                   0.5 : ( sp->val - sp->min ) / ( sp->max - sp->min );
     double size = sp->slsize;
-    FL_COORD bw = ob->bw;
+    FL_Coord bw = ob->bw;
     int absbw = FL_abs( bw );
     int fudge1 = IS_FLATORUPBOX( ob->boxtype ) ? 0 : ( bw == -2 || bw >= 2 );
     int fudge2 = IS_FLATORUPBOX( ob->boxtype ) ?
@@ -174,7 +174,7 @@ fli_draw_slider( FL_OBJECT  * ob,
                  int          d )
 {
     FLI_SLIDER_SPEC *sp = ob->spec;
-    FL_COORD x = ob->x + sp->x,
+    FL_Coord x = ob->x + sp->x,
              y = ob->y + sp->y,
              w = sp->w,
              h = sp->h;
@@ -247,7 +247,7 @@ fli_draw_slider( FL_OBJECT  * ob,
     }
     else
     {
-        FL_COORD bw2,
+        FL_Coord bw2,
                  absbw2;
         int slbox;
 

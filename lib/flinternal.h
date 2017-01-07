@@ -198,9 +198,10 @@ void fli_scale_form( FL_FORM *,
                      double,
                      double );
 
-void fli_handle_form( FL_FORM *,
-                      int, int,
-                      XEvent * );
+void fli_handle_form( FL_FORM * form,
+                      int       event,
+                      int       key,
+                      XEvent  * xevent );
 
 FL_OBJECT *fli_end_group( void );
 
@@ -354,10 +355,6 @@ int fli_draw_string( int,
                      FL_COLOR );
 
 int fli_get_max_pixels_line( void );
-
-int fli_get_string_widthTABfs( XFontStruct *,
-                               const char *,
-                               int );
 
 void fli_init_font( void );
 
@@ -1096,6 +1093,12 @@ void fli_set_ul_property( int prop,
                           int thickness );
 
 int fli_is_valid_dir( const char * name );
+
+
+int fli_get_string_widthTABfs( XFontStruct *,
+                               const char *,
+                               int );
+
 
 #endif /* ! defined FL_INTERNAL_H */
 

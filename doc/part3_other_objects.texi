@@ -955,8 +955,8 @@ axes are displayed, which is enclosed by the axes):
 @anchor{fl_get_xyplot_world_area()}
 @example
 void fl_get_xyplot_screen_area(FL_OBJECT *obj,
-                               FL_COORD *llx, FL_COORD *lly,
-                               FL_COORD *urx, FL_COORD *ury);
+                               FL_Coord *llx, FL_Coord *lly,
+                               FL_Coord *urx, FL_Coord *ury);
 void fl_get_xyplot_world_area(FL_OBJECT *obj,
                               float *llx, float *lly,
                               float *urx, float *ury);

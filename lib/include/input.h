@@ -182,7 +182,13 @@ FL_EXPORT int fl_validate_input( FL_OBJECT *obj );
 
 #define fl_set_input_shortcut   fl_set_object_shortcut
 
-/* edit keys. */
+/* Activate or deactivare inout mode */
+
+FL_EXPORT int
+fl_set_input_inout_mode( FL_OBJECT * obj,
+						 int         mode );
+
+/* Edit keys */
 
 typedef struct {
     /* basic editing */

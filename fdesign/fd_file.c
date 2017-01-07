@@ -300,6 +300,37 @@ ff_read_alignment( FL_OBJECT * obj )
 
 
 /***************************************
+ * only for backward compatibility: (comment W.Heisch)
+ * enables to read a 1.3.12 - 1.3.16 generated fd files
+ * but ignores the "react_to" information.
+ * reason:
+ * react_to only exists in the experimental versions 1.3.12 - 1.3.16
+ * and only overwrites the default behaviour of the mouse buttons  of
+ * a specific object.
+ * These experimental versions will not be used very often and inside these,
+ * this feature will not be used very often:
+ * One time corrected, the programed options will remain in Versions 1.3.17 ff
+ * and stay compatible with  1.2.5. ff
+ ***************************************/
+
+static int
+ff_read_react_to( FL_OBJECT * obj FL_UNUSED_ARG )
+{
+    int r;
+
+    int dummy_test;
+
+    if ( ( r = ff_read( "%u", &dummy_test ) ) < 0 )
+        return ff_err( "Can't read expected object mouse buttons" );
+
+    if ( r == 0 )
+        return ff_err( "\"react_to\" key without or invalid value" );
+
+    return 0;
+}
+
+
+/***************************************
  ***************************************/
 
 static int
@@ -566,7 +597,8 @@ static obj_attr_handlers attr_array[ ] =
     { "name",      ff_read_name      },
     { "gravity",   ff_read_gravity   },
     { "argument",  ff_read_argument  },
-    { "return",    ff_read_return    }
+    { "return",    ff_read_return    },
+    { "react_to",  ff_read_react_to  }
 };
 
 
@@ -804,8 +836,8 @@ static int
 read_dummy_box( void )
 {
     int r;
-    FL_COORD dummy;
-        
+    FL_Coord dummy;
+
     r = ff_read( "%D%D%U%U", &dummy, &dummy, &dummy, &dummy );
     if ( r != 1 &&  r != 4 )
         return ff_err( "Expected object box size with 1 or 4 valid values" );

@@ -141,8 +141,8 @@ FL_EXPORT Pixmap fl_create_from_pixmapdata( Window          win,
 
 FL_EXPORT void fl_free_pixmap( Pixmap id );
 
-FL_EXPORT void fl_set_form_icon_data( FL_FORM  * form,
-									  char    ** data );
+FL_EXPORT void fl_set_form_icon_data( FL_FORM * form,
+                                      char ** data );
 
 
 #endif /* ! defined FL_BITMAP_H */

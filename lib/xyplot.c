@@ -3930,10 +3930,10 @@ fl_set_xyplot_mark_active( FL_OBJECT * ob,
 
 void
 fl_get_xyplot_screen_area( FL_OBJECT * obj,
-                           FL_COORD  * llx,
-                           FL_COORD  * lly,
-                           FL_COORD  * urx,
-                           FL_COORD  * ury )
+                           FL_Coord  * llx,
+                           FL_Coord  * lly,
+                           FL_Coord  * urx,
+                           FL_Coord  * ury )
 {
     FLI_XYPLOT_SPEC *sp = obj->spec;
 

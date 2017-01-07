@@ -1147,8 +1147,8 @@ get_free_handle( FL_OBJECT  * ob,
     static char buf[ 1024 ];
     static FL_OBJECT *freeobj[ MAXFREEOBJ ];
 
-    if ( ob->c_vdata )
-        strcpy( buf, ob->c_vdata );
+    if ( ob->c_cdata )
+        strcpy( buf, ob->c_cdata );
     else if ( *name )
         sprintf( buf, "freeobj_%s_handler", name );
     else if ( *ob->label )
@@ -1540,7 +1540,8 @@ output_object( FILE      * fp,
                 fakeobj;
     char name[ MAX_VAR_LEN ],
          cbname[ MAX_VAR_LEN ],
-         argname[ MAX_VAR_LEN ];
+         argname[ MAX_VAR_LEN ],
+         class_name[ MAX_VAR_LEN ];
     char * p,
            fdvname[ MAX_VAR_LEN ];
     char *label;
@@ -1591,7 +1592,13 @@ output_object( FILE      * fp,
         }
 
         fprintf( fp, "obj = " );
-        fprintf( fp, "fl_add_%s( ", find_class_name( obj->objclass ) );
+        strcpy(class_name,find_class_name( obj->objclass ));
+
+        /* FL_FREE needs fl_add_free instead of fl_add_freeobject */
+
+        if ( ! strcmp( class_name, "freeobject" ) )
+            strcpy( class_name, "free" );
+        fprintf( fp, "fl_add_%s( ", class_name );
         fprintf( fp, "FL_%s,", find_type_name( obj->objclass, obj->type ) );
 
         fakeobj.x = obj->x;

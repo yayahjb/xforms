@@ -186,7 +186,7 @@ handle_bitmap( FL_OBJECT * obj,
 
 
 /***************************************
- * Creates an object
+ * Creates a bitmap object
  ***************************************/
 
 FL_OBJECT *
@@ -219,7 +219,7 @@ fl_create_bitmap( int          type,
 
 
 /***************************************
- * Adds an object
+ * Creates and adds a bitmap object
  ***************************************/
 
 FL_OBJECT *
@@ -239,7 +239,7 @@ fl_add_bitmap( int          type,
 
 
 /***************************************
- * Fills the bitmap with a bitmap.
+ * Sets the bitmap with the object from data
  ***************************************/
 
 void

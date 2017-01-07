@@ -60,6 +60,7 @@ noinst_PROGRAMS = \
 	ibrowser \
 	iconify \
 	iconvert \
+	inout \
 	inputall \
 	invslider \
 	itest \
@@ -216,6 +217,10 @@ iconvert_LDADD  = ../image/libflimage.la ../lib/libforms.la \
 	$(X_LIBS) $(X_PRE_LIBS) $(JPEG_LIB) $(XPM_LIB) -lX11 $(LIBS) \
 	$(X_EXTRA_LIBS)
 
+inout_SOURCES  = inout.c
+nodist_inout_SOURCES = fd/inout_gui.c fd/inout_gui.h
+inout.$(OBJEXT): fd/inout_gui.c
+	
 inputall_SOURCES = inputall.c
 nodist_inputall_SOURCES = fd/inputall_gui.c fd/inputall_gui.h
 inputall.$(OBJEXT): fd/inputall_gui.c

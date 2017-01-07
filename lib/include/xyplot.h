@@ -330,27 +330,27 @@ FL_EXPORT int fl_set_xyplot_mark_active( FL_OBJECT * ob,
                                          int         y );
 
 FL_EXPORT void fl_get_xyplot_screen_area( FL_OBJECT * obj,
-										  FL_COORD  * llx,
-										  FL_COORD  * lly,
-										  FL_COORD  * urx,
-										  FL_COORD  * ury );
+                                          FL_Coord  * llx,
+                                          FL_Coord  * lly,
+                                          FL_Coord  * urx,
+                                          FL_Coord  * ury );
 
 FL_EXPORT void fl_get_xyplot_world_area( FL_OBJECT * obj,
-										 float     * llx,
-										 float     * lly,
-										 float     * urx,
-										 float     * ury );
+                                         float     * llx,
+                                         float     * lly,
+                                         float     * urx,
+                                         float     * ury );
 
 FL_EXPORT int fl_set_xyplot_log_minor_xtics( FL_OBJECT * obj,
-											 int         yesno );
+                                             int         yesno );
 
 FL_EXPORT int fl_set_xyplot_log_minor_ytics( FL_OBJECT * obj,
-											 int         yesno );
+                                             int         yesno );
 
 FL_EXPORT void fl_set_xyplot_mouse_buttons( FL_OBJECT    * obj,
-											unsigned int   mouse_buttons );
+                                     unsigned int   mouse_buttons );
 
 FL_EXPORT void fl_get_xyplot_mouse_buttons( FL_OBJECT    * obj,
-											unsigned int * mouse_buttons );
+                                            unsigned int * mouse_buttons );
 
 #endif  /* ! defined FL_XYPLOT_H */

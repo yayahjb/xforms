@@ -949,6 +949,12 @@ fl_set_choice_fontsize( FL_OBJECT * ob,
 {
     FLI_CHOICE_SPEC *sp = ob->spec;
 
+    if ( size < 1 )
+    {
+        M_err( "fl_set_choice_fontsize", "Invalid font size (%d)", size );
+        return;
+    }
+
     if ( sp->fontsize != size )
     {
         sp->fontsize = size;

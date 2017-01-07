@@ -15,7 +15,6 @@
  *  along with XForms.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -47,7 +46,7 @@ static int validate_cvar_name( FL_OBJECT * obj,
                                const char * w );
 
 
-/* Structuure for storing the initial state of the object */
+/* Structure for storing the initial state of the object */
 
 static struct {
 	FL_OBJECT * obj;
@@ -583,7 +582,7 @@ readback_attributes( FL_OBJECT * obj )
     v2 = gravity_val( tmpbuf );
 
     fl_set_object_gravity( obj, v1, v2 );
-       
+
     /* Set resize property after making sure it fits with the gravity
        settings */
 
@@ -609,7 +608,7 @@ readback_attributes( FL_OBJECT * obj )
     set_object_name( obj, name, cbname,
                      fl_get_input( fd_generic_attrib->argobj ) );
 
-    /* in fdesign, FL_BOX has no choice() for type but a boxtype:
+    /* In fdesign FL_BOX has no choice() for type but a boxtype:
        copy boxtype to type to generate the correct source code files */
 
     if ( obj->objclass == FL_BOX )
@@ -625,7 +624,7 @@ readback_attributes( FL_OBJECT * obj )
 /***************************************
  * Turns the string from the label input field into a string suitable for
  * an object label (taking care of newlines and shortcut markers) and
- * the sets the label of the object being edited.
+ * then sets the label of the object being edited.
  ***************************************/
 
 void

@@ -19,6 +19,7 @@ config/ltversion.m4
 config/lt~obsolete.m4
 config/install-sh
 configure
+TAGS
 *~
 *.o
 *.lo
@@ -107,6 +108,7 @@ demos/group
 demos/ibrowser
 demos/iconify
 demos/iconvert
+demos/inout
 demos/inputall
 demos/invslider
 demos/itest

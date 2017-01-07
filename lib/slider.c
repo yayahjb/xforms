@@ -795,12 +795,12 @@ create_slider( int          objclass,
     int i;
 
     ob = fl_make_object( objclass, type, x, y, w, h, label, handle_slider );
-    ob->boxtype = FL_SLIDER_BOXTYPE;
-    ob->col1    = FL_SLIDER_COL1;
-    ob->col2    = FL_SLIDER_COL2;
-    ob->align   = FL_SLIDER_ALIGN;
-    ob->lcol    = FL_SLIDER_LCOL;
-    ob->lsize   = FL_TINY_SIZE;
+    ob->boxtype        = FL_SLIDER_BOXTYPE;
+    ob->col1           = FL_SLIDER_COL1;
+    ob->col2           = FL_SLIDER_COL2;
+    ob->align          = FL_SLIDER_ALIGN;
+    ob->lcol           = FL_SLIDER_LCOL;
+    ob->lsize          = FL_TINY_SIZE;
     ob->spec    = sp = fl_calloc( 1, sizeof *sp );
     sp->min            = 0.0;
     sp->max            = 1.0;
@@ -824,8 +824,8 @@ create_slider( int          objclass,
 
     /* Per default a slider reacts to the left mouse button only */
 
-    sp->react_to[ 0 ] = 1;
-    for ( i = 1; i < 3; i++ )
+    sp->react_to[ 0 ] = 1;    /* left mouse button */
+    for ( i = 1; i < 5; i++ )
         sp->react_to[ i ] = 0;
 
     return ob;

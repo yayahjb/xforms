@@ -299,9 +299,9 @@ fli_initialize_program_visual( void )
             FL_State *fs = fl_state + retxv->class;
 
             vmode = retxv->class;
-            fs->xvinfo = retxv;
-            fs->depth = retxv->depth;
-            fs->vclass = retxv->class;
+            fs->xvinfo   = retxv;
+            fs->depth    = retxv->depth;
+            fs->vclass   = retxv->class;
             fs->rgb_bits = retxv->bits_per_rgb;
         }
         else
@@ -321,9 +321,9 @@ fli_initialize_program_visual( void )
             FL_State *fs = fl_state + xvt.class;
 
             vmode = xvt.class;
-            fs->xvinfo = &xvt;
-            fs->depth = xvt.depth;
-            fs->vclass = xvt.class;
+            fs->xvinfo   = &xvt;
+            fs->depth    = xvt.depth;
+            fs->vclass   = xvt.class;
             fs->rgb_bits = xvt.bits_per_rgb;
         }
         else
