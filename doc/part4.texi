@@ -11,3 +11,12 @@
 * Part IV New Buttons::
 * Part IV Using a Pre-emptive Handler::
 @end menu
+
+@include part4_introduction.texi
+@include part4_global_structure.texi
+@include part4_events.texi
+@include part4_fl_object.texi
+@include part4_drawing_objects.texi
+@include part4_an_example.texi
+@include part4_new_buttons.texi
+@include part4_preemptive_handler.texi

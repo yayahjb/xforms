@@ -10,3 +10,11 @@
 * Part II Language Filters::
 * Part II Generating Hardcopies::
 @end menu
+
+@include part2_introduction.texi
+@include part2_getting_started.texi
+@include part2_command_line.texi
+@include part2_creating_forms.texi
+@include part2_saving_loading.texi
+@include part2_language_filters.texi
+@include part2_generating_hardcopies.texi
