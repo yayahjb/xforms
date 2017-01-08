@@ -829,7 +829,7 @@ read_dummy_type( void )
 
 /***************************************
  * Function for reading the box size of a FL_BEGIN_GROUP or FL_END_GROUP
- * pseudo-object, we can expect either 1 or 4 FL_COORD values
+ * pseudo-object, we can expect either 1 or 4 FL_Coord values
  ***************************************/
 
 static int

@@ -157,9 +157,9 @@ fl_polygon( int        fill,
  **********************************************************{******/
 
 void
-fl_circ( FL_COORD x,
-         FL_COORD y,
-         FL_COORD r,
+fl_circ( FL_Coord x,
+         FL_Coord y,
+         FL_Coord r,
          FL_COLOR col )
 {
     fl_oval( 0, x - r, y - r, 2 * r, 2 * r, col );
@@ -171,9 +171,9 @@ fl_circ( FL_COORD x,
  **********************************************************{******/
 
 void
-fl_circf( FL_COORD x,
-          FL_COORD y,
-          FL_COORD r,
+fl_circf( FL_Coord x,
+          FL_Coord y,
+          FL_Coord r,
           FL_COLOR col )
 {
     fl_oval( 1, x - r, y - r, 2 * r, 2 * r, col );
@@ -186,9 +186,9 @@ fl_circf( FL_COORD x,
  **********************************************************{******/
 
 void
-fl_circbound( FL_COORD x,
-              FL_COORD y,
-              FL_COORD r,
+fl_circbound( FL_Coord x,
+              FL_Coord y,
+              FL_Coord r,
               FL_COLOR col )
 {
     fl_ovalbound( x - r, y - r, 2 * r, 2 * r, col );
@@ -322,9 +322,9 @@ fl_ovalarc( int      fill,
  ***************************************/
 
 void
-fl_arcf( FL_COORD x,
+fl_arcf( FL_Coord x,
          FL_Coord y,
-         FL_COORD r,
+         FL_Coord r,
          int      a1,
          int      a2,
          FL_COLOR col )
@@ -337,9 +337,9 @@ fl_arcf( FL_COORD x,
  ***************************************/
 
 void
-fl_arc( FL_COORD x,
+fl_arc( FL_Coord x,
         FL_Coord y,
-        FL_COORD r,
+        FL_Coord r,
         int      a1,
         int      a2,
         FL_COLOR col )

@@ -79,7 +79,7 @@ can only be removed programmatically
 @findex fl_hide_oneliner()
 @anchor{fl_hide_oneliner()}
 @example
-void fl_show_oneliner(const char *str, FL_COORD x, FL_COORD y);
+void fl_show_oneliner(const char *str, FL_Coord x, FL_Coord y);
 void fl_hide_oneliner(void);
 @end example
 @noindent
