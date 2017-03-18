@@ -284,7 +284,7 @@ fli_tbox_insert_line( FL_OBJECT  * obj,
 
     /* Make a copy of the text of the line */
 
-    p = text = strdup( new_text );
+    p = text = fl_strdup( new_text );
 
     /* Get memory for one more line */
 

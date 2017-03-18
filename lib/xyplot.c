@@ -2156,9 +2156,9 @@ init_spec( FL_OBJECT * obj )
 
     allocate_spec( sp, FL_MAX_XYPLOTOVERLAY );
 
-    sp->title          = strdup( "" );
-    sp->xlabel         = strdup( "" );
-    sp->ylabel         = strdup( "" );
+    sp->title          = fl_strdup( "" );
+    sp->xlabel         = fl_strdup( "" );
+    sp->ylabel         = fl_strdup( "" );
     sp->xscale         = sp->yscale = FL_LINEAR;
     sp->xbase          = sp->ybase = 10.0;
     sp->lxbase         = sp->lybase = 1.0;

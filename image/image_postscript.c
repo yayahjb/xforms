@@ -234,7 +234,7 @@ PS_read_pixels( FL_IMAGE * im )
     fli_snprintf( prefix, sizeof prefix,
                   "gs_%s_%d", file_tail( im->infile ), ( int ) fli_getpid( ) );
 
-    sp->prefix = strdup( prefix );
+    sp->prefix = fl_strdup( prefix );
 
     if ( sp->verbose )
         M_err( "LoadPS", "prefix=%s", sp->prefix );
