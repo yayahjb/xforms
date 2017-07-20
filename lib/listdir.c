@@ -560,6 +560,7 @@ fl_free_dirlist( const FL_Dirlist * dl )
         cache[ i ].dirname = cache[ cache_size ].dirname;
         cache[ i ].pattern = cache[ cache_size ].pattern;
         cache[ i ].list = cache[ cache_size ].list;
+        cache[ i ].list_len = cache[ cache_size ].list_len;
     }
 
     cache = fl_realloc( cache, cache_size * sizeof *cache );

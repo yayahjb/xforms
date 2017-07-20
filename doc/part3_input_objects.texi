@@ -641,7 +641,7 @@ external instance (by e.g., an idle callback, while still being
 editable (think of a measurement device that monitors some
 value and is also able to set a value, like SCADA systems in
 industrial automation). So, most of the time such an input
-object actuallly works as an output, but is also reuired to
+object actuallly works as an output, but is also required to
 accept input. To switch such a mode on and off you can use
 the function
 @findex fl_set_input_inout_mode()
