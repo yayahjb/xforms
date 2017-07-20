@@ -627,7 +627,7 @@ fl_replace_menu_item( FL_OBJECT  * ob,
         fl_free( sp->items[ numb ] );
     sp->cb[ numb ] = NULL;
 
-    s = strdup( str );
+    s = fl_strdup( str );
 
     if ( ( p = strstr( s, "%f" ) ) )
     {

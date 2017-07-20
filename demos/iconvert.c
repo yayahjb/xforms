@@ -69,7 +69,7 @@ main( int    argc,
     }
 
     fmt += fmt[ 0 ] == '.';
-    im = flimage_load( strdup( args[ 1 ] ) );
+    im = flimage_load( fl_strdup( args[ 1 ] ) );
 
     return flimage_dump( im, args[ 2 ], fmt ) < 0 ? 3 : 0;
 }
