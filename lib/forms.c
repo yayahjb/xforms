@@ -134,7 +134,7 @@ move_form_to_visible_list( FL_FORM * form )
     if (    fli_int.hidden_formnumb == 0
          || ( i = get_hidden_forms_index( form ) ) < 0 )
     {
-        M_err( "move_form_to_visble_list", "Form not in hidden list" );
+        M_err( __func__, "Form not in hidden list" );
         return -1;
     }
         
@@ -170,7 +170,7 @@ move_form_to_hidden_list( FL_FORM * form )
     if (    fli_int.formnumb == 0
          || ( i = fli_get_visible_forms_index( form ) ) < 0 )
     {
-        M_err( "move_form_to_hidden_list", "Form not in visible list" );
+        M_err( __func__, "Form not in visible list" );
         return -1;
     }
 
@@ -188,7 +188,7 @@ move_form_to_hidden_list( FL_FORM * form )
     if ( form->num_auto_objects > 0 )
     {
         if ( fli_int.auto_count == 0 )
-            M_err( "move_form_to_hidden_list", "Bad auto count" );
+            M_err( __func__, "Bad auto count" );
         else
             fli_int.auto_count--;
     }
@@ -213,7 +213,7 @@ remove_form_from_hidden_list( FL_FORM * form )
     if (    fli_int.hidden_formnumb == 0
          || ( i = get_hidden_forms_index( form ) ) < 0 )
     {
-        M_err( "remove_form_from_hidden_list", "Form not in hidden list" );
+        M_err( __func__, "Form not in hidden list" );
         return -1;
     }
 
@@ -294,7 +294,7 @@ create_new_form( FL_Coord w,
             break;
 
         default :
-            M_err( "create_new_form", "Unknown unit: %d, using pixel",
+            M_err( __func__, "Unknown unit: %d, using pixel",
                    fli_cntl.coordUnit );
             fli_cntl.coordUnit = FL_COORD_PIXEL;
     }
@@ -344,7 +344,7 @@ fl_bgn_form( int      type,
 {
     if ( ! fli_no_connection && ! flx->display )
     {
-        M_err( "fl_bgn_form", "Missing or failed call of fl_initialize()" );
+        M_err( __func__, "Missing or failed call of fl_initialize()" );
         exit( 1 );
     }
 
@@ -354,7 +354,7 @@ fl_bgn_form( int      type,
 
     if ( fl_current_form )
     {
-        M_err( "fl_bgn_form", "You forgot to call fl_end_form" );
+        M_err( __func__, "You forgot to call fl_end_form" );
         exit( 1 );
     }
 
@@ -386,13 +386,13 @@ fl_end_form( void )
 
     if ( ! fl_current_form )
     {
-        M_err( "fl_end_form", "No current form" );
+        M_err( __func__, "No current form" );
         return;
     }
 
     if ( fli_current_group )
     {
-        M_err( "fl_end_form", "You forgot to call fl_end_group." );
+        M_err( __func__, "You forgot to call fl_end_group." );
         fl_end_group( );
     }
 
@@ -416,7 +416,7 @@ fl_addto_form( FL_FORM * form )
 {
     if ( ! form )
     {
-        M_err( "fl_addto_form", "NULL form" );
+        M_err( __func__, "NULL form" );
         return NULL;
     }
 
@@ -425,12 +425,12 @@ fl_addto_form( FL_FORM * form )
 
     if ( fl_current_form && fl_current_form != form )
     {
-        M_err( "fl_addto_form", "You forgot to call fl_end_form" );
+        M_err( __func__, "You forgot to call fl_end_form" );
         return NULL;
     }
 
     if ( fl_current_form )
-        M_warn( "fl_addto_form", "Form was never closed." );
+        M_warn( __func__, "Form was never closed." );
 
     return fl_current_form = form;
 }
@@ -447,13 +447,13 @@ fl_bgn_group( void )
 
     if ( ! fl_current_form )
     {
-        M_err( "fl_bgn_group", "NULL form" );
+        M_err( __func__, "No form is open for additions" );
         return NULL;
     }
 
     if ( fli_current_group )
     {
-        M_err( "fl_bgn_group", "You forgot to call fl_end_group." );
+        M_err( __func__, "You forgot to call fl_end_group(), adding it" );
         fl_end_group( );
     }
 
@@ -484,13 +484,13 @@ fli_end_group( void )
 
     if ( ! fl_current_form )
     {
-        M_err( "fl_end_group", "NULL form" );
+        M_err( __func__, "No form is open for additions" );
         return NULL;
     }
 
     if ( ! fli_current_group )
     {
-        M_err( "fl_end_group", "NULL group." );
+        M_err( __func__, "No preceeding call of fl_bgn_form()" );
         return NULL;
     }
 
@@ -771,7 +771,7 @@ fl_scale_form( FL_FORM * form,
 {
     if ( ! form )
     {
-        M_err( "fl_scale_form", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -799,7 +799,7 @@ fl_set_form_minsize( FL_FORM * form,
 {
     if ( ! form )
     {
-        M_err( "fl_set_form_minsize", "Null form" );
+        M_err( __func__, "Null form" );
         return;
     }
 
@@ -818,7 +818,7 @@ fl_set_form_maxsize( FL_FORM * form,
 {
     if ( ! form )
     {
-        M_err( "fl_set_form_maxsize", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -838,7 +838,7 @@ fl_set_form_dblbuffer( FL_FORM * form,
 {
     if ( ! form )
     {
-        M_err( "fl_set_form_dblbuffer", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -869,7 +869,7 @@ fl_set_form_size( FL_FORM * form,
 {
     if ( ! form )
     {
-        M_err( "fl_set_form_size", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -892,7 +892,7 @@ fl_set_form_position( FL_FORM * form,
 
     if ( ! form )
     {
-        M_err( "fl_set_form_position", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -965,7 +965,7 @@ fl_set_form_background_color( FL_FORM * form,
 {
     if ( ! form )
     {
-        M_err( "fl_set_forms_background_color", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -974,7 +974,7 @@ fl_set_form_background_color( FL_FORM * form,
 
     if ( ! form->first )
     {
-        M_err( "fl_set_forms_background_color", "Form has no background" );
+        M_err( __func__, "Form has no background" );
         return;
     }
 
@@ -999,7 +999,7 @@ fl_get_form_background_color( FL_FORM * form )
 {
     if ( ! form )
     {
-        M_err( "fl_get_forms_background_color", "NULL form" );
+        M_err( __func__, "NULL form" );
         return FL_COL1;
     }
 
@@ -1008,7 +1008,7 @@ fl_get_form_background_color( FL_FORM * form )
 
     if ( ! form->first )
     {
-        M_err( "fl_get_forms_background_color", "Form has no background" );
+        M_err( __func__, "Form has no background" );
         return FL_COL1;
     }
 
@@ -1030,7 +1030,7 @@ fl_set_form_hotspot( FL_FORM * form,
 {
     if ( ! form )
     {
-        M_err( "fl_set_form_hotspot", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -1050,19 +1050,19 @@ fl_set_form_hotobject( FL_FORM   * form,
 {
     if ( ! form  )
     {
-        M_err( "fl_set_form_hotobject", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
     if ( ! obj )
     {
-        M_err( "fl_set_form_hotobject", "NULL object" );
+        M_err( __func__, "NULL object" );
         return;
     }
 
     if ( obj->form != form )
     {
-        M_err( "fl_set_form_hotobject", "Object not part of form" );
+        M_err( __func__, "Object not part of form" );
         return;
     }
 
@@ -1102,7 +1102,7 @@ fl_set_form_title( FL_FORM *    form,
 {
     if ( ! form )
     {
-        M_err( "fl_set_form_title", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -1127,9 +1127,19 @@ fl_set_form_title_f( FL_FORM *    form,
                      const char * fmt,
                      ... )
 {
-    char *buf;
+    char * buf;
 
-    EXPAND_FORMAT_STRING( buf, fmt );
+    if ( ! form )
+    {
+        M_err( __func__, "NULL form" );
+        return;
+    }
+
+    if ( fmt )
+        EXPAND_FORMAT_STRING( buf, fmt );
+    else
+        buf = fl_strdup( "" );
+
     fl_set_form_title( form, buf );
     fl_free( buf );
 }   
@@ -1157,14 +1167,14 @@ fl_prepare_form_window( FL_FORM    * form,
 
     if ( fl_current_form )
     {
-        M_err( "fl_prepare_form_window", "You forgot to call fl_end_form() %s",
+        M_err( __func__, "You forgot to call fl_end_form() %s",
                name ? name : "" );
         fl_current_form = NULL;
     }
 
     if ( ! form )
     {
-        M_err( "fl_prepare_form", "NULL form" );
+        M_err( __func__, "NULL form" );
         return None;
     }
 
@@ -1281,7 +1291,7 @@ fl_prepare_form_window( FL_FORM    * form,
     }
     else
     {
-        M_err( "fl_prepare_form_window", "Unknown requests: %d", place );
+        M_err( __func__, "Unknown requests: %d", place );
         fl_initial_wingeometry( form->x, form->y, form->w, form->h );
     }
 
@@ -1334,7 +1344,17 @@ fl_prepare_form_window_f( FL_FORM    * form,
     Window w;
     char *buf;
 
-    EXPAND_FORMAT_STRING( buf, fmt );
+    if ( ! form )
+    {
+        M_err( __func__, "NULL form" );
+        return None;
+    }
+
+    if ( fmt )
+        EXPAND_FORMAT_STRING( buf, fmt );
+    else
+        buf = fl_strdup("");
+
     w = fl_prepare_form_window( form, place, border, buf );
     fl_free( buf );
     return w;
@@ -1352,7 +1372,7 @@ fl_show_form_window( FL_FORM * form )
 
     if ( ! form  )
     {
-        M_err( "fl_show_form_window", "NULL form" );
+        M_err( __func__, "NULL form" );
         return None;
     }
 
@@ -1399,7 +1419,7 @@ fl_show_form( FL_FORM *    form,
 {
     if ( ! form  )
     {
-        M_err( "fl_show_form", "NULL form" );
+        M_err( __func__, "NULL form" );
         return None;
     }
 
@@ -1422,7 +1442,17 @@ fl_show_form_f( FL_FORM    * form,
     Window w;
     char *buf;
 
-    EXPAND_FORMAT_STRING( buf, fmt );
+    if ( ! form  )
+    {
+        M_err( __func__, "NULL form" );
+        return None;
+    }
+
+    if ( fmt )
+        EXPAND_FORMAT_STRING( buf, fmt );
+    else
+        buf = fl_strdup( "" );
+
     w = fl_show_form( form, place, border, buf );
     fl_free( buf );
     return w;
@@ -1489,7 +1519,7 @@ set_form_property( FL_FORM *    form,
 {
     if ( ! form  )
     {
-        M_err( "set_form_property", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -1498,7 +1528,7 @@ set_form_property( FL_FORM *    form,
 
     if ( ! ( prop & FLI_COMMAND_PROP ) )
     {
-        M_err( "set_form_property", "Unknown form property request %u",
+        M_err( __func__, "Unknown form property request %u",
                prop );
         return;
     }
@@ -1525,19 +1555,19 @@ fl_hide_form( FL_FORM * form )
 
     if ( ! form )
     {
-        M_err( "fl_hide_form", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
     if ( fli_get_visible_forms_index( form ) < 0 )
     {
-        M_err( "fl_hide_form", "Hiding unknown form" );
+        M_err( __func__, "Hiding unknown form" );
         return;
     }
 
     if ( form->visible == FL_BEING_HIDDEN )
     {
-        M_err( "fl_hide_form", "Recursive call?" );
+        M_err( __func__, "Recursive call?" );
         return;
     }
 
@@ -1609,7 +1639,7 @@ fl_hide_form( FL_FORM * form )
         fli_int.unmanaged_count--;
         if ( fli_int.unmanaged_count < 0 )
         {
-            M_err( "fl_hide_form", "Bad unmanaged count" );
+            M_err( __func__, "Bad unmanaged count" );
             fli_int.unmanaged_count = 0;
         }
     }
@@ -1635,19 +1665,19 @@ fl_free_form( FL_FORM * form )
 
     if ( ! form )
     {
-        M_err( "fl_free_form", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
     if ( form->visible == FL_VISIBLE )
     {
-        M_warn( "fl_free_form", "Freeing visible form" );
+        M_warn( __func__, "Freeing visible form" );
         fl_hide_form( form );
     }
 
     if ( get_hidden_forms_index( form ) < 0 )
     {
-        M_err( "fl_free_form", "Freeing unknown form" );
+        M_err( __func__, "Freeing unknown form" );
         return;
     }
 
@@ -1692,7 +1722,7 @@ fl_form_is_activated( FL_FORM * form )
 {
     if ( ! form )
     {
-        M_err( "fl_form_is_activated", "NULL form" );
+        M_err( __func__, "NULL form" );
         return 0;
     }
 
@@ -1710,7 +1740,7 @@ fl_activate_form( FL_FORM * form )
 {
     if ( ! form )
     {
-        M_err( "fl_activate_form", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -1737,7 +1767,7 @@ fl_deactivate_form( FL_FORM * form )
 {
     if ( ! form )
     {
-        M_err( "fl_deactivate_form", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -1769,7 +1799,7 @@ fl_set_form_atactivate( FL_FORM            * form,
 
     if ( ! form  )
     {
-        M_err( "fl_set_form_atactivate", "NULL form" );
+        M_err( __func__, "NULL form" );
         return NULL;
     }
 
@@ -1794,7 +1824,7 @@ fl_set_form_atdeactivate( FL_FORM              * form,
 
     if ( ! form  )
     {
-        M_err( "fl_set_form_atdeactivate", "NULL form" );
+        M_err( __func__, "NULL form" );
         return NULL;
     }
 
@@ -1843,15 +1873,13 @@ fl_set_form_atclose( FL_FORM         * form,
                      FL_FORM_ATCLOSE   fmclose,
                      void            * data )
 {
-    FL_FORM_ATCLOSE old;
-
     if ( ! form  )
     {
-        M_err( "fl_set_form_atclose", "NULL form" );
+        M_err( __func__, "NULL form" );
         return NULL;
     }
 
-    old = form->close_callback;
+    FL_FORM_ATCLOSE old = form->close_callback;
     form->close_callback = fmclose;
     form->close_data = data;
 
@@ -1887,6 +1915,12 @@ fl_set_form_geometry( FL_FORM  * form,
                       FL_Coord   w,
                       FL_Coord   h )
 {
+    if ( ! form  )
+    {
+        M_err( __func__, "NULL form" );
+        return;
+    }
+
     fl_set_form_position( form, x, y );
     fl_set_form_size( form, w, h );
 
@@ -1911,7 +1945,7 @@ fl_register_raw_callback( FL_FORM         * form,
 
     if ( ! form )
     {
-        M_err( "fl_register_raw_callback", "Null form" );
+        M_err( __func__, "Null form" );
         return NULL;
     }
 
@@ -1956,7 +1990,7 @@ fl_register_raw_callback( FL_FORM         * form,
     }
 
     if ( ! valid )          /* unsupported mask */
-        M_err( "fl_register_raw_callback", "Unsupported mask 0x%x", mask );
+        M_err( __func__, "Unsupported mask 0x%x", mask );
 
     return old_rcb;
 }
@@ -1969,8 +2003,13 @@ void
 fl_set_form_event_cmask( FL_FORM *     form,
                          unsigned long cmask )
 {
-    if ( form )
-        form->compress_mask = cmask;
+    if ( ! form  )
+    {
+        M_err( __func__, "NULL form" );
+        return;
+    }
+
+    form->compress_mask = cmask;
 }
 
 
@@ -1995,7 +2034,7 @@ fl_set_form_callback( FL_FORM            * form,
 {
     if ( ! form )
     {
-        M_err( "fl_set_form_callback", "NULL form" );
+        M_err( __func__, "NULL form" );
         return;
     }
 
@@ -2013,7 +2052,10 @@ fl_set_form_icon( FL_FORM * form,
                   Pixmap    m )
 {
     if ( ! form )
+    {
+        M_err( __func__, "NULL form" );
         return;
+    }
 
     form->icon_pixmap = p;
     form->icon_mask = m;
@@ -2028,6 +2070,12 @@ fl_set_form_icon( FL_FORM * form,
 void
 fl_set_app_mainform( FL_FORM * form )
 {
+    if ( ! form )
+    {
+        M_err( __func__, "NULL form" );
+        return;
+    }
+
     fli_mainform = form;
     set_form_property( form, FLI_COMMAND_PROP );
 }
@@ -2103,6 +2151,12 @@ fl_fit_object_label( FL_OBJECT * obj,
     if ( fli_no_connection )
         return;
 
+    if ( ! obj )
+    {
+        M_err( __func__, "NULL object" );
+        return;
+    }
+
     if (    fl_is_outside_lalign( obj->align )
          || obj->type == FL_BEGIN_GROUP
          || obj->type == FL_END_GROUP
@@ -2177,31 +2231,30 @@ fl_addto_group( FL_OBJECT * group )
 {
     if ( ! group )
     {
-        M_err( "fl_addto_group", "NULL group." );
+        M_err( __func__, "NULL group." );
         return NULL;
     }
 
     if ( group->objclass != FL_BEGIN_GROUP )
     {
-        M_err( "fl_addto_group", "Parameter is not a group object." );
+        M_err( __func__, "Parameter is not a group object." );
         return NULL;
     }
 
     if ( fl_current_form && fl_current_form != group->form )
     {
-        M_err( "fl_addto_group",
-               "Can't switch to a group on a different form" );
+        M_err( __func__, "Can't switch to a group on a different form" );
         return NULL;
     }
 
     if ( fli_current_group && fli_current_group != group )
     {
-        M_err( "fl_addto_group", "You forgot to call fl_end_group" );
+        M_err( __func__, "You forgot to call fl_end_group" );
         return NULL;
     }
 
     if ( fli_current_group )
-        M_warn( "fl_addto_group", "Group was never closed" );
+        M_warn( __func__, "Group was never closed" );
 
     reopened_group = fl_current_form ? 1 : 2;
     fl_current_form = group->form;
@@ -2218,7 +2271,7 @@ fl_form_is_visible( FL_FORM * form )
 {
     if ( ! form )
     {
-        M_warn( "fl_form_is_visible", "NULL form" );
+        M_warn( __func__, "NULL form" );
         return FL_INVISIBLE;
     }
 
@@ -2244,6 +2297,12 @@ fl_adjust_form_size( FL_FORM * form )
         sh,
         osize,
         bw;
+
+    if ( ! form )
+    {
+        M_warn( __func__, "NULL form" );
+        return -1.0;
+    }
 
     if ( fli_no_connection )
         return 1.0;
@@ -2317,7 +2376,7 @@ fl_raise_form( FL_FORM * form )
     if ( form && form->window )
         XRaiseWindow( fl_display, form->window );
     else
-        M_err( "fl_raise_form", "NULL form or form window not shown" );
+        M_err( __func__, "NULL form or form window not shown" );
 }
 
 
@@ -2330,7 +2389,7 @@ fl_lower_form( FL_FORM * form )
     if ( form && form->window )
         XLowerWindow( fl_display, form->window );
     else
-        M_err( "fl_lower_form", "NULL form or forn window not shown" );
+        M_err( __func__, "NULL form or forn window not shown" );
 }
 
 
@@ -2355,8 +2414,13 @@ fl_get_decoration_sizes( FL_FORM * form,
 {
     Atom a;
 
-    if (    ! form
-         || ! form->window
+    if ( ! form )
+    {
+        M_warn( __func__, "NULL form" );
+        return 1;
+    }
+
+    if (    ! form->window
          || form->visible != FL_VISIBLE
          || form->parent )
         return 1;
@@ -2518,7 +2582,7 @@ fl_form_is_iconified( FL_FORM * form )
 
     if ( ! form )
     {
-        M_err( "fl_form_is_iconified", "NULL form" );
+        M_err( __func__, "NULL form" );
         return 0;
     }
 

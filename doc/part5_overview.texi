@@ -968,6 +968,12 @@ void fl_get_object_position(FL_OBJECT *obj, FL_Coord *x, FL_Coord *y);
 @end example
 @noindent
 exist. If the object is visible it's redrawn at the new position.
+Applying @code{fl_set_object_position()} to an object representing a
+group (i.e., as obtained via a call of @code{@ref{fl_bgn_group()}})
+has no effect (as a group has no position and moving all objects in
+a group to the same position does not make much sense). Using
+@code{fl_get_object_position()} on such an object leaves the contents
+of the @code{x} and @code{y} pointer arguments unmodified.
 
 An object can also be moved relative to its current position using
 the function
@@ -977,8 +983,13 @@ the function
 void fl_move_object(FL_OBJECT *obj, FL_Coord dx, FL_Coord dy);
 @end example
 @noindent
-where @code{dx} and @code{dy} are the amounts by which the object
-is moved to the right and down.
+where @code{dx} and @code{dy} are the amounts by which the object is
+moved to x- and y-direction. As with
+@code{@ref{fl_set_object_position()}} visible objects get redrawn at
+their new positions. Note: if applied to an object representing a group
+(as returned by @code{@ref{fl_bgn_group()}}) all objects belonging to
+that group are moved.
+
 
 To change or inquire about the size of an object use
 @findex fl_set_object_size()
@@ -1235,8 +1246,8 @@ void fl_show_object(FL_OBJECT *obj);
 @end example
 @noindent
 @code{obj} can be the pseudo-object returned by
-@code{@ref{fl_bgn_group()}} and then allows to hide or show whole
-groups of objects.
+@code{@ref{fl_bgn_group()}} and then the call will hide or show all
+objects belonging to that group.
 
 To determine if an object is visible (given that the form it belongs
 to is also visible) use

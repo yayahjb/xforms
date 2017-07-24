@@ -66,7 +66,7 @@ save_object( FILE      * fp,
     char *label;
     double sc = get_conversion_factor( );
     FL_OBJECT *defobj,
-              fake_obj;
+               fake_obj = { 0 };
 
     if ( obj->parent )
         return;

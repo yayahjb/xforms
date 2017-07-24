@@ -1537,7 +1537,7 @@ output_object( FILE      * fp,
                int         altfmt )
 {
     FL_OBJECT * defobj,
-                fakeobj;
+                fakeobj = { 0 };
     char name[ MAX_VAR_LEN ],
          cbname[ MAX_VAR_LEN ],
          argname[ MAX_VAR_LEN ],
