@@ -93,8 +93,9 @@ fli_create_tbox( int          type,
     sp->yoffset       = 0;
     sp->max_width     = 0;
     sp->max_height    = 0;
-    sp->def_size      = fli_cntl.browserFontSize ?
-                        fli_cntl.browserFontSize : FLI_TBOX_FONTSIZE;
+    sp->def_size      = fli_cntl.browserFontSize
+                        ? fli_cntl.browserFontSize
+                        : fl_adapt_to_dpi( FLI_TBOX_FONTSIZE );
     sp->def_style     = FL_NORMAL_STYLE;
     sp->def_align     = FL_ALIGN_LEFT;
     sp->def_height    = 0;

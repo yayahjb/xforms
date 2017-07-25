@@ -29,7 +29,6 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
-
 #include "include/forms.h"
 #include "flinternal.h"
 #include "bitmaps/q.xbm"        /* in directory bitmaps */

@@ -72,7 +72,7 @@ fl_create_select( int          type,
     sp->sel        = NULL;
     sp->align      = FL_ALIGN_CENTER;
     sp->style      = FL_NORMAL_STYLE;
-    sp->size       = FL_NORMAL_SIZE;
+    sp->size       = fl_adapt_to_dpi( FL_NORMAL_SIZE );
     sp->color      = FL_BLACK;
     sp->timeout_id = -1;
     sp->repeat_ms  = 500;

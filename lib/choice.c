@@ -500,7 +500,8 @@ fl_create_choice( int          type,
 
     obj = fl_make_object( FL_CHOICE, type, x, y, w, h, label, handle_choice );
 
-    obj->boxtype     = type == FL_NORMAL_CHOICE2 ? FL_UP_BOX : FL_CHOICE_BOXTYPE;
+    obj->boxtype     = type == FL_NORMAL_CHOICE2 ?
+                       FL_UP_BOX : FL_CHOICE_BOXTYPE;
     obj->col1        = FL_CHOICE_COL1;
     obj->col2        = FL_CHOICE_COL2;
     obj->lcol        = FL_CHOICE_LCOL;
@@ -508,8 +509,9 @@ fl_create_choice( int          type,
     obj->want_update = 1;
     obj->spec = sp   = fl_calloc( 1, sizeof *sp );
 
-    sp->fontsize  = fli_cntl.choiceFontSize ?
-                    fli_cntl.choiceFontSize : FL_DEFAULT_SIZE;
+    sp->fontsize  = fli_cntl.choiceFontSize
+                    ? fli_cntl.choiceFontSize
+                    : fl_adapt_to_dpi( FL_DEFAULT_SIZE );
     sp->fontstyle = FL_NORMAL_STYLE;
     sp->align     = FL_ALIGN_CENTER;
 

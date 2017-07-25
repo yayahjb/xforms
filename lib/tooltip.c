@@ -65,7 +65,7 @@ create_it( void )
 
     tip              = fl_calloc( 1, sizeof *tip );
     tip->fntstyle    = FL_NORMAL_STYLE;
-    tip->fntsize     = FL_DEFAULT_SIZE;
+    tip->fntsize     = fl_adapt_to_dpi( FL_DEFAULT_SIZE );
     tip->boxtype     = FL_BORDER_BOX;
     tip->lalign      = fl_to_inside_lalign( FL_ALIGN_LEFT );
     tip->textcolor   = FL_BLACK;

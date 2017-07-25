@@ -499,6 +499,9 @@ fl_create_generic_button( int          objclass,
         obj->how_return = FL_RETURN_CHANGED;
     }
 
+    if ( fli_cntl.buttonFontSize )
+        obj->lsize = fli_cntl.buttonFontSize;
+
     sp = obj->spec = fl_calloc( 1, sizeof *sp );
 
     sp->event     = FL_DRAW;
@@ -513,9 +516,6 @@ fl_create_generic_button( int          objclass,
 
     for ( i = 0; i < 5; i++ )
         sp->react_to[ i ] = 1;
-
-    if ( fli_cntl.buttonLabelSize )
-        obj->lsize = fli_cntl.buttonLabelSize;
 
     return obj;
 }

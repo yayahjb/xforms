@@ -1633,5 +1633,10 @@ typedef const char * ( * FL_VAL_FILTER )( FL_OBJECT *,
 FL_EXPORT int fl_is_same_object( FL_OBJECT * obj1,
 								 FL_OBJECT * obj2 );
 
+FL_EXPORT FL_COORD fl_adapt_to_dpi( FL_COORD size );
+
+FL_EXPORT FL_COORD fal_adapt_to_unit( FL_COORD size );
+
+
 #endif /* ! defined FL_BASIC_H */
 

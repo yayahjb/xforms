@@ -198,6 +198,8 @@ void fli_scale_form( FL_FORM *,
                      double,
                      double );
 
+int fli_scale_size( int size );
+
 void fli_handle_form( FL_FORM * form,
                       int       event,
                       int       key,

@@ -4327,11 +4327,11 @@ fli_popup_init( void )
     popup_title_font_style = FL_EMBOSSED_STYLE;
 
 #ifdef __sgi
-    popup_entry_font_size  = FL_SMALL_SIZE,
-    popup_title_font_size  = FL_SMALL_SIZE;
+    popup_entry_font_size  = fl_adapt_to_dpi( FL_SMALL_SIZE ),
+    popup_title_font_size  = fl_adapt_to_dpi( FL_SMALL_SIZE );
 #else
-    popup_entry_font_size  = FL_NORMAL_SIZE;
-    popup_title_font_size  = FL_NORMAL_SIZE;
+    popup_entry_font_size  = fl_adapt_to_dpi( FL_NORMAL_SIZE );
+    popup_title_font_size  = fl_adapt_to_dpi( FL_NORMAL_SIZE );
 #endif
 
     popup_bg_color       = FL_MCOL;

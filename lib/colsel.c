@@ -60,22 +60,44 @@ create_colorform( void )
     if ( cs->colorform )
         return;
 
-    cs->colorform = fl_bgn_form( FL_UP_BOX, 240, 220 );
+    cs->colorform = fl_bgn_form( FL_UP_BOX,
+                                 fl_adapt_to_unit( 240 ),
+                                 fl_adapt_to_unit( 220 ) );
 
     for ( i = 0; i < 8; i++ )
         for ( j = 0; j < 8; j++ )
         {
-            cs->col[ 8 * i + j ] = fl_add_button( FL_NORMAL_BUTTON, 40 + j * 20,
-                                                  10 + i * 20, 20, 20, "" );
+            cs->col[ 8 * i + j ] =
+                fl_add_button( FL_NORMAL_BUTTON,
+                               fl_adapt_to_unit( 40 + j * 20 ),
+                               fl_adapt_to_unit( 10 + i * 20 ),
+                               fl_adapt_to_unit( 20 ),
+                               fl_adapt_to_unit( 20 ), "" );
             fl_set_object_boxtype( cs->col[ 8 * i + j ], FL_BORDER_BOX );
             fl_set_object_lcolor( cs->col[ 8 * i + j ], 7 );
         }
 
-    cs->prev = fl_add_button( FL_NORMAL_BUTTON, 10, 10, 30, 160, "@4" );
-    cs->next = fl_add_button( FL_NORMAL_BUTTON, 200, 10, 30, 160, "@6" );
-    cs->cancel = fl_add_button( FL_NORMAL_BUTTON, 80, 180, 140, 30, "Cancel" );
-    cs->cindex = fl_add_text( FL_NORMAL_TEXT, 5, 180, 70, 30, "Cancel" );
-    fl_set_object_lsize( cs->cindex,FL_TINY_SIZE );
+    cs->prev = fl_add_button( FL_NORMAL_BUTTON,
+                              fl_adapt_to_unit( 10 ),
+                              fl_adapt_to_unit( 10 ),
+                              fl_adapt_to_unit( 30 ),
+                              fl_adapt_to_unit( 160 ), "@4" );
+    cs->next = fl_add_button( FL_NORMAL_BUTTON,
+                              fl_adapt_to_unit( 200 ),
+                              fl_adapt_to_unit( 10 ),
+                              fl_adapt_to_unit( 30 ),
+                              fl_adapt_to_unit( 160 ), "@6" );
+    cs->cancel = fl_add_button( FL_NORMAL_BUTTON,
+                                fl_adapt_to_unit( 80 ),
+                                fl_adapt_to_unit( 180 ),
+                                fl_adapt_to_unit( 140 ),
+                                fl_adapt_to_unit( 30 ), "Cancel" );
+    cs->cindex = fl_add_text( FL_NORMAL_TEXT,
+                              fl_adapt_to_unit( 5 ),
+                              fl_adapt_to_unit( 180 ),
+                              fl_adapt_to_unit( 70 ),
+                              fl_adapt_to_unit( 30 ), "Cancel" );
+    fl_set_object_lsize( cs->cindex, fl_adapt_to_dpi( FL_TINY_SIZE ) );
     fl_end_form( );
 }
 

@@ -55,8 +55,8 @@ create_it( void )
 
     text = fl_add_box( FL_BORDER_BOX, 0, 0, 5, 5, "" );
 
-    fl_set_object_lstyle( text, fntstyle );
-    fl_set_object_lsize( text, fntsize );
+    fl_set_object_lstyle( text, fl_adapt_to_dpi( fntstyle ) );
+    fl_set_object_lsize( text, fl_adapt_to_dpi( fntsize ) );
     fl_set_object_lcolor( text, textcolor );
     fl_set_object_color( text, background, background );
     fl_end_form( );
@@ -81,8 +81,8 @@ fl_show_oneliner( const char * s,
 
     fl_get_string_dimension( fntstyle, fntsize, s, strlen( s ), &w, &h );
 
-    w += ( 2 * fntsize ) / 3;
-    h += ( 2 * fntsize ) / 3;
+    w += fl_adapt_to_dpi( ( 2 * fntsize ) / 3 );
+    h += fl_adapt_to_dpi( ( 2 * fntsize ) / 3 );
 
     fl_freeze_form( oneliner );
     fl_set_form_geometry( oneliner, x, y, w, h );

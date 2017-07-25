@@ -1171,21 +1171,29 @@ create_form_fselect( void )
 {
     FL_OBJECT *obj;
     int oldy = fli_inverted_y;
-    int oldunit = fl_get_coordunit( );
 
     fli_inverted_y = 0;
-    fl_set_coordunit( FL_COORD_PIXEL );
 
-    fs->fselect = fl_bgn_form( FL_FLAT_BOX, 305, 330 );
+    fs->fselect = fl_bgn_form( FL_FLAT_BOX,
+                               fl_adapt_to_unit( 305 ),
+                               fl_adapt_to_unit( 330 ) );
 
-    fs->dirlabel = obj = fl_add_text( FL_NORMAL_TEXT, 12, 15, 64, 24,
+    fs->dirlabel = obj = fl_add_text( FL_NORMAL_TEXT,
+                                      fl_adapt_to_unit( 12 ),
+                                      fl_adapt_to_unit( 15 ),
+                                      fl_adapt_to_unit( 64 ),
+                                      fl_adapt_to_unit( 24 ),
                                       "D\010irectory" );
     fl_set_object_boxtype( obj, FL_FRAME_BOX );
     fl_set_object_lalign( obj, FL_ALIGN_CENTER );
     fl_set_object_resize( obj, FL_RESIZE_NONE );
     fl_set_object_gravity( obj, FL_NorthWest, FL_NorthWest );
 
-    fs->dirbutt = obj = fl_add_button( FL_NORMAL_BUTTON, 76, 15, 217, 24, "" );
+    fs->dirbutt = obj = fl_add_button( FL_NORMAL_BUTTON,
+                                       fl_adapt_to_unit( 76 ),
+                                       fl_adapt_to_unit( 15 ),
+                                       fl_adapt_to_unit( 217 ),
+                                       fl_adapt_to_unit( 24 ), "" );
     fl_set_button_shortcut( obj, "#D#d", 1 );
     fl_set_object_boxtype( obj, FL_FRAME_BOX );
     fl_set_object_lalign( obj, fl_to_inside_lalign( FL_ALIGN_LEFT ) );
@@ -1193,47 +1201,75 @@ create_form_fselect( void )
     fl_set_object_gravity( obj, FL_NorthWest, FL_NorthEast );
     fl_set_object_callback( obj, directory_cb, 0 );
 
-    fs->patlabel = obj = fl_add_text( FL_NORMAL_TEXT, 12, 41, 64, 24,
+    fs->patlabel = obj = fl_add_text( FL_NORMAL_TEXT,
+                                      fl_adapt_to_unit( 12 ),
+                                      fl_adapt_to_unit( 41 ),
+                                      fl_adapt_to_unit( 64 ),
+                                      fl_adapt_to_unit( 24 ),
                                       "P\010attern" );
     fl_set_object_boxtype( obj, FL_FRAME_BOX );
     fl_set_object_lalign( obj, FL_ALIGN_CENTER );
     fl_set_object_resize( obj, FL_RESIZE_NONE );
     fl_set_object_gravity( obj, FL_NorthWest, FL_NorthWest );
 
-    fs->patbutt = obj = fl_add_button( FL_NORMAL_BUTTON, 76, 41, 217, 24, "" );
+    fs->patbutt = obj = fl_add_button( FL_NORMAL_BUTTON,
+                                       fl_adapt_to_unit( 76 ),
+                                       fl_adapt_to_unit( 41 ),
+                                       fl_adapt_to_unit( 217 ),
+                                       fl_adapt_to_unit( 24 ), "" );
     fl_set_button_shortcut( obj, "#P#p", 1 );
     fl_set_object_boxtype( obj, FL_FRAME_BOX );
     fl_set_object_resize(  obj, FL_RESIZE_X );
     fl_set_object_gravity( obj, FL_NorthWest, FL_NorthEast );
     fl_set_object_callback( obj, pattern_cb, 0 );
 
-    fs->resbutt = obj = fl_add_button( FL_NORMAL_BUTTON, 210, 80, 83, 28,
+    fs->resbutt = obj = fl_add_button( FL_NORMAL_BUTTON,
+                                       fl_adapt_to_unit( 210 ),
+                                       fl_adapt_to_unit( 80 ),
+                                       fl_adapt_to_unit( 83 ),
+                                       fl_adapt_to_unit( 28 ),
                                        "Rescan" );
     fl_set_button_shortcut( obj, "#R#r", 1 );
     fl_set_object_resize( obj, FL_RESIZE_NONE );
     fl_set_object_gravity( obj, FL_NorthEast, FL_NorthEast );
     fl_set_object_callback( obj, rescan_cb, 0 );
 
-    fs->cancel = obj = fl_add_button( FL_NORMAL_BUTTON, 210, 203, 83, 28,
+    fs->cancel = obj = fl_add_button( FL_NORMAL_BUTTON,
+                                      fl_adapt_to_unit( 210 ),
+                                      fl_adapt_to_unit( 203 ),
+                                      fl_adapt_to_unit( 83 ),
+                                      fl_adapt_to_unit( 28 ),
                                       "Cancel" );
     fl_set_button_shortcut( obj, "#C#c^[", 1 );
     fl_set_object_color( obj, FL_COL1, FL_GREEN );
     fl_set_object_resize( obj, FL_RESIZE_NONE );
     fl_set_object_gravity( obj, FL_SouthEast, FL_SouthEast );
 
-    fs->ready = obj = fl_add_button( FL_RETURN_BUTTON, 210, 233, 83, 28,
+    fs->ready = obj = fl_add_button( FL_RETURN_BUTTON,
+                                     fl_adapt_to_unit( 210 ),
+                                     fl_adapt_to_unit( 233 ),
+                                     fl_adapt_to_unit( 83 ),
+                                     fl_adapt_to_unit( 28 ),
                                      "Ready" );
     fl_set_object_color( obj, FL_COL1, FL_GREEN );
     fl_set_object_resize( obj, FL_RESIZE_NONE );
     fl_set_object_gravity( obj, FL_SouthEast, FL_SouthEast );
 
-    fs->prompt = obj = fl_add_text( FL_NORMAL_TEXT, 20, 270, 264, 18,
+    fs->prompt = obj = fl_add_text( FL_NORMAL_TEXT,
+                                    fl_adapt_to_unit( 20 ),
+                                    fl_adapt_to_unit( 270 ),
+                                    fl_adapt_to_unit( 264 ),
+                                    fl_adapt_to_unit( 18 ),
                                     "File name:" );
     fl_set_object_lalign( obj, fl_to_inside_lalign( FL_ALIGN_LEFT ) );
     fl_set_object_resize( obj, FL_RESIZE_NONE );
     fl_set_object_gravity( obj, FL_SouthWest, FL_SouthWest );
 
-    fs->input = obj = fl_add_input( FL_NORMAL_INPUT, 30, 290, 235, 27, "" );
+    fs->input = obj = fl_add_input( FL_NORMAL_INPUT,
+                                    fl_adapt_to_unit( 30 ),
+                                    fl_adapt_to_unit( 290 ),
+                                    fl_adapt_to_unit( 235 ),
+                                    fl_adapt_to_unit( 27 ), "" );
     fl_set_object_boxtype( obj, FL_SHADOW_BOX );
     fl_set_object_color( obj, FL_WHITE, FL_WHITE );
     fl_set_object_resize( obj, FL_RESIZE_X );
@@ -1241,7 +1277,11 @@ create_form_fselect( void )
     fl_set_object_callback( obj, input_cb, 0 );
     fl_set_object_return( obj, FL_RETURN_CHANGED );
 
-    fs->browser = obj = fl_add_browser( FL_HOLD_BROWSER, 15, 80, 185, 180, "" );
+    fs->browser = obj = fl_add_browser( FL_HOLD_BROWSER,
+                                        fl_adapt_to_unit( 15 ),
+                                        fl_adapt_to_unit( 80 ),
+                                        fl_adapt_to_unit( 185 ),
+                                        fl_adapt_to_unit( 180 ), "" );
     fl_set_object_callback( obj, select_cb, 0 );
     fl_set_browser_dblclick_callback( obj, select_cb, 1 );
     fl_set_object_resize( obj, FL_RESIZE_ALL );
@@ -1250,9 +1290,21 @@ create_form_fselect( void )
 
     fs->appbuttgrp = fl_bgn_group( );
 
-    fs->appbutt[ 0 ] = fl_add_button( FL_NORMAL_BUTTON, 210, 114, 83, 28, "" );
-    fs->appbutt[ 1 ] = fl_add_button( FL_NORMAL_BUTTON, 210, 142, 83, 28, "" );
-    fs->appbutt[ 2 ] = fl_add_button( FL_NORMAL_BUTTON, 210, 170, 83, 28, "" );
+    fs->appbutt[ 0 ] = fl_add_button( FL_NORMAL_BUTTON,
+                                      fl_adapt_to_unit( 210 ),
+                                      fl_adapt_to_unit( 114 ),
+                                      fl_adapt_to_unit( 83 ),
+                                      fl_adapt_to_unit( 28 ), "" );
+    fs->appbutt[ 1 ] = fl_add_button( FL_NORMAL_BUTTON,
+                                      fl_adapt_to_unit( 210 ),
+                                      fl_adapt_to_unit( 142 ),
+                                      fl_adapt_to_unit( 83 ),
+                                      fl_adapt_to_unit( 28 ), "" );
+    fs->appbutt[ 2 ] = fl_add_button( FL_NORMAL_BUTTON,
+                                      fl_adapt_to_unit( 210 ),
+                                      fl_adapt_to_unit( 170 ),
+                                      fl_adapt_to_unit( 83 ),
+                                      fl_adapt_to_unit( 28 ), "" );
 
     fl_end_group( );
 
@@ -1264,7 +1316,6 @@ create_form_fselect( void )
     fl_set_form_atclose( fs->fselect, fl_goodies_atclose, fs->cancel );
 
     fli_inverted_y = oldy;
-    fl_set_coordunit( oldunit );
 
     /* These labels sometimes don't fit the above set sizes, so we
        resize the whole file selector box to make them fit */

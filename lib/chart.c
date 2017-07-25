@@ -621,7 +621,7 @@ fl_create_chart( int          type,
 
     sp->autosize = 1;
     sp->min      = sp->max = 0.0;
-    sp->lsize    = FL_TINY_SIZE;
+    sp->lsize    = fl_adapt_to_dpi( FL_TINY_SIZE );
     sp->lstyle   = FL_NORMAL_STYLE;
     sp->lcol     = FL_BLACK;
 

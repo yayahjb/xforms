@@ -800,8 +800,11 @@ create_slider( int          objclass,
     ob->col2           = FL_SLIDER_COL2;
     ob->align          = FL_SLIDER_ALIGN;
     ob->lcol           = FL_SLIDER_LCOL;
-    ob->lsize          = FL_TINY_SIZE;
     ob->spec    = sp = fl_calloc( 1, sizeof *sp );
+    ob->lsize        = fli_cntl.sliderFontSize
+                       ? fli_cntl.sliderFontSize
+                       : fl_adapt_to_dpi( FL_TINY_SIZE );
+
     sp->min            = 0.0;
     sp->max            = 1.0;
     sp->val            = sp->start_val = 0.5;

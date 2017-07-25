@@ -1601,10 +1601,10 @@ output_object( FILE      * fp,
         fprintf( fp, "fl_add_%s( ", class_name );
         fprintf( fp, "FL_%s,", find_type_name( obj->objclass, obj->type ) );
 
-        fakeobj.x = obj->x;
-        fakeobj.y = obj->y;
-        fakeobj.w = obj->w;
-        fakeobj.h = obj->h;
+        fakeobj.x     = obj->x;
+        fakeobj.y     = obj->y;
+        fakeobj.w     = obj->w;
+        fakeobj.h     = obj->h;
         fli_scale_object( &fakeobj, sc, sc );
 
         label = get_label( obj, 1 );
@@ -1643,8 +1643,9 @@ output_object( FILE      * fp,
             fprintf( fp, "    fl_set_object_lcolor( obj, %s );\n",
                      fli_query_colorname( obj->lcol ) );
 
-        if ( obj->lsize != defobj->lsize )
-            emit_attrib( fp, obj->lsize, vn_lsize, "fl_set_object_lsize" );
+        if ( sc * obj->lsize != defobj->lsize )
+            emit_attrib( fp, - FL_crnd(sc * obj->lsize), vn_lsize,
+                         "fl_set_object_lsize" );
 
         if ( obj->align != defobj->align )
             emit_attrib( fp, obj->align, vn_align, "fl_set_object_lalign" );

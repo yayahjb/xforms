@@ -137,7 +137,7 @@ fli_init_font( void )
         defaultfs = XLoadQueryFont( flx->display, DEFAULTF2 );
 
     /* Load a couple of fonts at normal size to prevent the caching code from
-       using bad looking replacement if strange sizes are requested */
+       using bad looking replacements if strange sizes are requested */
 
     fl_get_font_struct( FL_NORMAL_STYLE, FL_DEFAULT_SIZE );
     fl_get_font_struct( FL_BOLD_STYLE,   FL_DEFAULT_SIZE );
@@ -165,7 +165,7 @@ fl_set_font( int numb,
     if ( fl_state[ fl_vmode ].cur_fnt == fs )
     {
 #if FL_DEBUG >= ML_DEBUG
-        M_debug( "fl_set_font", "current", fli_curfnt );
+        M_debug( __func__, "current", fli_curfnt );
 #endif
         return;
     }
@@ -185,7 +185,7 @@ fl_set_font( int numb,
         unsigned long res = 0;
 
         if ( XGetFontProperty( flx->fs, XA_RESOLUTION, &res ) )
-            M_info2( "fl_set_font", "FontResolution: %lu", res );
+            M_info2( __func__, "FontResolution: %lu", res );
     }
 }
 
@@ -204,19 +204,19 @@ fl_set_font_name( int          n,
 
     if ( n < 0 || n >= FL_MAXFONTS )
     {
-        M_warn( "fl_set_font_name", "Bad font number (%d)", n );
+        M_warn( __func__, "Bad font number (%d)", n );
         return -1;
     }
 
     if ( ! name || ! *name )
     {
-        M_warn( "fl_set_font_name", "Bad font name" );
+        M_warn( __func__, "Bad font name" );
         return -1;
     }
 
     if ( strlen( name ) > FL_MAX_FONTNAME_LENGTH )
     {
-        M_warn( "fl_set_font_name", "Font name too long" );
+        M_warn( __func__, "Font name too long" );
         return -1;
     }
 
@@ -300,8 +300,8 @@ fl_enumerate_fonts( void ( * output )( const char *s ),
 
 /***************************************
  * All font changes go through this routine. If with_fail is false,
- * this routine will not fail even if requested font can't be loaded.
- * A substitution will be made.
+ * this routine will not fail even if the requested font can't be
+ * loaded: a substitution will be made.
  ***************************************/
 
 static XFontStruct *
@@ -321,8 +321,7 @@ try_get_font_struct( int numb,
 
     if ( size <= 0 )
     {
-        M_info( "try_get_font_struct",
-                "Bad font size requested (%d), using %d istead",
+        M_info( __func__, "Bad font size requested (%d), using %d istead",
                 size, size < 0 ? -size : 1 );
         size = size < 0 ? -size : 1;
     }
@@ -337,12 +336,12 @@ try_get_font_struct( int numb,
                loadable or not, so it's not a fatal error if it fails. Issue
                a message for information therefore. */
 
-            M_info( "try_get_font_struct", "Bad FontStyle requested: %d: %s",
+            M_info( __func__, "Bad FontStyle requested: %d: %s",
                     numb, flf->fname );
         }
 
         if ( ! fl_state[ fl_vmode ].cur_fnt )
-            M_warn( "try_get_font_struct", "bad font returned" );
+            M_warn( __func__, "bad font returned" );
 
         return fl_state[ fl_vmode ].cur_fnt;
     }
@@ -377,7 +376,7 @@ try_get_font_struct( int numb,
         if ( with_fail )
             return NULL;
 
-        M_warn( "try_get_font_struct", "Can't load %s, using subsitute",
+        M_warn( __func__, "Can't load %s, using subsitute",
                 fli_curfnt );
 
         /* Search for a replacement with the nearest size */

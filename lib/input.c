@@ -1729,8 +1729,6 @@ fl_create_input( int          type,
     obj->col2       = FL_INPUT_COL2;
     obj->align      = FL_INPUT_ALIGN;
     obj->lcol       = FL_INPUT_LCOL;
-    obj->lsize      = fli_cntl.inputFontSize ?
-                      fli_cntl.inputFontSize : FL_DEFAULT_SIZE;
     obj->set_return = fl_set_input_return;
 
     fl_set_object_prehandler( obj, input_pre );
@@ -1742,6 +1740,8 @@ fl_create_input( int          type,
     obj->input         = 1;
     obj->click_timeout = FL_CLICK_TIMEOUT;
     obj->spec = sp     = fl_calloc( 1, sizeof *sp );
+    if ( fli_cntl.inputFontSize )
+        obj->lsize = fli_cntl.inputFontSize;
 
     sp->textcol        = FL_INPUT_TCOL;
     sp->curscol        = FL_INPUT_CCOL;

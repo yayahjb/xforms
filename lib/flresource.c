@@ -321,8 +321,7 @@ fl_set_coordunit( int u )
 
     if ( cu == NULL )
     {
-        M_err( "fl_set_coordunit",
-               "Invald coord unit, defaulting to \"pixel\"" );
+        M_err( __func__, "Invald coord unit, defaulting to \"pixel\"" );
         u = FL_COORD_PIXEL;
         cu = "pixel";
     }
@@ -1142,8 +1141,13 @@ fl_initialize( int        * na,
     if ( xdpi / ydpi > 1.05 || ydpi / xdpi < 0.95 )
         M_warn( "fl_initialize", "NonSquarePixel %.1f %.1f", xdpi, ydpi );
 
-    fl_dpi = ( xdpi + ydpi ) / 2;
-    fl_dpi = FL_nint( fl_dpi * 10.0 + 0.5 ) * 0.1;
+    fl_dpi = FL_nint( FL_nint( 10 * ( xdpi + ydpi ) / 2 ) / 10.0  );
+
+//    char const * x = getenv("DPI");
+//    if (x)
+//        sscanf( x, "%lf", &fl_dpi );
+//
+//    printf( "screen DPI = %f", fl_dpi );
 
     M_info( "fl_initialize", "screen DPI = %f", fl_dpi );
 

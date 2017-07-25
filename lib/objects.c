@@ -185,54 +185,35 @@ fl_make_object( int            objclass,
             fli_cntl.coordUnit = FL_COORD_PIXEL;
     }
 
-    obj->wantkey  = FL_KEY_NORMAL;
-
-    obj->flpixmap = NULL;
-    obj->label    = fl_strdup( label ? label : "" );
-    obj->handle   = handle;
-    obj->align    = FL_ALIGN_CENTER;
-    obj->lcol     = FL_BLACK;
-    obj->col1     = FL_COL1;
-    obj->col2     = FL_MCOL;
-
-    if ( IS_BUTTON_CLASS( objclass ) && fli_cntl.buttonFontSize )
-        obj->lsize = fli_cntl.buttonFontSize;
-    else if ( objclass == FL_MENU && fli_cntl.menuFontSize )
-        obj->lsize = fli_cntl.menuFontSize;
-    else if (    ( objclass == FL_CHOICE || objclass == FL_SELECT )
-              && fli_cntl.choiceFontSize )
-        obj->lsize = fli_cntl.choiceFontSize;
-    else if ( objclass == FL_INPUT && fli_cntl.inputFontSize )
-        obj->lsize = fli_cntl.inputFontSize;
-    else if ( objclass == FL_SLIDER && fli_cntl.sliderFontSize )
-        obj->lsize = fli_cntl.sliderFontSize;
-#if 0
-    else if ( objclass == FL_BROWSER && fli_cntl.browserFontSize )
-        obj->lsize = fli_cntl.browserFontSize;
-#endif
-    else if ( fli_cntl.labelFontSize )
-        obj->lsize = fli_cntl.labelFontSize;
-    else
-        obj->lsize = FL_DEFAULT_SIZE;
-
-    obj->lstyle             = FL_NORMAL_STYLE;
-    obj->shortcut           = fl_calloc( 1, sizeof *obj->shortcut );
-    *obj->shortcut          = 0;
-    obj->active             = 1;
-    obj->visible            = FL_VISIBLE;
-    obj->object_callback    = NULL;
-    obj->spec               = NULL;
-    obj->next = obj->prev   = NULL;
-    obj->form               = NULL;
-    obj->dbl_background     = FL_COL1;
-    obj->parent             = NULL;
-    obj->child              = NULL;
-    obj->nc                 = NULL;
-    obj->group_id           = 0;
-    obj->set_return         = NULL;
-    obj->how_return         = FL_RETURN_ALWAYS;
-    obj->returned           = 0;
-    obj->is_under           = 0;
+    obj->wantkey          = FL_KEY_NORMAL;
+    obj->flpixmap         = NULL;
+    obj->label            = fl_strdup( label ? label : "" );
+    obj->handle           = handle;
+    obj->align            = FL_ALIGN_CENTER;
+    obj->lcol             = FL_BLACK;
+    obj->col1             = FL_COL1;
+    obj->col2             = FL_MCOL;
+    obj->lsize            = fli_cntl.labelFontSize
+                            ? fli_cntl.labelFontSize
+                            : fl_adapt_to_dpi( FL_DEFAULT_SIZE );
+    obj->lstyle           = FL_NORMAL_STYLE;
+    obj->shortcut         = fl_calloc( 1, sizeof *obj->shortcut );
+    *obj->shortcut        = 0;
+    obj->active           = 1;
+    obj->visible          = FL_VISIBLE;
+    obj->object_callback  = NULL;
+    obj->spec             = NULL;
+    obj->next = obj->prev = NULL;
+    obj->form             = NULL;
+    obj->dbl_background   = FL_COL1;
+    obj->parent           = NULL;
+    obj->child            = NULL;
+    obj->nc               = NULL;
+    obj->group_id         = 0;
+    obj->set_return       = NULL;
+    obj->how_return       = FL_RETURN_ALWAYS;
+    obj->returned         = 0;
+    obj->is_under         = 0;
 
     return obj;
 }
@@ -1197,7 +1178,10 @@ fl_get_object_lcol( FL_OBJECT * obj )
 
 
 /***************************************
- * Sets the label's text size of an object
+ * Sets the label's text size of an object. Note: if the size
+ * is negative the current screen resolution is taken into
+ * account, i.e., it's assumed that the font size is in units
+ * of the currently set unit (with fl_set_coordunit()).
  ***************************************/
 
 void
@@ -1215,6 +1199,9 @@ fl_set_object_lsize( FL_OBJECT * obj,
 
     if ( obj->objclass != FL_BEGIN_GROUP && obj->lsize == lsize )
         return;
+
+    if ( lsize < 0 )
+        lsize = fli_scale_size( - lsize );
 
     /* For objects that have their label on the outside (or that are
        transparent) we hide the object and, after setting the new label font
@@ -2960,8 +2947,8 @@ fli_combine_rectangles( FL_RECT       * r1,
  * taken into account. The calculation takes care of rounding errors
  * and has the property that if two objects were "glued" together be-
  * fore scaling they will remain so. The function also doesn't re-
- * calculates intersection between objects, this has to be done by the
- * caller if necessary.
+ * calculates intersection between objects, this has to be done by
+ * the caller if necessary.
  ***************************************/
 
 void
@@ -3006,6 +2993,83 @@ fli_scale_object( FL_OBJECT * obj,
         if ( obj->child )
             fli_composite_has_been_resized( obj );
     }
+}
+
+
+/***************************************
+ ***************************************/
+
+int
+fli_scale_size( int size )
+{
+    switch ( fli_cntl.coordUnit )
+    {
+        case FL_COORD_MM :
+            return FL_nint( size * fl_dpi / 25.4 );
+
+        case FL_COORD_POINT :
+            return FL_nint( size * fl_dpi / 72.0 );
+
+        case FL_COORD_centiPOINT :
+            return FL_nint( size * fl_dpi / 7200.0 );
+
+        case FL_COORD_centiMM :
+            return FL_nint( size * fl_dpi / 2540.0 );
+    }
+
+    return size;
+}
+
+
+/***************************************
+ * Converts a size for the current DPI screen resolution
+ * assuming the input value is from a design with 96 DPI.
+ * Used for convertung font sizes.
+ ***************************************/
+
+FL_COORD
+fl_adapt_to_dpi( FL_COORD size )
+{
+    switch ( fli_cntl.coordUnit )
+    {
+        case FL_COORD_MM :
+        case FL_COORD_POINT :
+        case FL_COORD_centiPOINT :
+        case FL_COORD_centiMM :
+            return FL_crnd( fl_dpi * size / 96.0 );
+
+        default :
+            return size;
+    }
+}
+
+
+/***************************************
+ * Converts a size to what's needed with the currently set
+ * unit and the actual screen DPI, assuming the orginal
+ * design resolution was 96 DPI.
+ * Used for converting object positions and sizes.
+ ***************************************/
+
+FL_COORD
+fl_adapt_to_unit( FL_COORD size )
+{
+    switch ( fli_cntl.coordUnit )
+    {
+        case FL_COORD_MM :
+            return FL_crnd( size * 25.4 / 96.0 );
+
+        case FL_COORD_POINT :
+            return FL_crnd( size * 72.0 / 96.0 );
+
+        case FL_COORD_centiPOINT :
+            return FL_crnd( size * 7200.0 / 96.0 );
+
+        case FL_COORD_centiMM :
+            return FL_crnd( size * 2540.0 / 96.0 );
+    }
+
+    return size;
 }
 
 

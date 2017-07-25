@@ -166,6 +166,7 @@ init_pupfont( void )
 
     if ( ! pup_title_font_struct )
     {
+        pup_title_font_size = fl_adapt_to_dpi( pup_title_font_size );
         pup_title_font_struct = fl_get_fntstruct( pup_title_font_style,
                                                   pup_title_font_size );
         XTextExtents( pup_title_font_struct, "qjQb", 4, &junk,
@@ -174,6 +175,7 @@ init_pupfont( void )
 
     if ( ! pup_font_struct )
     {
+        pup_font_size = fl_adapt_to_dpi( pup_font_size );
         pup_font_struct = fl_get_fntstruct( pup_font_style, pup_font_size );
         XTextExtents( pup_font_struct, "qjQb", 4, &junk, &pup_ascent,
                       &pup_desc, &chs );

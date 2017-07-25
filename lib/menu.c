@@ -364,6 +364,8 @@ fl_create_menu( int          type,
     obj->col2   = FL_MENU_COL2;
     obj->lcol   = FL_MENU_LCOL;
     obj->lstyle = FL_NORMAL_STYLE;
+    if ( fli_cntl.menuFontSize )
+        obj->lsize = fli_cntl.menuFontSize;
     obj->align  = FL_MENU_ALIGN;
 
     if ( type == FL_TOUCH_MENU )
