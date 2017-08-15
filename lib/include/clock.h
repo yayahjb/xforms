@@ -59,7 +59,10 @@ FL_EXPORT void fl_get_clock( FL_OBJECT * ob,
 FL_EXPORT long fl_set_clock_adjustment( FL_OBJECT * ob,
                                         long        offset );
 
-FL_EXPORT void fl_set_clock_ampm( FL_OBJECT * ob,
-                                  int         y );
+FL_EXPORT int fl_set_clock_ampm( FL_OBJECT * ob,
+								 int         y );
+
+FL_EXPORT int fl_set_clock_hide_seconds( FL_OBJECT * ob,
+										 int         hide );
 
 #endif /* ! defined FL_CLOCK_H */

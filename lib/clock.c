@@ -40,10 +40,15 @@
 
 typedef struct
 {
-    time_t sec;
+    time_t ticks;
     long   offset;
+    int    hours;
+    int    minutes;
+    int    seconds;
     int    nstep;
-    int    am_pm;         /* 12hr clock */
+    int    am_pm;          /* 12 hr clock */
+    int    hide_seconds;
+    int    updating;
 } SPEC;
 
 
@@ -113,35 +118,32 @@ draw_hand( FL_Coord x,
 }
 
 
-static int hours,
-           minutes,
-           seconds;
-
-static int updating;
-
-
 /***************************************
  ***************************************/
 
 static void
-show_hands( FL_Coord x,
+show_hands( FL_OBJECT * obj,
+            FL_Coord x,
             FL_Coord y,
             FL_Coord w,
             FL_Coord h,
             FL_COLOR fcolor,
             FL_COLOR bcolor )
 {
+    SPEC * sp = obj->spec;
     double ra;
     double fact = - M_PI / 180.0;
 
-    ra = fact * ( 180 + 30 * hours + 0.5 * minutes );
+    ra = fact * ( 180 + 30 * sp->hours + 0.5 * sp->minutes );
     draw_hand( x, y, w, h, hourhand, ra, fcolor, bcolor );
 
-    ra = fact * ( 180 + 6 * minutes + seconds / 10 );
+    ra = fact * ( 180 + 6 * sp->minutes + sp->seconds / 10 );
     draw_hand( x, y, w, h, minhand, ra, fcolor, bcolor );
 
-    ra = fact * ( 180 + 6 * seconds );
-    draw_hand( x, y, w, h, sechand, ra, fcolor, bcolor );
+    if ( ! sp->hide_seconds ) {
+        ra = fact * ( 180 + 6 * sp->seconds );
+        draw_hand( x, y, w, h, sechand, ra, fcolor, bcolor );
+    }
 }
 
 
@@ -149,30 +151,20 @@ show_hands( FL_Coord x,
  ***************************************/
 
 static void
-draw_clock( int      type  FL_UNUSED_ARG,
-            FL_Coord x,
-            FL_Coord y,
-            FL_Coord w,
-            FL_Coord h,
-            FL_COLOR col1  FL_UNUSED_ARG,
-            FL_COLOR col2 )
+draw_clock( FL_OBJECT * obj )
 {
-    double xc = x + 0.5 * w,
-           yc = y + 0.5 * h;
+    double xc = obj->x + 0.5 * obj->w,
+           yc = obj->y + 0.5 * obj->h;
+    FL_COORD w = obj->w - 4;
+    FL_COORD h = obj->h - 4;
     int i;
     double ra;
     FL_POINT xp[ 5 ];             /* need one extra for closing of polygon! */
     double f1,
-           f2,
-           f3;
-
-    w -= 4;
-    h -= 4;
+           f2 = f2 = 0.40 * h,
+           f3 = 0.44 * h;
 
     /* Draw hour ticks */
-
-    f2 = 0.40 * h;
-    f3 = 0.44 * h;
 
     for ( ra = 0.0, i = 0; i < 12; i++, ra += M_PI / 6 )
     {
@@ -186,9 +178,9 @@ draw_clock( int      type  FL_UNUSED_ARG,
         fl_polyf( xp, 4, FL_LEFT_BCOL );
     }
 
-    show_hands( x + 2 + 0.02 * w, y + 2 + 0.02 * h,
+    show_hands( obj, obj->x + 2 + 0.02 * w, obj->y + 2 + 0.02 * h,
                 w, h, FL_RIGHT_BCOL, FL_RIGHT_BCOL );
-    show_hands( x, y, w, h, col2, FL_LEFT_BCOL );
+    show_hands( obj, obj->x, obj->y, w, h, obj->col2, FL_LEFT_BCOL );
 }
 
 
@@ -202,10 +194,23 @@ draw_digitalclock( FL_OBJECT * ob )
     SPEC *sp = ob->spec;
 
     if ( sp->am_pm )
-        sprintf( buf, "%d:%02d:%02d %s", hours > 12 ? hours - 12 : hours,
-                 minutes, seconds, hours > 12 ? "pm" : "am" );
+    {
+        if ( ! sp->hide_seconds )
+            sprintf( buf, "%d:%02d:%02d %s",
+                     sp->hours > 12 ? sp->hours - 12 : sp->hours,
+                     sp-> minutes, sp->seconds, sp->hours > 12 ? "pm" : "am" );
+        else
+            sprintf( buf, "%d:%02d %s",
+                     sp->hours > 12 ? sp->hours - 12 : sp->hours,
+                     sp->minutes, sp->hours > 12 ? "pm" : "am" );
+    }
     else
-        sprintf( buf, "%d:%02d:%02d", hours, minutes, seconds );
+    {
+        if ( ! sp->hide_seconds )
+            sprintf( buf, "%d:%02d:%02d", sp->hours, sp->minutes, sp->seconds );
+        else
+            sprintf( buf, "%d:%02d", sp->hours, sp->minutes );
+    }
 
     fl_draw_text( FL_ALIGN_CENTER, ob->x, ob->y, ob->w, ob->h, ob->col2,
                   ob->lstyle, ob->lsize, buf );
@@ -240,17 +245,16 @@ handle_clock( FL_OBJECT * ob,
             if ( ob->type == FL_DIGITAL_CLOCK )
                 draw_digitalclock( ob );
             else
-                draw_clock( ob->type, ob->x, ob->y, ob->w, ob->h,
-                            ob->col1, ob->col2 );
+                draw_clock( ob );
             /* fall through */
 
         case FL_DRAWLABEL :
-            if ( ! updating )
+            if ( ! sp->updating )
                 fl_draw_text_beside( ob->align & ~ FL_ALIGN_INSIDE,
                                      ob->x, ob->y, ob->w, ob->h,
                                      ob->lcol, ob->lstyle, ob->lsize,
                                      ob->label );
-            updating = 0;
+            sp->updating = 0;
             break;
 
         case FL_STEP:
@@ -264,14 +268,15 @@ handle_clock( FL_OBJECT * ob,
             sp->nstep = 0;
             ticks = time( 0 ) + sp->offset;
 
-            if ( ticks != sp->sec )
+            if ( ticks != sp->ticks )
             {
-                updating   = 1;
-                sp->sec    = ticks;
-                timeofday  = localtime( &ticks );
-                seconds    = timeofday->tm_sec;
-                hours      = timeofday->tm_hour;
-                minutes    = timeofday->tm_min;
+                sp->ticks    = ticks;
+                timeofday    = localtime( &ticks );
+                sp->seconds  = timeofday->tm_sec;
+                sp->hours    = timeofday->tm_hour;
+                sp->minutes  = timeofday->tm_min;
+
+                sp->updating = 1;
                 fl_redraw_object( ob );
             }
             break;
@@ -307,7 +312,7 @@ fl_create_clock( int          type,
     obj->lcol      = FL_CLOCK_LCOL;
     obj->align     = FL_CLOCK_ALIGN;
     obj->automatic = obj->active = 1;
-    obj->spec = sp = fl_calloc( 1, sizeof *sp );
+    obj->spec      = fl_calloc( 1, sizeof *sp );
 
     return obj;
 }
@@ -344,6 +349,7 @@ fl_set_clock_adjustment( FL_OBJECT * ob,
     long old = sp->offset;
 
     sp->offset = offset;
+
     return old;
 }
 
@@ -358,31 +364,44 @@ fl_get_clock( FL_OBJECT * ob,
               int *       s )
 {
     SPEC *sp = ob->spec;
-    time_t ticks;
-    struct tm *tm;
 
-    ticks = time( 0 ) + sp->offset;
-    tm = localtime( &ticks );
-    *h = tm->tm_hour;
-    *m = tm->tm_min;
-    *s = tm->tm_sec;
+    *h = sp->hours;
+    *m = sp->minutes;
+    *s = sp->seconds;
 }
 
 
 /***************************************
  ***************************************/
 
-void
+int
 fl_set_clock_ampm( FL_OBJECT * ob,
                    int         am_pm )
 {
     SPEC *sp = ob->spec;
+    int old = sp->am_pm != am_pm;
 
-    if ( sp->am_pm != am_pm )
-    {
-        sp->am_pm = am_pm;
-        fl_redraw_object( ob );
-    }
+    if ( sp->am_pm != !! am_pm )
+        sp->am_pm = !! am_pm;
+
+    return old;
+}
+
+
+/***************************************
+ ***************************************/
+
+int
+fl_set_clock_hide_seconds( FL_OBJECT * obj,
+                           int         hide )
+{
+    SPEC *sp = obj->spec;
+    int old = sp->hide_seconds;
+
+    if ( sp->hide_seconds != !! hide )
+        sp->hide_seconds = !! hide;
+
+    return old;
 }
 
 

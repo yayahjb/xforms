@@ -785,13 +785,28 @@ where @code{adj} is in seconds. For example, to display a time that is
 one hour behind the local time, an adjustment of @code{3600} can be
 used. The function returns the old adjustment value.
 
-By default, the digital clock uses 24hr system. You can switch the
-display to 12hr system (am-pm) by using the following routine
+Per default the clocks show hours, minutes and seconds. If instead
+you want a clock that only shows hours and minutes you can use
+@example
+int fl_set_clock_hide_seconds(FL_OBJECT *obj, int hide);
+@end example
+@noindent
+If the @code{hide} argument is non-zero displaying seconds is
+disables, otherwise enabled. The function returns the previous
+setting.
+
+
+Also by default, the digital clock uses 24hr system. You can switch
+the display to 12hr system (am-pm) by using the following routine
 @findex fl_set_clock_ampm()
 @anchor{fl_set_clock_ampm()}
 @example
 void fl_set_clock_ampm(FL_OBJECT *obj, int yes_no)
 @end example
+@noindent
+If the @code{yes_no} argument is non-zero the function sets the
+clock to 12hr mode, otherwise to 24hr mode. It returns the previous
+setting. For analog clocks the function has no effect.
 
 
 @node Clock Attributes

@@ -53,11 +53,18 @@ create_form_clock( void )
 {
     FL_OBJECT *obj;
 
-    fclock = fl_bgn_form( FL_NO_BOX, 500, 350 );
+    fclock = fl_bgn_form( FL_NO_BOX, 500, 620 );
 
-    fl_add_box( FL_UP_BOX, 0, 0, 500, 350, "" );
+    fl_add_box( FL_UP_BOX, 0, 0, 500, 620, "" );
 
-    obj = fl_add_clock( FL_DIGITAL_CLOCK, 185, 20, 150, 35, "" );
+    obj = fl_add_clock( FL_DIGITAL_CLOCK, 65, 20, 150, 35, "" );
+    fl_set_object_boxtype( obj, FL_ROUNDED_BOX );
+    fl_set_object_color( obj, FL_COL1,FL_BLACK );
+    fl_set_object_lsize( obj, FL_MEDIUM_SIZE );
+    fl_set_object_lstyle( obj, FL_BOLD_STYLE );
+
+    obj = fl_add_clock( FL_DIGITAL_CLOCK, 285, 20, 170, 35, "" );
+    fl_set_clock_ampm( obj, 1 );
     fl_set_object_boxtype( obj, FL_ROUNDED_BOX );
     fl_set_object_color( obj, FL_COL1,FL_BLACK );
     fl_set_object_lsize( obj, FL_MEDIUM_SIZE );
@@ -69,7 +76,31 @@ create_form_clock( void )
     obj = fl_add_clock( FL_ANALOG_CLOCK, 260, 70, 220, 200, "" );
     fl_set_object_boxtype( obj, FL_OVAL3D_UPBOX );
 
-    obj = fl_add_button( FL_NORMAL_BUTTON, 375, 300, 110, 35, "Exit" );
+    obj = fl_add_clock( FL_DIGITAL_CLOCK, 75, 290, 130, 35, "" );
+    fl_set_clock_hide_seconds( obj, 1);
+    fl_set_object_boxtype( obj, FL_ROUNDED_BOX );
+    fl_set_object_color( obj, FL_COL1,FL_BLACK );
+    fl_set_object_lsize( obj, FL_MEDIUM_SIZE );
+    fl_set_object_lstyle( obj, FL_BOLD_STYLE );
+
+    obj = fl_add_clock( FL_DIGITAL_CLOCK, 295, 290, 150, 35, "" );
+    fl_set_clock_ampm( obj, 1 );
+    fl_set_clock_hide_seconds( obj, 1);
+    fl_set_object_boxtype( obj, FL_ROUNDED_BOX );
+    fl_set_object_color( obj, FL_COL1,FL_BLACK );
+    fl_set_object_lsize( obj, FL_MEDIUM_SIZE );
+    fl_set_object_lstyle( obj, FL_BOLD_STYLE );
+
+    obj = fl_add_clock( FL_ANALOG_CLOCK, 30, 340, 220, 200, "" );
+    fl_set_clock_hide_seconds( obj, 1);
+    fl_set_object_boxtype( obj, FL_UP_BOX );
+
+    obj = fl_add_clock( FL_ANALOG_CLOCK, 260, 340, 220, 200, "" );
+    fl_set_clock_hide_seconds( obj, 1);
+    fl_set_object_boxtype( obj, FL_OVAL3D_UPBOX );
+
+
+    obj = fl_add_button( FL_NORMAL_BUTTON, 375, 570, 110, 35, "Exit" );
     fl_set_object_callback( obj, exit_cb, 0 );
 
     fl_end_form( );
