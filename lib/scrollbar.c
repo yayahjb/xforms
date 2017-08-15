@@ -365,7 +365,7 @@ fl_create_scrollbar( int          type,
             sp->slider = fl_create_slider( FL_VERT_NICE_SLIDER2, 1, 1,
                                            1, 1, "" );
         else
-            M_err( "fl_create_scrollbar", "Unknown type %d", type );
+            M_err( __func__, "Unknown type %d", type );
 
         fl_set_object_resize( sp->slider, FL_RESIZE_NONE );
     }
@@ -436,8 +436,7 @@ fl_get_scrollbar_value( FL_OBJECT * obj )
 
     if ( ! ISSCROLLBAR( obj ) )
     {
-        M_err( "fl_get_scrollbar_value", "%s not a scrollbar",
-               obj ? obj->label : "Object" );
+        M_err( __func__, "object %s not a scrollbar", obj ? obj->label : "" );
         return - HUGE_VAL;
     }
 
@@ -456,8 +455,7 @@ fl_set_scrollbar_value( FL_OBJECT * obj,
 
     if ( ! ISSCROLLBAR( obj ) )
     {
-        M_err( "fl_set_scrollbar_value", "%s not a scrollbar",
-               obj ? obj->label : "Object" );
+        M_err( __func__, "object %s not a scrollbar", obj ? obj->label : "" );
         return;
     }
 
@@ -535,8 +533,8 @@ fl_set_scrollbar_bounds( FL_OBJECT * obj,
 
     if ( ! ISSCROLLBAR( obj ) )
     {
-        M_err( "fl_set_scrollbar_bounds", "%s not a scrollbar",
-               obj ? obj->label : "Object" );
+        M_err( __func__, "object %s not a scrollbar",
+               obj ? obj->label : "" );
         return;
     }
 

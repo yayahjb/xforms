@@ -92,8 +92,7 @@ flimage_rotate( FL_IMAGE * im,
             r = rotate_matrix( im->ci, im->h, im->w, deg, sizeof **im->ci );
         else
         {
-            M_err( "flimage_rotate", "InternalError: unsupported image "
-                   "type\n" );
+            M_err( __func__, "InternalError: unsupported image type" );
             return -1;
         }
 
@@ -345,7 +344,7 @@ rotate_matrix( void * m,
     }
     else
     {
-        M_err( "RotateMatrix", "InternalError: bad special angle\n" );
+        M_err( __func__, "InternalError: bad special angle" );
         return 0;
     }
 

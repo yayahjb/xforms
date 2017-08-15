@@ -936,8 +936,7 @@ fl_set_slider_value( FL_OBJECT * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_SLIDER ) && ! IsValidClass( ob, FL_VALSLIDER ) )
     {
-        M_err( "fl_set_slider_value", "%s is not a slider",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not a slider", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -968,8 +967,7 @@ fl_set_slider_bounds( FL_OBJECT * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_SLIDER ) && ! IsValidClass( ob, FL_VALSLIDER ) )
     {
-        M_err( "fl_set_slider_bounds", "%s is not a slider",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not a slider", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -999,8 +997,7 @@ fl_get_slider_value( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_SLIDER ) && ! IsValidClass( ob, FL_VALSLIDER ) )
     {
-        M_err( "fl_get_slider_value", "%s is not a slider",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not a slider", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -1214,7 +1211,7 @@ fl_get_slider_mouse_buttons( FL_OBJECT    * obj,
 
     if ( ! obj )
     {
-        M_err( "fl_get_slider_mouse_buttons", "NULL object" );
+        M_err( __func__, "NULL object" );
         return;
     }
 

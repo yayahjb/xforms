@@ -120,7 +120,7 @@ fl_add_symbol( const char * name,
          || *name == '@'
          || ! drawit )
     {
-        M_warn( "fl_add_symbol", "Invalid argument" );
+        M_warn( __func__, "Invalid argument" );
         return 0;
     }
 
@@ -130,7 +130,7 @@ fl_add_symbol( const char * name,
             symbols = s;
         else
         {
-            M_warn( "fl_add_symbol", "Out of memory" );
+            M_warn( __func__, "Out of memory" );
             return 0;
         }
 
@@ -257,7 +257,7 @@ fl_draw_symbol( const char * label,
 
     if ( ! ( s = find_symbol( label + pos ) ) )
     {
-        M_err( "fl_draw_symbol", "Bad symbol: \"%s\"", label );
+        M_err( __func__, "Bad symbol: \"%s\"", label );
         return 0;
     }
 

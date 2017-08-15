@@ -261,14 +261,14 @@ make_submatrix( void         * in,
 
     if (r1 < 0 || c1 < 0 || (r1 + rs - 1) >= rows || (c1 + cs - 1) >= cols)
     {
-        M_err("make_submatrix", "Bad arguments");
+        M_err( __func__, "Bad arguments" );
         return 0;
     }
 
     if (    mat[ -1 ] != ( char * ) FL_GET_MATRIX
          && mat[ -1 ] != ( char * ) FL_MAKE_MATRIX )
     {
-        M_err( "make_submatrix", "input is not a matrix" );
+        M_err( __func__, "input is not a matrix" );
         return NULL;
     }
 
@@ -301,14 +301,14 @@ get_submatrix( void         * in,
 
     if ( r1 < 0 || c1 < 0 || r1 + rs - 1 >= rows || c1 + cs - 1 >= cols )
     {
-        M_err("get_submatrix", "Bad arguments");
+        M_err( __func__, "Bad arguments" );
         return 0;
     }
 
     if (    mat[ -1 ] != ( char * ) FL_GET_MATRIX
          && mat[ -1 ] != ( char * ) FL_MAKE_MATRIX )
     {
-        M_err( "get_submatrix", "input is not a matrix" );
+        M_err( __func__, "input is not a matrix" );
         return NULL;
     }
 

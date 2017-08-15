@@ -292,7 +292,7 @@ flimage_convolve( FL_IMAGE  * im,
 
     if ( !im || im->w <= 0 || im->type == FL_IMAGE_NONE )
     {
-        M_err( "Convolve", "bad image" );
+        M_err( __func__, "bad image" );
         return -1;
     }
 
@@ -321,7 +321,7 @@ flimage_convolve( FL_IMAGE  * im,
     }
 
     if ( ! ( krow & 1 ) || ! ( kcol & 1 ) )
-        M_err( "Convolve", "even or zero kernel size (row = %d, col = %d)!",
+        M_err( __func__, "even or zero kernel size (row = %d, col = %d)!",
                krow, kcol );
 
     for ( i = 0; i < kcol * krow; i++ )
@@ -383,7 +383,7 @@ flimage_convolvea( FL_IMAGE * im,
         status;
 
     if ( ! ( krow & 1 ) || ! ( kcol & 1 ) )
-        M_err( "Convolve", "even or zero kernel size (row = %d, col = %d)!",
+        M_err( __func__, "even or zero kernel size (row = %d, col = %d)!",
                krow, kcol );
 
     kk = fl_make_matrix( krow, kcol, sizeof **kk, kernel );

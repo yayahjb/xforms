@@ -70,7 +70,7 @@ fl_stuff_clipboard( FL_OBJECT            * ob,
 
     if ( ! win )
     {
-        M_err( "fl_stuff_clipboard", "Bad object %s", ob ? ob->label : "null" );
+        M_err( __func__, "Bad object %s", ob ? ob->label : "null" );
         return 0;
     }
 
@@ -80,7 +80,7 @@ fl_stuff_clipboard( FL_OBJECT            * ob,
 
     if ( XGetSelectionOwner( flx->display, XA_PRIMARY ) != win )
     {
-        M_err( "fl_stuff_clipboard", "Failed to get owner" );
+        M_err( __func__, "Failed to get owner" );
         return 0;
     }
 
@@ -118,7 +118,7 @@ fl_request_clipboard( FL_OBJECT       * ob,
 
     if ( got_it_callback == NULL )
     {
-        M_warn( "fl_request_clipboard", "Callback is NULL" );
+        M_warn( __func__, "Callback is NULL" );
         return -1;
     }
 
@@ -148,7 +148,7 @@ fl_request_clipboard( FL_OBJECT       * ob,
     {
         /* We don't own it, request it */
 
-        M_warn( "fl_request_clipboard", "Requesting selection from %ld", win );
+        M_warn( __func__, "Requesting selection from %ld", win );
         XConvertSelection( flx->display,
                            XA_PRIMARY, XA_STRING,
                            clipboard_prop,
@@ -193,7 +193,7 @@ handle_clipboard_event( void * event )
 
     if ( ! cp->req_window && ! cp->window )
     {
-        M_warn( "handle_clipboard_event", "InternalError" );
+        M_warn( __func__, "InternalError" );
         return -1;
     }
 
@@ -265,11 +265,11 @@ handle_clipboard_event( void * event )
     {
         /* Someone wants our selection */
 
-        M_warn( "handle_clipboard_event", "SelectionRequest" );
+        M_warn( __func__, "SelectionRequest" );
 
         if ( sreq->owner != cp->window )
         {
-            M_err( "handle_clipboard_event", "Wrong owner" );
+            M_err( __func__, "Wrong owner" );
             return -1;
         }
 
@@ -309,8 +309,8 @@ handle_clipboard_event( void * event )
                 /* If we have other types conversion routine should be
                    called here */
 
-                M_warn( "handle_clipboard_event", "Received request with "
-                        "unknown/not implemented XAtom target type: %d\n",
+                M_warn( __func__, "Received request with unknown/not "
+                        "implemented XAtom target type: %d\n",
                         ( int ) sreq->target );
             }
 
@@ -321,7 +321,7 @@ handle_clipboard_event( void * event )
         {
             /* not XA_PRIMARY request */
 
-            M_warn( "handle_clipboard_event", "Unknown selection request: %d",
+            M_warn( __func__, "Unknown selection request: %d",
                     sreq->selection );
             return -1;
         }

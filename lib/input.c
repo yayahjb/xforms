@@ -2039,7 +2039,7 @@ fl_set_input_fieldchar( FL_OBJECT * obj,
 
     if ( obj->objclass != FL_INPUT )
     {
-        M_err( "fl_set_input_fieldchar", "%s isn't an input object",
+        M_err( __func__, "object %s isn't an input object",
                obj ? obj->label : "null" );
         return 0;
     }

@@ -228,7 +228,7 @@ set_next_entry( FLI_CHOICE_SPEC * sp,
         if ( ! ( sp->mode[ target ] & FL_PUP_GREY ) )
             return sp->val = target;
 
-    M_err( "set_next_entry", "No valid entries" );
+    M_err( __func__, "No valid entries" );
     return -1;
 }
 
@@ -319,7 +319,7 @@ handle_choice( FL_OBJECT * ob,
     int ret = FL_RETURN_NONE;
 
 #if FL_DEBUG >= ML_DEBUG
-    M_info2( "handle_choice", fli_event_name( event ) );
+    M_info2( __func__, fli_event_name( event ) );
 #endif
 
     switch ( event )
@@ -559,8 +559,7 @@ fl_clear_choice( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_CHOICE ) )
     {
-        M_err( "fl_clear_choice", "%s is not choice class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not choice class", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -616,8 +615,7 @@ fl_addto_choice( FL_OBJECT *  ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_CHOICE ) )
     {
-        M_err( "fl_addto_choice", "%s is not choice class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not choice class", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -773,8 +771,7 @@ fl_set_choice_text( FL_OBJECT *  ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_CHOICE ) )
     {
-        M_err( "fl_set_choice_text", "%s not choice class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s not choice class", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -787,7 +784,7 @@ fl_set_choice_text( FL_OBJECT *  ob,
             return;
         }
 
-    M_err( "fl_set_choice_text", "%s not found", txt );
+    M_err( __func__, "choice object with \"%s\" not found", txt );
 }
 
 
@@ -818,7 +815,7 @@ fl_get_choice_item_mode( FL_OBJECT *  ob,
 
     if ( item < 1 || item > sp->numitems )
     {
-        M_err( "fl_get_choice_item_mode", "Bad item index %d", item );
+        M_err( __func__, "Bad item index %d", item );
         return -1;
     }
 
@@ -840,7 +837,7 @@ fl_set_choice_item_mode( FL_OBJECT *  ob,
 
     if ( item < 1 || item > sp->numitems )
     {
-        M_err( "fl_set_choice_item_mode", "Bad item index %d", item );
+        M_err( __func__, "Bad item index %d", item );
         return;
     }
 
@@ -861,7 +858,7 @@ fl_set_choice_item_shortcut( FL_OBJECT *  ob,
 
     if ( item < 1 || item > sp->numitems )
     {
-        M_err( "fl_set_choice_item_shortcut", "Bad item index %d", item );
+        M_err( __func__, "Bad item index %d", item );
         return;
     }
 
@@ -882,7 +879,7 @@ fl_get_choice( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_CHOICE ) )
     {
-        M_err( "fl_get_choice", "%s is not choice class", ob ? ob->label : "" );
+        M_err( __func__, "%s is not choice class", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -913,8 +910,7 @@ fl_get_choice_text( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_CHOICE ) )
     {
-        M_err( "fl_get_choice_text", "%s is not choice class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not a choice", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -953,7 +949,7 @@ fl_set_choice_fontsize( FL_OBJECT * ob,
 
     if ( size < 1 )
     {
-        M_err( "fl_set_choice_fontsize", "Invalid font size (%d)", size );
+        M_err( __func__, "Invalid font size (%d)", size );
         return;
     }
 

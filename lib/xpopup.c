@@ -229,7 +229,7 @@ find_empty_index( Window win )
             return p - menu_rec;
         }
 
-    M_err( "find_empty_index", "Too many popups (maximum is %d)", fl_maxpup );
+    M_err( __func__, "Too many popups (maximum is %d)", fl_maxpup );
     return -1;
 }
 
@@ -376,13 +376,13 @@ parse_entry( int          n,
                     if ( e == p + 2 )
                     {
                         flags |= M_ERR;
-                        M_err( "parse_entry", "Missing number after %%x" );
+                        M_err( __func__, "Missing number after %%x" );
                         break;
                     }
                     if ( num <= 0 )
                     {
                         flags |= M_ERR;
-                        M_err( "parse_entry", "Invalid zero or negative "
+                        M_err( __func__, "Invalid zero or negative "
                                "number after %%x" );
                         break;
                     }
@@ -411,13 +411,13 @@ parse_entry( int          n,
                     if ( num <= 0 )
                     {
                         flags |= M_ERR;
-                        M_err( "parse_entry", "Zero or negative group number" );
+                        M_err( __func__, "Zero or negative group number" );
                         break;
                     }
                     if ( e == p + 2 )
                     {
                         flags |= M_ERR;
-                        M_err( "parse_entry", "Missing number after %%%c",
+                        M_err( __func__, "Missing number after %%%c",
                                p + 1 );
                         break;
                     }
@@ -448,7 +448,7 @@ parse_entry( int          n,
 
                 default :
                     flags |= M_ERR;
-                    M_err( "parse_entry", "Unknown sequence %%%c", p[ 1 ] );
+                    M_err( __func__, "Unknown sequence %%%c", p[ 1 ] );
                     break;
             }
         }
@@ -462,7 +462,7 @@ parse_entry( int          n,
 
         if ( sc )
         {
-            M_info( "parse_entry", "shortcut = %s for %s", sc, c );
+            M_info( __func__, "shortcut = %s for %s", sc, c );
             convert_shortcut( sc, c, item, NSC );
         }
 
@@ -508,7 +508,7 @@ parse_entry( int          n,
     }
 
     if ( c )
-        M_err( "parse_entry", "Too many menu items, max is %d", FL_MAXPUPI );
+        M_err( __func__, "Too many menu items, max is %d", FL_MAXPUPI );
 
     fl_free( s );
 
@@ -669,7 +669,7 @@ fl_newpup( Window win )
 
     if ( pup_level )
     {
-        M_warn( "fl_newpup", "Inconsistent pup_level %d", pup_level );
+        M_warn( __func__, "Inconsistent pup_level %d", pup_level );
         pup_level = 0;
     }
 
@@ -767,7 +767,7 @@ requested_item_is_valid( const char * where,
 {
     if ( nm < 0 || nm >= fl_maxpup || ! menu_rec[ nm ].used )
     {
-        M_err( where, "Bad popup index %d", nm );
+        M_err( __func__, "Bad popup index %d for \"%s\"", nm, where );
         return NULL;
     }
 
@@ -823,8 +823,7 @@ convert_shortcut( const char * sc,
     item->ulpos = fli_get_underline_pos( str, sc ) - 1;
     fli_convert_shortcut( sc, item->shortcut );
     if ( sc[ 0 ] == '&' )
-        M_info( "convert_shortcut", "sc = %s keysym = %ld\n",
-                sc, item->shortcut[ 0 ] );
+        M_info( __func__, "sc = %s keysym = %ld\n", sc, item->shortcut[ 0 ] );
 }
 
 
@@ -886,7 +885,7 @@ get_valid_entry( PopUP * m,
         if ( ! ( m->item[ target - 1 ]->mode & FL_PUP_GREY ) )
             return target;
 
-    M_err( "get_valid_entry", "No valid entries among total of %d", m->nitems );
+    M_err( __func__, "No valid entries among total of %d", m->nitems );
     return 0;
 }
 
@@ -1257,12 +1256,12 @@ grab_both( PopUP * m )
     if ( XGrabPointer( flx->display, m->win, False, evmask, GrabModeAsync,
                        GrabModeAsync, None, m->cursor, CurrentTime )
                                                                 != GrabSuccess )
-        M_err( "grab_both", "Can't grab pointer" );
+        M_err( __func__, "Can't grab pointer" );
 
     if ( XGrabKeyboard( flx->display, m->win, False, GrabModeAsync,
                         GrabModeAsync, CurrentTime ) != GrabSuccess )
     {
-        M_err( "grab_both", "Can't grab keyboard" );
+        M_err( __func__, "Can't grab keyboard" );
         XUngrabPointer( flx->display, CurrentTime );
     }
 }
@@ -1282,7 +1281,7 @@ fl_dopup( int n )
 
     if ( n < 0 || n >= fl_maxpup || ! menu_rec[ n ].used )
     {
-        M_err( "fl_dopup", "bad pupID: %d\n", n );
+        M_err( __func__, "bad pupID: %d\n", n );
         return -1;
     }
 
@@ -1316,7 +1315,7 @@ fl_dopup( int n )
         wait_for_close( m->win );
     }
     else
-        M_err( "fl_dopup", "Window already closed" );
+        M_err( __func__, "Window already closed" );
 
     /* The following is necessary because 'save_under' may not be supported.
        Both the forms under the closed popup window and higher level popup
@@ -1415,7 +1414,7 @@ fl_freepup( int n )
 
     if ( ! p->used )
     {
-        M_warn( "freepup", "freeing an unallocated/free'ed popup %d\n", n );
+        M_warn( __func__, "freeing an unallocated/free'ed popup %d\n", n );
         return;
     }
 
@@ -1981,7 +1980,7 @@ fl_showpup( int n )
 
     if ( n < 0 || n >= fl_maxpup || ! menu_rec[ n ].used )
     {
-        M_err( "fl_showpup", "bad pupID: %d\n", n );
+        M_err( __func__, "bad pupID: %d\n", n );
         return;
     }
 

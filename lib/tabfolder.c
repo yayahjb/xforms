@@ -335,7 +335,7 @@ switch_folder( FL_OBJECT * ob,
 
     if ( data < 0 || data >= sp->nforms )
     {
-        M_err( "switch_folder", "Invalid index");
+        M_err( __func__, "Invalid index");
         return;
     }
 
@@ -463,21 +463,20 @@ fl_addto_tabfolder( FL_OBJECT  * ob,
 
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_addto_tabfolder", "%s not a folder class",
+        M_err( __func__, "object %s not a folder class",
                ob ? ob->label : "null" );
         return 0;
     }
 
     if ( ! form || ! title )
     {
-        M_err( "fl_addto_tabfolder", "Invalid argument(s)" );
+        M_err( __func__, "Invalid argument(s)" );
         return 0;
     }
 
     if ( form->attached )
     {
-        M_err( "fl_addto_tabfolder",
-               "Seems as if the form is already attached" );
+        M_err( __func__, "Seems as if the form is already attached" );
         return 0;
     }
 
@@ -737,7 +736,7 @@ fl_set_folder( FL_OBJECT * ob,
 
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_set_folder", "%s is not tabfolder",
+        M_err( __func__, "object %s is not tabfolder",
                ob ? ob->label : "null" );
         return;
     }
@@ -765,7 +764,7 @@ fl_set_folder_byname( FL_OBJECT  * ob,
 
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_set_folder_byname", "%s is not tabfolder",
+        M_err( __func__, "object %s is not tabfolder",
                ob ? ob->label : "null" );
         return;
     }
@@ -808,7 +807,7 @@ fl_set_folder_bynumber( FL_OBJECT * ob,
 
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_set_folder_bynumber", "%s is not tabfolder",
+        M_err( __func__, "object %s is not tabfolder",
                ob ? ob->label : "null" );
         return;
     }
@@ -852,7 +851,7 @@ fl_get_folder_number( FL_OBJECT * ob )
 {
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_get_folder_number", "%s is not tabfolder",
+        M_err( __func__, "object %s is not tabfolder",
                ob ? ob->label : "null" );
         return 0;
     }
@@ -869,7 +868,7 @@ fl_get_active_folder_number( FL_OBJECT * ob )
 {
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_get_active_folder_number", "%s is not tabfolder",
+        M_err( __func__, "object %s is not tabfolder",
                ob ? ob->label : "null" );
         return 0;
     }
@@ -888,7 +887,7 @@ fl_get_folder( FL_OBJECT * ob )
 
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_get_folder", "%s is not tabfolder",
+        M_err( __func__, "object %s is not tabfolder",
                ob ? ob->label : "null" );
         return NULL;
     }
@@ -908,7 +907,7 @@ fl_get_folder_name( FL_OBJECT * ob )
 
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_get_folder_name", "%s is not tabfolder",
+        M_err( __func__, "object %s is not tabfolder",
                ob ? ob->label : "null" );
         return NULL;
     }
@@ -928,7 +927,7 @@ fl_get_active_folder( FL_OBJECT * ob )
 
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_get_active_folder", "%s is not tabfolder",
+        M_err( __func__, "object %s is not tabfolder",
                ob ? ob->label : "null" );
         return NULL;
     }
@@ -950,8 +949,8 @@ fl_get_active_folder_name( FL_OBJECT * ob )
 
     if ( ! IsFolderClass( ob ) )
     {
-        M_err( "fl_get_active_folder_name", "%s is not tabfolder",
-              ob ? ob->label : "null" );
+        M_err( __func__, "object %s is not tabfolder",
+               ob ? ob->label : "null" );
         return NULL;
     }
 

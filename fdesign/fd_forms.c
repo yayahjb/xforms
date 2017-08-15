@@ -871,12 +871,12 @@ save_forms( const char *str )
         }
 
         sprintf( cmdbuf, "%s %s%s", conv->extern_convertor, optbuf, filename );
-        M_warn( "Convert", "Executing %s", cmdbuf );
+        M_warn( __func__, "Executing %s", cmdbuf );
 
         if ( fdopt.conv_only )
         {
             if ( ( status = system( cmdbuf ) ) )
-                M_err( "Output", "Error executing %s\n", cmdbuf );
+                M_err( __func__, "Error executing %s\n", cmdbuf );
         }
         else
         {

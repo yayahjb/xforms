@@ -178,7 +178,7 @@ fl_hide_input( void )
     if ( fd_input )
         fl_trigger_object( fd_input->cancel );
     else
-        M_warn( "fl_hide_input", "No input box is shown" );
+        M_warn( __func__, "No input box is shown" );
 }
 
 

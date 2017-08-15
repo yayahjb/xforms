@@ -129,7 +129,7 @@ find_class_struct( int n )
             return classes + i;
     }
 
-    M_err( "find_class_struct", "Can't find class %d", n );
+    M_err( __func__, "Can't find class %d", n );
     return NULL;
 }
 
@@ -147,7 +147,7 @@ add_type_def( int  cn,
 
     if ( tn >= MAXTYPES || tn < 0 )
     {
-        M_err( "add_type_def", "Bad type: %d", tn );
+        M_err( __func__, "Bad type: %d", tn );
         return;
     }
 
@@ -812,7 +812,7 @@ find_type_value( int          cln,
                                        type_name + 3 ) ) )
                     return j;
 
-    M_err( "TypeValue", "type %s is unknown", type_name );
+    M_err( __func__, "type %s is unknown", type_name );
     return -1;
 }
 

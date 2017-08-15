@@ -282,8 +282,7 @@ fli_xyplot_interpolate( FL_OBJECT * ob,
 
     if ( newn > 5000 )
     {
-        M_err( "fli_xyplot_interpolate",
-               "interpolating %d points exceeds screen res", newn );
+        M_err( __func__, "interpolating %d points exceeds screen res", newn );
         return -1;
     }
 
@@ -304,8 +303,7 @@ fli_xyplot_interpolate( FL_OBJECT * ob,
         {
             if ( sp->wx )
                 fli_safe_free( sp->wx );
-            M_err( "fli_xyplot_interpolate",
-                   "Can't allocate memory for %d points", newn );
+            M_err( __func__, "Can't allocate memory for %d points", newn );
             return -1;
         }
 
@@ -316,8 +314,7 @@ fli_xyplot_interpolate( FL_OBJECT * ob,
                          sp->wx, sp->wy, sp->grid[ id ],
                          sp->interpolate[ id ] ) != newn )
     {
-        M_err( "fli_xyplot_interpolate",
-               "An error has occured while interpolating" );
+        M_err( __func__, "An error has occured while interpolating" );
         return -1;
     }
 
@@ -2025,7 +2022,7 @@ handle_xyplot( FL_OBJECT * ob,
     }
 
     if ( ret && sp->inside == 0 )
-        M_err( "handle_xyplot", "Something is wrong\n" );
+        M_err( __func__, "Something is wrong\n" );
 
     return ret;
 }
@@ -2410,7 +2407,7 @@ fl_set_xyplot_symbol( FL_OBJECT        * ob,
 
     if ( id < 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_set_xyplot_symbol", "ID %d is not in range (0,%d)",
+        M_err( __func__, "ID %d is not in range (0,%d)",
                id, sp->maxoverlay );
         return NULL;
     }
@@ -2486,8 +2483,8 @@ fl_set_xyplot_xtics( FL_OBJECT * ob,
          && (    ( minor > 0 && major * minor > MAX_TIC )
               || ( minor < 0 && major > MAX_TIC ) ) )
     {
-        M_err( "fl_set_xyplot_xtics",
-               "More than maximum of %d tics would be required", MAX_TIC );
+        M_err( __func__, "More than maximum of %d tics would be required",
+               MAX_TIC );
         if ( minor > 0 )
             minor = 2;
         major = 5;
@@ -2531,8 +2528,8 @@ fl_set_xyplot_ytics( FL_OBJECT * ob,
          && (    ( minor > 0 && major * minor > MAX_TIC )
               || ( minor < 0 && major > MAX_TIC ) ) )
     {
-        M_err( "fl_set_xyplot_ytics",
-               "More than maximum of %d tics would be required", MAX_TIC );
+        M_err( __func__, "More than maximum of %d tics would be required",
+               MAX_TIC );
         minor = 2;
         major = 5;
     }
@@ -2756,8 +2753,7 @@ fl_set_xyplot_data_double( FL_OBJECT  * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_XYPLOT ) )
     {
-        M_err( "fl_set_xyplot_data_double",
-               "%s not an xyplot", ob ? ob->label : "" );
+        M_err( __func__, "object %s not an xyplot", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -2779,7 +2775,7 @@ fl_set_xyplot_data_double( FL_OBJECT  * ob,
     {
         if ( *sp->x )
             fl_free( *sp->x );
-        M_err( "fl_set_xyplot_data_double", "Can't allocate memory" );
+        M_err( __func__, "Can't allocate memory" );
         return;
     }
 
@@ -2817,7 +2813,7 @@ fl_set_xyplot_data( FL_OBJECT  * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_XYPLOT ) )
     {
-        M_err( "fl_set_xyplot_data", "%s not an xyplot", ob ? ob->label : "" );
+        M_err( __func__, "object %s not an xyplot", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -2839,7 +2835,7 @@ fl_set_xyplot_data( FL_OBJECT  * ob,
     {
         if ( *sp->x )
             fli_safe_free( *sp->x );
-        M_err( "fl_set_xyplot_data", "Can't allocate memory" );
+        M_err( __func__, "Can't allocate memory" );
         return;
     }
 
@@ -2873,8 +2869,7 @@ fl_insert_xyplot_data( FL_OBJECT * ob,
 
     if ( id < 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_insert_xyplot_data", "ID %d is not in range (0,%d)",
-               id, sp->maxoverlay );
+        M_err( __func__, "ID %d is not in range (0,%d)", id, sp->maxoverlay );
         return;
     }
 
@@ -2944,8 +2939,7 @@ fl_add_xyplot_overlay( FL_OBJECT * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_XYPLOT ) )
     {
-        M_err( "fl_add_xyplot_overlay", "%s not XYPLOT class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s not XYPLOT class", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -2954,8 +2948,7 @@ fl_add_xyplot_overlay( FL_OBJECT * ob,
 
     if ( id < 1 || id > sp->maxoverlay )
     {
-        M_err( "fl_add_xyplot_overlay", "ID %d is not in range (1,%d)",
-               id, sp->maxoverlay );
+        M_err( __func__, "ID %d is not in range (1,%d)", id, sp->maxoverlay );
         return;
     }
 
@@ -3008,7 +3001,7 @@ load_data( const char  * f,
 
     if ( ! f || ! ( fp = fopen( f, "r" ) ) )
     {
-        M_err( "load_data", "Can't open datafile '%s'", f ? f : "null" );
+        M_err( __func__, "Can't open datafile '%s'", f ? f : "null" );
         return 0;
     }
 
@@ -3028,8 +3021,7 @@ load_data( const char  * f,
 
         if ( ( err = ( sscanf( buf, "%f%*[ \t,]%f", *x + n, *y + n ) != 2 ) ) )
         {
-            M_err( "load_data", "An error occured at line %d",
-                   ++n + ncomment );
+            M_err( __func__, "An error occured at line %d", ++n + ncomment );
             break;
         }
 
@@ -3090,8 +3082,7 @@ fl_set_xyplot_overlay_type( FL_OBJECT * ob,
 
     if ( id < 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_set_xyplot_overlay_type", "ID %d is not in range (0,%d)",
-               id, sp->maxoverlay );
+        M_err( __func__, "ID %d is not in range (0,%d)", id, sp->maxoverlay );
         return;
     }
 
@@ -3114,7 +3105,7 @@ fl_get_xyplot_numdata( FL_OBJECT * ob,
 
     if ( id < 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_get_xyplot_numdata", "ID %d is not in range (0,%d)",
+        M_err( __func__, "ID %d is not in range (0,%d)",
                id, sp->maxoverlay );
         return -1;
     }
@@ -3134,8 +3125,7 @@ fl_delete_xyplot_overlay( FL_OBJECT * ob,
 
     if ( id <= 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_delete_xyplot_overlay", "ID %d is not in range (1,%d)",
-               id, sp->maxoverlay );
+        M_err( __func__, "ID %d is not in range (1,%d)", id, sp->maxoverlay );
         return;
     }
 
@@ -3159,8 +3149,7 @@ fl_get_xyplot_overlay_data( FL_OBJECT * ob,
 
     if ( id < 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_get_xyplot_overlay_data", "ID %d is not in range (0,%d)",
-               id, sp->maxoverlay );
+        M_err( __func__, "ID %d is not in range (0,%d)", id, sp->maxoverlay );
         return;
     }
 
@@ -3189,8 +3178,7 @@ fl_get_xyplot_data_pointer( FL_OBJECT  * ob,
 
     if ( id < 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_get_xyplot_data_pointer", "ID %d is not in range (0,%d)",
-               id, sp->maxoverlay );
+        M_err( __func__, "ID %d is not in range (0,%d)", id, sp->maxoverlay );
         return;
     }
 
@@ -3218,8 +3206,7 @@ fl_set_xyplot_linewidth( FL_OBJECT * ob,
 
     if ( id < 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_set_xyplot_linewidth", "ID %d is not in range (0,%d)",
-               id, sp->maxoverlay );
+        M_err( __func__, "ID %d is not in range (0,%d)", id, sp->maxoverlay );
         return;
     }
 
@@ -3248,7 +3235,7 @@ fl_set_xyplot_file( FL_OBJECT  * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_XYPLOT ) )
     {
-        M_err( "fl_set_xyplot_file", "%s not an xyplot", ob ? ob->label : "" );
+        M_err( __func__, "object %s not an xyplot", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -3281,7 +3268,7 @@ fl_add_xyplot_text( FL_OBJECT  * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_XYPLOT ) )
     {
-        M_err( "fl_add_xyplot_text", "%s not an xyplot", ob ? ob->label : "" );
+        M_err( __func__, "object %s not an xyplot", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -3318,8 +3305,7 @@ fl_delete_xyplot_text( FL_OBJECT  * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_XYPLOT ) )
     {
-        M_err( "fl_delete_xyplot_text", "%s not an xyplot",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s not an xyplot", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -3509,8 +3495,7 @@ gen_logtic( float tmin,
 
     if ( tmin <= 0.0 || tmax <= 0.0 )
     {
-        M_err( "gen_logtic", "range bordrs must be greater than 0 for "
-               "logscale" );
+        M_err( __func__, "range borders must be greater than 0 for logscale" );
         return -1;
     }
 
@@ -3637,7 +3622,7 @@ fl_set_xyplot_xscale( FL_OBJECT * ob,
 
     if ( scale == FL_LOG && ( base <= 0.0 || base == 1.0 ) )
     {
-        M_err( "fl_set_xyplot_xscale", "bad log base %g specified", base );
+        M_err( __func__, "bad log base %g specified", base );
         return;
     }
 
@@ -3668,7 +3653,7 @@ fl_set_xyplot_yscale( FL_OBJECT * ob,
 
     if ( scale == FL_LOG && ( base <= 0.0 || base == 1.0 ) )
     {
-        M_err( "fl_set_xyplot_yscale", "bad log base %g specified", base );
+        M_err( __func__, "bad log base %g specified", base );
         return;
     }
 
@@ -3829,8 +3814,7 @@ fl_set_xyplot_key( FL_OBJECT  * ob,
 
     if ( id < 0 || id > sp->maxoverlay )
     {
-        M_err( "fl_set_xyplot_key", "ID %d is not in range (0,%d)",
-               id, sp->maxoverlay );
+        M_err( __func__, "ID %d is not in range (0,%d)", id, sp->maxoverlay );
         return;
     }
 
@@ -4038,7 +4022,7 @@ fl_get_xyplot_mouse_buttons( FL_OBJECT    * obj,
 
     if ( ! obj )
     {
-        M_err( "fl_get_xyplot_mouse_buttons", "NULL object" );
+        M_err( __func__, "NULL object" );
         return;
     }
 

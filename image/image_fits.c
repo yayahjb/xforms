@@ -419,7 +419,7 @@ parse_fits_header( FILE     * fp,
             flimage_add_comments( im, buf, 80 );
 
 #if FITS_DEBUG
-        M_err( "FITS", "key=%s_\t\t val=%s_", key, val );
+        M_err( __func__, "key=%s_\t\t val=%s_", key, val );
 #endif
 
         if ( strcmp( key, "SIMPLE" ) == 0 )
@@ -580,7 +580,7 @@ FITS_load( FL_IMAGE * im )
     has_minmax = sp->dmax != sp->dmin;
 
 #if FITS_DEBUG
-    M_err( "fits_load", "sp->dmax=%g sp->dmin=%g", sp->dmax, sp->dmin );
+    M_err( __func__, "sp->dmax=%g sp->dmin=%g", sp->dmax, sp->dmin );
 #endif
 
     /* read the data */
@@ -819,7 +819,7 @@ FITS_next( FL_IMAGE * im )
     sp->nframe++;
 
 #if FITS_DEBUG
-    M_err( "FITS_next", "loading %d ", sp->nframe );
+    M_err( __func__, "loading %d ", sp->nframe );
 #endif
 
     status = FITS_load( im );

@@ -85,7 +85,7 @@ io_cb( int    fd,
     else if ( n <= 0 )
     {               /* 0: EOF   <0: error. */
         if ( n < 0 )
-            M_err( "io_cb", "read returns %d", n );
+            M_err( __func__, "read returns %d", n );
         fl_remove_io_callback( fd, FL_READ, io_cb );
         close( fd );
     }
@@ -99,7 +99,7 @@ io_cb( int    fd,
     else if ( n <= 0 )
     {               /* 0: EOF   <0: error. */
         if ( n < 0 )
-            M_err( "io_cb", "read returns %d", n );
+            M_err( __func__, "read returns %d", n );
         fl_remove_io_callback( fd, FL_READ, io_cb );
         CloseHandle( ( HANDLE ) fd );
     }

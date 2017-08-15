@@ -248,7 +248,7 @@ flimage_open( const char * file )
     FL_IMAGE *im = identify_image( file );
 
     if ( ! im )
-        M_err( "OpenImage", "%s: Unknown image format", file ? file : "null" );
+        M_err( __func__, "%s: Unknown image format", file ? file : "null" );
 
     return im;
 }
@@ -600,7 +600,7 @@ convert_type( FL_IMAGE   * im,
     }
     else
     {
-        M_err( "Output", "InternalError: unhandled image type: %s",
+        M_err( __func__, "InternalError: unhandled image type: %s",
                flimage_type_name( im->type ) );
         im->force_convert = 0;
     }
@@ -1054,8 +1054,7 @@ flimage_add_format( const char          * formal_name,
         if (    strcmp( flimage_io[ i ].formal_name, formal_name ) == 0
              && strcmp( flimage_io[ i ].short_name, short_name ) == 0 )
         {
-            M_err( "flimage_add_format",
-                   "%s already supported. Replaced", short_name );
+            M_err( __func__, "%s already supported. Replaced", short_name );
             k = i + 1;
         }
     }
@@ -1215,7 +1214,7 @@ flimage_replace_image( FL_IMAGE * im,
     }
     else
     {
-        M_err( "flimage_replace_image", "InternalError: bad type=%s",
+        M_err( __func__, "InternalError: bad type=%s",
                flimage_type_name( im->type ) );
         return;
     }
@@ -1338,7 +1337,7 @@ copy_pixels( FL_IMAGE * dim,
             break;
 
         default:
-            M_err( "copy_pixel", "Bad type: %d", sim->type );
+            M_err( __func__, "Bad type: %d", sim->type );
             break;
     }
 }
@@ -1927,7 +1926,7 @@ flimage_read_annotation( FL_IMAGE * im )
         {
             sscanf( buf, "%*s %d %d", &nmarkers, &v );
             if ( v > MARKERVERSION )
-                M_err( "ReadMarker", "wrong version" );
+                M_err( __func__, "wrong version" );
             for ( i = 0; i < nmarkers; i++ )
             {
                 while ( skip_line( fp ) )
@@ -1941,7 +1940,7 @@ flimage_read_annotation( FL_IMAGE * im )
         {
             sscanf( buf, "%*s %d %d", &ntext, &v );
             if ( v > TEXTVERSION )
-                M_err( "ReadText", "wrong version" );
+                M_err( __func__, "wrong version" );
             for ( i = 0; i < ntext; i++ )
             {
                 while ( skip_line( fp ) )

@@ -446,14 +446,14 @@ fli_tbox_insert_line( FL_OBJECT  * obj,
                     if ( p[ 2 ] == '\0' )
                         tl->incomp_esc = 1;
                     else
-                        M_err( "fli_tbox_insert_line", "missing color" );
+                        M_err( __func__, "missing color" );
                     p += 1;
                     break;
                 }
 
                 if ( tl->color >= FL_MAX_COLS )
                 {
-                    M_err( "fli_tbox_insert_line", "bad color %ld", tl->color );
+                    M_err( __func__, "bad color %ld", tl->color );
                     tl->color = obj->lcol;
                 }
                 p = e;
@@ -464,7 +464,7 @@ fli_tbox_insert_line( FL_OBJECT  * obj,
                 break;
 
             default :
-                M_err( "fli_tbox_insert_line", "bad flag %c", p[ 1 ] );
+                M_err( __func__, "bad flag %c", p[ 1 ] );
                 p += 1;
                 done = 1;
                 break;

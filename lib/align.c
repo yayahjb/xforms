@@ -45,7 +45,7 @@ fli_test_lalign( int          align,
          || ( ( unsigned int ) align & ~ FL_ALIGN_INSIDE ) >
                                                         FL_ALIGN_RIGHT_BOTTOM )
     {
-        M_err( txt, "Invalid value for align" );
+        M_err( __func__, "Invalid value for align for \"%s\"", txt );
         return 0;
     }
 
@@ -172,7 +172,7 @@ fli_get_hv_align( int   align,
             break;
 
         default :
-            M_err( "fli_get_hv_align", "Bad request: %d\n", align );
+            M_err( __func__, "Bad request: %d\n", align );
             *halign = FL_ALIGN_CENTER;
             *valign = FL_ALIGN_CENTER;
             break;

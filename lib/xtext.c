@@ -298,7 +298,7 @@ fli_draw_string( int           align,
                 break;
 
             default :
-                M_err( "fli_draw_string", "This is impossible" );
+                M_err( __func__, "This is impossible" );
                 return 0;
         }
 
@@ -318,7 +318,7 @@ fli_draw_string( int           align,
                 break;
 
             default :
-                M_err( "fli_draw_string", "This is impossible" );
+                M_err( __func__, "This is impossible" );
                 return 0;
         }
     }
@@ -639,7 +639,7 @@ fli_get_pos_in_string( int          align,
             break;
 
         default :
-            M_err( "fli_get_pos_in_string", "This is impossible" );
+            M_err( __func__, "This is impossible" );
             return 0;
     }
 
@@ -682,7 +682,7 @@ fli_get_pos_in_string( int          align,
             break;
 
         default :
-            M_err( "fli_get_pos_in_string", "This is impossible" );
+            M_err( __func__, "This is impossible" );
             return 0;
     }
 
@@ -922,7 +922,7 @@ fl_draw_text_beside( int          align,
         return;
 
     if ( fl_is_inside_lalign( align ) && ! fl_is_center_lalign( align ) )
-        M_warn( "drw_text_beside", "align request is inside" );
+        M_warn( __func__, "align request is inside" );
 
     if ( align & FL_ALIGN_LEFT )
     {

@@ -57,7 +57,7 @@ static void
 remove_app_win( FLI_WIN * appwin )
 {
 #if FL_DEBUG >= ML_DEBUG
-    M_info( "remove_app_win", "deleting window %ld", appwin->win );
+    M_info( __func__, "deleting window %ld", appwin->win );
 #endif
 
     if ( fli_app_win == appwin )
@@ -73,7 +73,7 @@ remove_app_win( FLI_WIN * appwin )
             fwin->next = fwin->next->next;
         else
         {
-            M_err( "remove_app_win", "Invalid argument" );
+            M_err( __func__, "Invalid argument" );
             return;
         }
     }
@@ -104,7 +104,7 @@ get_fl_win_struct( Window win )
     /* Otherwise create a new structure and append it to the end */
 
 #if FL_DEBUG >= ML_DEBUG
-    M_info( "get_fl_win_struct", "Creating FLI_WIN struct for %ld", win );
+    M_info( __func__, "Creating FLI_WIN struct for %ld", win );
 #endif
 
     if ( ( fwin = fl_malloc( sizeof *fwin ) ) == NULL )
@@ -149,7 +149,7 @@ fli_set_preemptive_callback( Window           win,
 
     if ( ! ( fwin = get_fl_win_struct( win ) ) )
     {
-        M_err( "fli_set_preemptive_callback", "Memory allocation failure" );
+        M_err( __func__, "Memory allocation failure" );
         return NULL;
     }
 
@@ -182,7 +182,7 @@ fl_add_event_callback( Window           win,
 
     if ( ! ( fwin = get_fl_win_struct( win ) ) )
     {
-        M_err( "fl_add_event_callback", "Memory allocation failure" );
+        M_err( __func__, "Memory allocation failure" );
         return NULL;
     }
 
@@ -318,7 +318,7 @@ fl_activate_event_callbacks( Window win )
 
     if ( ! fwin )
     {
-        M_err( "fl_activate_event_callbacks", "Unknown window %ld", win );
+        M_err( __func__, "Unknown window %ld", win );
         return;
     }
 

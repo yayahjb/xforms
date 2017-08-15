@@ -149,11 +149,11 @@ load_page( FL_IMAGE * im,
                   sp->tmpdir, sp->prefix, pageNo );
 
     if ( sp->verbose )
-        M_err( "LoadPage", "loading %s", name );
+        M_err( __func__, "loading %s", name );
 
     if ( ! ( n = flimage_is_supported( name ) ) )
     {
-        M_err( "LoadPage", "internal error. %s unknown", name );
+        M_err( __func__, "internal error. %s unknown", name );
         return -1;
     }
 
@@ -203,7 +203,7 @@ PS_cleanup( FL_IMAGE * im )
         fli_snprintf( name, sizeof name, "%s/%s_%d", sp->tmpdir,
                       sp->prefix, i );
         if ( sp->verbose )
-            M_err( "Cleanup", "deleting %s", name );
+            M_err( __func__, "deleting %s", name );
         remove( name );
     }
 
@@ -237,7 +237,7 @@ PS_read_pixels( FL_IMAGE * im )
     sp->prefix = fl_strdup( prefix );
 
     if ( sp->verbose )
-        M_err( "LoadPS", "prefix=%s", sp->prefix );
+        M_err( __func__, "prefix=%s", sp->prefix );
 
     fli_snprintf( cmd, sizeof cmd,
                   "gs -sDEVICE=%s %s -r%dx%d -sOutputFile=%s/%s_%%d -- %s %s",
@@ -247,7 +247,7 @@ PS_read_pixels( FL_IMAGE * im )
                   "/showpage { systemdict begin showpage quit end} def" : "" );
 
     if ( sp->verbose )
-        M_err( "LoadPS", "executing %s\n", cmd );
+        M_err( __func__, "executing %s\n", cmd );
     else
         strcat( cmd, " 2 > /dev/null" );
 
@@ -256,7 +256,7 @@ PS_read_pixels( FL_IMAGE * im )
 
     if ( ( status = system( cmd ) ) )
     {
-        M_err( "ReadPS", " status=%d", status );
+        M_err( __func__, " status=%d", status );
         flimage_error( im, "ReadPS failed. Status=%d", status );
         return -1;
     }
@@ -289,7 +289,7 @@ PS_read_pixels( FL_IMAGE * im )
     fl_free_dirlist( dirlist );
 
     if ( sp->verbose )
-        M_err( "LoadPS", "Total %d pages", npages );
+        M_err( __func__, "Total %d pages", npages );
 
     if ( npages <= 0 )
     {

@@ -119,7 +119,7 @@ fl_remove_timeout( int id )
     if ( rec )
         remove_timeout( rec );
     else
-        M_err( "fl_remove_timeout", "ID %d not found", id );
+        M_err( __func__, "ID %d not found", id );
 }
 
 

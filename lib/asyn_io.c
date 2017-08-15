@@ -84,7 +84,7 @@ collect_fds( void )
     {
         if ( p->source < 0 )
         {
-            M_err( "collect_fds", "source < 0\n" );
+            M_err( __func__, "source < 0\n" );
             continue;
         }
 
@@ -148,7 +148,7 @@ fl_remove_io_callback( int            fd,
 
     if ( ! io )
     {
-        M_err( "fl_remove_io_callback", "Non-existent handler for %d", fd );
+        M_err( __func__, "Non-existent handler for %d", fd );
         return;
     }
 
@@ -223,12 +223,12 @@ fli_watch_io( FLI_IO_REC * io_rec,
     if ( nf < 0 )     /* something is wrong. */
     {
         if ( errno == EINTR )
-            M_warn( "fli_watch_io", "select interrupted by signal" );
+            M_warn( __func__, "select interrupted by signal" );
 
         /* select() on some platforms returns -1 with errno == 0 */
 
         else if ( errno != 0 )
-            M_err( "fli_watch_io", fli_get_syserror_msg( ) );
+            M_err( __func__, fli_get_syserror_msg( ) );
 
         return;
     }

@@ -63,8 +63,7 @@ spline_int_interpolate( const int * wx,
 
     if ( nin <= 3 )
     {
-        M_warn( "fl_spline_int_interpolate",
-                "too few points (less than 4) for interpolation" );
+        M_warn( __func__, "too few points (less than 4) for interpolation" );
         return -1;
     }
 

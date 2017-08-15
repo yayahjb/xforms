@@ -229,7 +229,7 @@ fl_add_button_class( int              bclass,
         first_avail->cleanup    = cleanup;
     }
     else
-        M_err( "fl_add_button_class", "Exceeding limit: %d", MAX_BUTTON_CLASS );
+        M_err( __func__, "Exceeding limit: %d", MAX_BUTTON_CLASS );
 }
 
 
@@ -281,7 +281,7 @@ handle_button( FL_OBJECT * obj,
                 if ( ( drawit = lookup_drawfunc( obj->objclass ) ) )
                     drawit( obj );
                 else
-                    M_err( "handle_button", "Unknown button class: %d",
+                    M_err( __func__, "Unknown button class: %d",
                            obj->objclass );
             }
             break;
@@ -651,7 +651,7 @@ fl_get_button_mouse_buttons( FL_OBJECT    * obj,
 
     if ( ! obj )
     {
-        M_err( "fl_get_button_mouse_buttons", "NULL object" );
+        M_err( __func__, "NULL object" );
         return;
     }
 

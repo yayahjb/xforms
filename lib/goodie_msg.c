@@ -130,7 +130,7 @@ fl_show_messages( const char *str )
 {
     if ( ! str || ! * str )
     {
-        M_warn( "fl_show_messages", "NULL or empty string" );
+        M_warn( __func__, "NULL or empty string" );
         return;
     }
 
@@ -191,7 +191,7 @@ fl_show_message( const char * s1,
 
     if ( len == 3 )
     {
-        M_warn( "fl_show_message", "Only NULL or empty strings" );
+        M_warn( __func__, "Only NULL or empty strings" );
         return;
     }
 
@@ -215,7 +215,7 @@ fl_hide_message( void )
     if ( fd_msg )
         fl_trigger_object( fd_msg->but );
     else
-        M_warn( "fl_hide_message", "No message box is shown" );
+        M_warn( __func__, "No message box is shown" );
 }
 
 

@@ -55,7 +55,7 @@ fl_interpolate( const float * wx,
 
     if ( nin <= ndeg )
     {
-        M_warn( "fl_interpolate", "too few points in interpol\n" );
+        M_warn( __func__, "too few points in interpol\n" );
         return -1;
     }
 

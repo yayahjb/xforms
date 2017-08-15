@@ -227,7 +227,7 @@ fli_read_line( FILE *fp )
         if ( ( line = fl_realloc( line, len ) ) == NULL )
         {
             fli_safe_free( old_line );
-            M_err( "fli_read_line", "Running out of memory\n" );
+            M_err( __func__, "Running out of memory\n" );
             return NULL;
         }
 
@@ -235,7 +235,7 @@ fli_read_line( FILE *fp )
         {
             if ( ferror( fp ) )
             {
-                M_err( "fli_read_line", "Failed to read from file" );
+                M_err( __func__, "Failed to read from file" );
                 fl_free( line );
                 return NULL;
             }
@@ -246,7 +246,7 @@ fli_read_line( FILE *fp )
                 return NULL;
             }
 
-            M_warn( "fli_read_line", "Missing newline at end of line" );
+            M_warn( __func__, "Missing newline at end of line" );
             break;
         }
 

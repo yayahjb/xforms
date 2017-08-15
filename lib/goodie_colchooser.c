@@ -538,7 +538,7 @@ fl_show_color_chooser( const int * rgb_in,
 
     if ( rgb_out == NULL )
     {
-        M_err( "fl_show_color_chooser",
+        M_err( __func__,
                "Argument for returning selected color is a NULL pointer" );
         return 0;
     }

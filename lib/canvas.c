@@ -168,7 +168,7 @@ fl_get_canvas_id( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_DEBUG
     if ( ! IsValidCanvas( ob ) )
     {
-        M_err( "fl_get_canvas_id", "%s not a canvas",
+        M_err( __func__, "object %s not a canvas",
                ( ob && ob->label ) ? ob->label : "" );
         return None;
     }
@@ -195,7 +195,7 @@ BegWMColormap( FLI_CANVAS_SPEC * sp )
     if (    sp->colormap != fli_colormap( fl_vmode )
          && ! XSetWMColormapWindows( flx->display, sp->parent,
                                      &sp->window, 1 ) )
-        M_err( "BegWMColormap", "WM choked" );
+        M_err( __func__, "WM choked" );
 }
 
 
@@ -214,7 +214,7 @@ fl_set_canvas_attributes( FL_OBJECT            * ob,
 
     if ( mask & CWEventMask )
     {
-        M_err( "fl_set_canvas_attributes", "Changing Events not supported" );
+        M_err( __func__, "Changing Events not supported" );
         mask &= ~ CWEventMask;
     }
 
@@ -248,8 +248,7 @@ fl_set_canvas_colormap( FL_OBJECT * ob,
 
     if ( sp->window )
     {
-        M_warn( "fl_set_canvas_colormap",
-                "Changing colormap for active window" );
+        M_warn( __func__, "Changing colormap for active window" );
         XChangeWindowAttributes( flx->display, sp->window, sp->mask,
                                  &sp->xswa );
         BegWMColormap( sp );
@@ -336,13 +335,13 @@ init_canvas( FL_OBJECT * ob )
 
         if ( sp->parent == None )
         {
-            M_err( "init_canvas", "Internal Error" );
+            M_err( __func__, "Internal Error" );
             exit( 0 );
         }
 
         if ( sp->init && sp->init( ob ) < 0 )
         {
-            M_err( "init_canvas", "Unable to initialize canvas %s", ob->label );
+            M_err( __func__, "Unable to initialize canvas %s", ob->label );
             return;
         }
 
@@ -358,7 +357,7 @@ init_canvas( FL_OBJECT * ob )
                                      sp->user_mask, &sp->user_xswa );
 
 #if FL_DEBUG >= ML_ERR
-        M_warn( "init_canvas", "Depth = %d colormap = 0x%lx, WinID = %ld",
+        M_warn( __func__, "Depth = %d colormap = 0x%lx, WinID = %ld",
                 sp->depth, sp->colormap, sp->window );
 #endif
 
@@ -368,7 +367,7 @@ init_canvas( FL_OBJECT * ob )
 
         if ( sp->activate && sp->activate( ob ) < 0 )
         {
-            M_err( "init_canvas", "Can't initialize canvas %s", ob->label );
+            M_err( __func__, "Can't initialize canvas %s", ob->label );
             return;
         }
 
@@ -398,7 +397,7 @@ init_canvas( FL_OBJECT * ob )
 
     if ( Moved( ob, sp ) || Resized( ob, sp ) )
     {
-        M_warn( "init_canvas", "Canvas: WinMoved\n" );
+        M_warn( __func__, "Canvas: WinMoved\n" );
         XMoveResizeWindow( flx->display, sp->window, ob->x, ob->y,
                            ob->w, ob->h );
     }
@@ -431,14 +430,14 @@ fl_add_canvas_handler( FL_OBJECT        * ob,
 
     if ( ! IsValidCanvas( ob ) )
     {
-        M_err( "fl_add_canvas_handler", "%s not canvas class",
+        M_err( __func__, "%s not canvas class",
                ob ? ob->label : "" );
         return NULL;
     }
 
     if ( ev < KeyPress )
     {
-        M_err( "fl_add_canvas_handler", "Invalid event %d", ev );
+        M_err( __func__, "Invalid event %d", ev );
         return NULL;
     }
 
@@ -472,7 +471,7 @@ fl_remove_canvas_handler( FL_OBJECT        * ob,
 
     if ( ev < 0 || ev >= LASTEvent )
     {
-        M_err( "fl_remove_canvas_handler", "Invalid event %d", ev );
+        M_err( __func__, "Invalid event %d", ev );
         return;
     }
 

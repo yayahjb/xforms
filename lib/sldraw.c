@@ -159,7 +159,7 @@ fli_calc_slider_size( FL_OBJECT          * ob,
         return;
     }
 
-    M_err( "fli_calc_slider_size", "Bad slider type:%d", ob->type );
+    M_err( __func__, "Bad slider type:%d", ob->type );
 }
 
 

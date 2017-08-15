@@ -144,13 +144,13 @@ cleanup_xpma_struct( XpmAttributes * xpma )
     /* do we use at least libXpm 3.4g? */
 
 #if XpmFormat >= 3 && XpmVersion >= 4 && XpmRevision >= 7
-    M_warn( "cleanup_xpma_struct", "Using 3.4g features" );
+    M_warn( __func__, "Using 3.4g features" );
     XFreeColors( flx->display, xpma->colormap,
                  xpma->alloc_pixels, xpma->nalloc_pixels, 0 );
 #else
     /* somewhat dangerous */
 
-    M_warn( "cleanup_xpma_struct", "Using old xpm libs" );
+    M_warn( __func__, "Using old xpm libs" );
     XFreeColors( flx->display, xpma->colormap,
                  xpma->pixels, xpma->npixels, 0 );
 #endif
@@ -222,8 +222,7 @@ change_pixmap( FL_BUTTON_STRUCT * sp,
     sp->pixmap = p;
     sp->mask = shape_mask;
 
-    M_warn( "change_pixmap", "Pixmap = %ld mask = %ld win = %ld",
-            p, shape_mask, win );
+    M_warn( __func__, "Pixmap = %ld mask = %ld win = %ld", p, shape_mask, win );
 
     if ( psp->gc == None )
     {
@@ -423,7 +422,7 @@ handle_pixmap( FL_OBJECT * obj,
     FL_BUTTON_STRUCT *sp = obj->spec;
 
 #if FL_DEBUG >= ML_DEBUG
-    M_info( "handle_pixmap", fli_event_name( event ) );
+    M_info( __func__, fli_event_name( event ) );
 #endif
 
     switch ( event )
@@ -526,7 +525,7 @@ create_from_pixmapdata( Window          win,
     if ( s != XpmSuccess )
     {
         errno = 0;
-        M_err( "fl_create_from_pixmapdata", "error converting: %s",
+        M_err( __func__, "error converting: %s",
                ( s == XpmOpenFailed ? "(Can't open)" :
                  ( s == XpmFileInvalid ? "(Invalid file)" :
                    ( s == XpmColorFailed ? "(Can't get color)" : "" ) ) ) );
@@ -615,7 +614,7 @@ fl_get_pixmap_pixmap( FL_OBJECT * obj,
     if ( ! ( IsValidClass( obj, FL_PIXMAP )
           || IsValidClass( obj, FL_PIXMAPBUTTON ) ) )
     {
-        M_err( "fl_get_pixmap_pixmap", "%s is not Pixmap/pixmapbutton class",
+        M_err( __func__, "%s is not Pixmap/pixmapbutton class",
                ( obj && obj->label ) ? obj->label : "" );
         return None;
     }
@@ -655,7 +654,7 @@ read_pixmapfile( Window win,
     if ( s != XpmSuccess )
     {
         errno = 0;
-        M_err( "fl_read_pixmapfile", "error reading %s %s", file,
+        M_err( __func__, "error reading %s %s", file,
                ( s == XpmOpenFailed ? "(Can't open)" :
                  ( s == XpmFileInvalid ? "(Invalid file)" :
                    ( s == XpmColorFailed ? "(Can't get color)" : "" ) ) ) );

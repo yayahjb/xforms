@@ -112,7 +112,7 @@ fl_clear_nmenu( FL_OBJECT * obj )
 
     if ( obj == NULL )
     {
-        M_err( "fl_clear_nmenu_popup", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -153,7 +153,7 @@ fl_add_nmenu_items( FL_OBJECT  * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_add_nmenu_items", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -190,7 +190,7 @@ fl_insert_nmenu_items( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_add_nmenu_items", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -202,7 +202,7 @@ fl_insert_nmenu_items( FL_OBJECT      * obj,
 
     if ( after != NULL && fli_check_popup_entry_exists( after ) != 0 )
     {
-        M_err( "fl_add_nmenu_items", "Item to insert after doesn't exist" );
+        M_err( __func__, "Item to insert after doesn't exist" );
         return NULL;
     }
 
@@ -231,13 +231,13 @@ fl_replace_nmenu_item( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_replace_nmenu_items", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
     if ( ! items || ! *items )
     {
-        M_err( "fl_replace_nmenu_item", "Items string NULL or empty" );
+        M_err( __func__, "Items string NULL or empty" );
         return NULL;
     }
 
@@ -251,7 +251,7 @@ fl_replace_nmenu_item( FL_OBJECT      * obj,
 
     if ( fli_check_popup_entry_exists( old_item ) )
     {
-        M_err( "fl_replace_nmenu_item", "Item to replace doesn't exist" );
+        M_err( __func__, "Item to replace doesn't exist" );
         return NULL;
     }
 
@@ -289,7 +289,7 @@ fl_delete_nmenu_item( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_delete_nmenu_item", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -301,7 +301,7 @@ fl_delete_nmenu_item( FL_OBJECT      * obj,
 
     if ( fli_check_popup_entry_exists( item ) != 0 )
     {
-        M_err( "fl_delete_nmenu_item", "Item doesnt exist" );
+        M_err( __func__, "Item doesnt exist" );
         return -1;
     }
 
@@ -328,7 +328,7 @@ fl_set_nmenu_items( FL_OBJECT     * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_nmenu_items", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -369,13 +369,13 @@ fl_add_nmenu_items2( FL_OBJECT     * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_add_nmenu_items2", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
     if ( ! items || ! items->text )
     {
-        M_err( "fl_add_nmenu_items2", "Items list NULL or empty" );
+        M_err( __func__, "Items list NULL or empty" );
         return NULL;
     }
 
@@ -415,13 +415,13 @@ fl_insert_nmenu_items2( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_add_nmenu_items2", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
     if ( ! items || ! items->text )
     {
-        M_err( "fl_insert_nmenu_items2", "Items list NULL or empty" );
+        M_err( __func__, "Items list NULL or empty" );
         return NULL;
     }
 
@@ -433,7 +433,7 @@ fl_insert_nmenu_items2( FL_OBJECT      * obj,
 
     if ( after != NULL && fli_check_popup_entry_exists( after ) != 0 )
     {
-        M_err( "fl_add_nmenu_items2", "Item to insert after doesn't exist" );
+        M_err( __func__, "Item to insert after doesn't exist" );
         return NULL;
     }
 
@@ -458,13 +458,13 @@ fl_replace_nmenu_items2( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_replace_nmenu_items2", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
     if ( ! items || ! items->text )
     {
-        M_err( "fl_replace_nmenu_items2", "Items list NULL or empty" );
+        M_err( __func__, "Items list NULL or empty" );
         return NULL;
     }
 
@@ -478,7 +478,7 @@ fl_replace_nmenu_items2( FL_OBJECT      * obj,
 
     if ( fli_check_popup_entry_exists( old_item ) )
     {
-        M_err( "fl_replace_nmenu_item2", "Item to replace doesn't exist" );
+        M_err( __func__, "Item to replace doesn't exist" );
         return NULL;
     }
 
@@ -513,7 +513,7 @@ fl_get_nmenu_popup( FL_OBJECT * obj )
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_nmenu_popup", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -542,7 +542,7 @@ fl_set_nmenu_popup( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_nmenu_popup", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -552,7 +552,7 @@ fl_set_nmenu_popup( FL_OBJECT * obj,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_set_nmenu_popup", "Popup doesn't exist" );
+        M_err( __func__, "Popup doesn't exist" );
         return -1;
     }
 
@@ -560,7 +560,7 @@ fl_set_nmenu_popup( FL_OBJECT * obj,
 
     if ( popup->parent != NULL )
     {
-        M_err( "fl_set_nmenu_popup", "Popup is a sub-popup" );
+        M_err( __func__, "Popup is a sub-popup" );
         return -1;
     }
 
@@ -595,13 +595,13 @@ fl_set_nmenu_policy( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_nmenu_policy", "NULL object" );
+        M_err( __func__, "NULL object" );
         return INT_MIN;
     }
 
     if ( policy < FL_POPUP_NORMAL_SELECT || policy > FL_POPUP_DRAG_SELECT )
     {
-        M_err( "fl_set_nmenu_policy", "Invalid policy argument" );
+        M_err( __func__, "Invalid policy argument" );
         return -1;
     }
 
@@ -627,7 +627,7 @@ fl_get_nmenu_item( FL_OBJECT * obj )
 {
     if ( obj == NULL )
     {
-        M_err( "fl_get_nmenu_item", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -646,7 +646,7 @@ fl_get_nmenu_item_by_value( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_nmenu_item_by_value", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -671,7 +671,7 @@ fl_get_nmenu_item_by_label( FL_OBJECT  * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_nmenu_item_by_label", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -696,7 +696,7 @@ fl_get_nmenu_item_by_text( FL_OBJECT  * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_nmenu_item_by_text", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -722,13 +722,13 @@ fl_set_nmenu_hl_text_color(FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_nmenu_hl_text_color", "NULL object" );
+        M_err( __func__, "NULL object" );
         return FL_MAX_COLORS;
     }
 
     if ( color >= FL_MAX_COLORS )
     {
-        M_err( "fl_set_nmenu_hl_text_color", "Invalid color argument" );
+        M_err( __func__, "Invalid color argument" );
         return FL_MAX_COLORS;
     }
 

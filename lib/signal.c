@@ -140,8 +140,7 @@ fl_add_signal_callback( int                 s,
             if ( sig_rec->ocallback == ( FLI_OSSIG_HANDLER ) - 1L || errno )
 #endif
             {
-                M_err( "fl_add_signal_callback", "Can't add handler for "
-                       "signal %d", s );
+                M_err( __func__, "Can't add handler for signal %d", s );
                 fl_free( sig_rec );
                 return;
             }
@@ -168,8 +167,7 @@ fl_remove_signal_callback( int s )
 
     if ( ! rec )
     {
-        M_err( "fl_remove_signal_callback", "No handler exists for signal %d",
-               s );
+        M_err( __func__, "No handler exists for signal %d", s );
         return;
     }
 
@@ -204,7 +202,7 @@ fl_signal_caught( int s )
 
     if ( ! rec )
     {
-        M_err( "fl_signal_caught", "Caught bogus signal %d", s );
+        M_err( __func__, "Caught bogus signal %d", s );
         return;
     }
 

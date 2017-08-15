@@ -950,7 +950,7 @@ There are also functions to change or query the border width of an object:
 @anchor{fl_get_object_bw()}
 @example
 void fl_set_object_bw(FL_OBJECT *obj, int bw);
-void fl_get_object_bw(FL_OBJECT *obj, int *bw);
+int fl_get_object_bw(FL_OBJECT *obj);
 @end example
 @noindent
 If the requested border width is 0, -1 is used.

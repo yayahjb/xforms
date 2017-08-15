@@ -200,7 +200,7 @@ TIFF_next( FL_IMAGE * im )
     if ( get_image_info_from_ifd( im ) < 0 )
     {
         flimage_error( im, "Can't get image info" );
-        M_err( "Next", "Can't get image info" );
+        M_err( __func__, "Can't get image info" );
         return -1;
     }
 
@@ -577,7 +577,7 @@ read_tag( FILE * fp,
          || ( nbyte = count * typeSize[ type ] ) <= 0 )
     {
         flimage_error( sp->image, "BadType (%d) or count (%d)\n", type, count );
-        M_err( "ReadTag", "BadType (%d) or count (%d)\n", type, count );
+        M_err( __func__, "BadType (%d) or count (%d)\n", type, count );
         return;
     }
 
@@ -646,7 +646,7 @@ read_tiff_ifd( FILE * fp,
          && tag->value[ 0 ] !=  8
          && tag->value[ 0 ] != 16 )
     {
-        M_err( "ReadIFD", "Unsupported bitsPerSample %d", tag->value[ 0 ] );
+        M_err( __func__, "Unsupported bitsPerSample %d", tag->value[ 0 ] );
         return -1;
     }
 
@@ -775,7 +775,7 @@ read_pixels( FL_IMAGE * im )
         bytecount = bytecountTag->value[ strip ];
 
         if ( ( err = ( fread( tmpbuffer, 1, bytecount, fp ) == 0 ) ) )
-            M_err( "ReadStrip", "Error reading ByteCount" );
+            M_err( __func__, "Error reading ByteCount" );
 
         /* TODO: de-compress the tmpbuffer */
 
@@ -832,7 +832,7 @@ read_pixels( FL_IMAGE * im )
             }
             else
             {
-                M_err( "ReadStrip", "Unhandled bpp=%d\n", sp->bps[ 0 ] );
+                M_err( __func__, "Unhandled bpp=%d\n", sp->bps[ 0 ] );
                 return -1;
             }
         }
@@ -870,7 +870,7 @@ read_pixels( FL_IMAGE * im )
                 }
                 else
                 {
-                    M_err( "ReadRGB", "Unknown PlannarConfig %d", config );
+                    M_err( __func__, "Unknown PlannarConfig %d", config );
                     return -1;
                 }
             }
@@ -1111,7 +1111,7 @@ write_ifd( FL_IMAGE * im,
 
     if ( num_tags > sp->max_tags )
     {
-        M_err( "WriteTIFFIFD", "InternalError: run out of tag space" );
+        M_err( __func__, "InternalError: run out of tag space" );
         return -1;
     }
 
@@ -1160,7 +1160,7 @@ write_ifd( FL_IMAGE * im,
 
     if ( itag != num_tags )
     {
-        M_err( "WriteTIFFIFD", "wrong number of tags. wrote %d expect %d",
+        M_err( __func__, "wrong number of tags. wrote %d expect %d",
                itag, num_tags );
         return -1;
     }

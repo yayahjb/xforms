@@ -213,7 +213,7 @@ XWD_description( FL_IMAGE * im )
     im->spec_size = sizeof *sp;
 
     if ( fread( header, 1, sizeof *header, fp ) != sizeof *header )
-        M_err( "ImageXWD", "failure to read from file" );
+        M_err( __func__, "failure to read from file" );
 
     if ( ( sp->swap = need_swap ) )
         swap_header( header );
@@ -262,7 +262,7 @@ XWD_description( FL_IMAGE * im )
     {
         im->type = FL_IMAGE_CI;
         if ( header->ncolors == 0 )
-            M_err( "ImageXWD", "no colormap ?" );
+            M_err( __func__, "no colormap ?" );
     }
 
     im->w = header->pixmap_width;
@@ -475,7 +475,7 @@ XWD_read_pixels( FL_IMAGE * im )
                 if ( fread( uc, 1, h->bytes_per_line, fp )
                                                          != h->bytes_per_line )
                 {
-                    M_err( "LoadXWD", "failure to read from file" );
+                    M_err( __func__, "failure to read from file" );
                     err = 1;
                     break;
                 }
@@ -487,7 +487,7 @@ XWD_read_pixels( FL_IMAGE * im )
             break;
 
         default:
-            M_err( "LoadXWD", "%d bpp not implemented\n", h->bits_per_pixel );
+            M_err( __func__, "%d bpp not implemented\n", h->bits_per_pixel );
             err = 1;
             break;
     }

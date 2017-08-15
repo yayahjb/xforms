@@ -241,7 +241,7 @@ handle_menu( FL_OBJECT * ob,
     int ret = FL_RETURN_NONE;
 
 #if FL_DEBUG >= ML_DEBUG
-    M_info2( "handle_menu", fli_event_name( event ) );
+    M_info2( __func__, fli_event_name( event ) );
 #endif
 
     switch ( event )
@@ -478,7 +478,7 @@ addto_menu( FL_OBJECT  * ob,
     {
         if ( ! isdigit( ( unsigned char ) p[ 2 ] ) )
         {
-            M_err( "addto_menu", "Missing number after %%x" );
+            M_err( __func__, "Missing number after %%x" );
             sp->mval[ n ] = ++sp->cur_val;
         }
         else
@@ -514,7 +514,7 @@ fl_set_menu( FL_OBJECT  * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_MENU ) )
     {
-        M_err( "fl_set_menu", "%s is not Menu class", ob ? ob->label : "" );
+        M_err( __func__, "object %s is not Menu class", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -566,7 +566,7 @@ fl_addto_menu( FL_OBJECT  * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_MENU ) )
     {
-        M_err( "fl_addto_menu", "%s is not Menu class", ob ? ob->label : "" );
+        M_err( __func__, "object %s is not Menu class", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -655,7 +655,7 @@ fl_replace_menu_item( FL_OBJECT  * ob,
         }
         else
         {
-            M_err( "fl_replace_menu_item", "Missing number after %%x" );
+            M_err( __func__, "Missing number after %%x" );
             memmove( p, p + 2, strlen( p ) - 1 );
         }
     }
@@ -823,7 +823,7 @@ fl_get_menu( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_MENU ) )
     {
-        M_err( "fl_get_menu", "%s is not Menu class", ob ? ob->label : "" );
+        M_err( __func__, "object %s is not Menu class", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -847,8 +847,7 @@ fl_get_menu_maxitems( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_MENU ) )
     {
-        M_err( "fl_get_menu_maxitems", "%s is not Menu class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not Menu class", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -869,8 +868,7 @@ fl_get_menu_text( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_MENU ) )
     {
-        M_err( "fl_get_menu_text", "%s is not Menu class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not Menu class", ob ? ob->label : "" );
         return NULL;
     }
 #endif
@@ -896,8 +894,7 @@ fl_get_menu_item_text( FL_OBJECT * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_MENU ) )
     {
-        M_err( "fl_get_menu_item_text", "%s is not Menu class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not Menu class", ob ? ob->label : "" );
         return NULL;
     }
 #endif
@@ -924,8 +921,7 @@ fl_get_menu_item_mode( FL_OBJECT * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_MENU ) )
     {
-        M_err( "fl_get_menu_item_mode", "%s is not Menu class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not Menu class", ob ? ob->label : "" );
         return 0;
     }
 #endif
@@ -950,8 +946,7 @@ fl_set_menu_popup( FL_OBJECT * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_MENU ) )
     {
-        M_err( "fl_set_menu_popup", "%s is not Menu class",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s is not Menu class", ob ? ob->label : "" );
         return;
     }
 #endif

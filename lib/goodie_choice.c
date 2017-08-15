@@ -199,7 +199,7 @@ fl_show_choice( const char * m1,
 
     if ( len == 3 )
     {
-        M_warn( "fl_show_choice", "Only NULL or empty strings" );
+        M_warn( __func__, "Only NULL or empty strings" );
         return 0;
     }
 

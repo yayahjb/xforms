@@ -527,8 +527,7 @@ fl_set_positioner_xbounds( FL_OBJECT * obj,
 
     if ( min == max )
     {
-        M_err( "fl_set_positioner_xbounds",
-               "Minimum and maximum value are identical" );
+        M_err( __func__, "Minimum and maximum value are identical" );
         return;
     }
 
@@ -568,8 +567,7 @@ fl_set_positioner_ybounds( FL_OBJECT * obj,
 
     if ( min == max )
     {
-        M_err( "fl_set_positioner_ybounds",
-               "Minimum and maximum value are identical" );
+        M_err( __func__, "Minimum and maximum value are identical" );
         return;
     }
 
@@ -736,7 +734,7 @@ fl_get_positioner_mouse_buttons( FL_OBJECT    * obj,
 
     if ( ! obj )
     {
-        M_err( "fl_get_positioner_mouse_buttons", "NULL object" );
+        M_err( __func__, "NULL object" );
         return;
     }
 
@@ -794,7 +792,7 @@ fl_set_positioner_validator( FL_OBJECT               * obj,
         ret = validator( obj, sp->xval, sp->yval, &x, &y );
 
         if ( ret == FL_POSITIONER_INVALID )
-            M_warn( "fl_set_positioner_validator",
+            M_warn( __func__,
                     "Current positioner values not within valid range" );
         else if ( ret == FL_POSITIONER_REPLACED )
         {

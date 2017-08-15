@@ -196,7 +196,7 @@ ff_get_fd_file( const char  * str,
         if ( ! fdopt.conv_only )
             fl_show_alert( "Can't open file for reading", ff.fname, "", 0 );
         else
-            M_err( "ff_get_fd_file", "Can't open '%s' for reading", ff.fname );
+            M_err( __func__, "Can't open '%s' for reading", ff.fname );
         ff_close( );
         return -1;
     }
@@ -206,8 +206,7 @@ ff_get_fd_file( const char  * str,
         if ( ! fdopt.conv_only )
             fl_show_alert( "Nothing to be read from", ff.fname, "", 0 );
         else
-            M_err( "ff_get_fd_file", "Nothing to be read from '%s'",
-                   ff.fname );
+            M_err( __func__, "Nothing to be read from '%s'", ff.fname );
         ff_close( );
         return -1;
     }
@@ -993,7 +992,7 @@ ff_read( const char * format,
 
     if ( ! format || ! *format )
     {
-        M_err( "ff_read", "Invalid argument(s)" );
+        M_err( __func__, "Invalid argument(s)" );
         return FF_READ_FAILURE;
     }
 
@@ -1107,7 +1106,7 @@ ff_read( const char * format,
                 default :                     /* error, wrong format */
                     va_end( ap );
                     fl_free( fmt );
-                    M_err( "ff_read", "Invalid argument(s)" );
+                    M_err( __func__, "Invalid argument(s)" );
                     return FF_READ_FAILURE;
             }
 

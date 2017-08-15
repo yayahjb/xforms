@@ -199,7 +199,7 @@ interpol2d_uc( int              out[ 3 ],
          || out[ 1 ] < 0 || out[ 1 ] > FL_PCMAX
          || out[ 2 ] < 0 || out[ 2 ] > FL_PCMAX)
     {
-        M_err( "interpol2D", "out of range" );
+        M_err( __func__, "out of range" );
         exit( 1 );
     }
 
@@ -565,7 +565,7 @@ flimage_warp( FL_IMAGE * im,
     }
     else
     {
-        M_err( "Transform", "InternalError. Bad type" );
+        M_err( __func__, "InternalError. Bad type" );
         return -1;
     }
 

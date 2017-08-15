@@ -266,7 +266,7 @@ read_descriptor_block( FL_IMAGE * im )
 
     if ( ! sp->globalmap && !local_map )
     {
-        M_err( "GIFDescriptor", "%s: No ColorMap", im->infile );
+        M_err( __func__, "%s: No ColorMap", im->infile );
         /* return -1; *//* might want to continue */
     }
 
@@ -449,7 +449,7 @@ readextension( FILE     * fp,
     switch ( label )
     {
         case GIFEXT_PT :        /* plain text extension */
-            M_info( 0, "%s: PlainText Extension", im->infile );
+            M_info( __func__, "%s: PlainText Extension", im->infile );
             if ( getc( fp ) != 12 )
             {
                 flimage_error( im, "%s: bad PlainText extension", im->infile );
@@ -470,7 +470,7 @@ readextension( FILE     * fp,
             while ( ( count = getblock( fp, buf ) ) != 0 && count != EOF )
             {
                 buf[ count ] = '\0';
-                M_info( 0, buf );
+                M_info( __func__, buf );
                 if ( strlen( t->str ) + count > sizeof t->str )
                     count = sizeof t->str - strlen( t->str ) - 1;
                 strncat( t->str, buf, count );
@@ -479,7 +479,7 @@ readextension( FILE     * fp,
             break;
 
         case GIFEXT_COM :       /* a comment extension */
-            M_info( 0, "%s:Comment Extension", im->infile );
+            M_info( __func__, "%s:Comment Extension", im->infile );
             while ( ( count = getblock( fp, buf ) ) != 0 && count != EOF )
             {
                 buf[ count ] = '\0';
@@ -488,7 +488,7 @@ readextension( FILE     * fp,
             break;
 
         case GIFEXT_GC :        /* graphics control     */
-            M_info( 0, "%s:GraphicsControl extension", im->infile );
+            M_info( __func__, "%s:GraphicsControl extension", im->infile );
             while ( ( count = getblock( fp, buf ) ) != 0 && count != EOF )
             {
                 sp->gc.tran = buf[ 0 ] & 1;
@@ -500,24 +500,25 @@ readextension( FILE     * fp,
             break;
 
         case GIFEXT_APP :       /* application extension */
-            M_info( 0, "%s:ApplicationExtension", im->infile );
+            M_info( __func__, "%s:ApplicationExtension", im->infile );
             if ( getc( fp ) != 11 ) /* block length */
-                M_warn( "GifExt", "wrong block length" );
+                M_warn( __func__, "wrong block length" );
             if ( fread( buf, 1, 8, fp ) != 8 )
                 return EOF;
             buf[ 8 ] = '\0';
-            M_info( 0, buf );
+            M_info( __func__, buf );
             if ( fread( buf, 1, 3, fp ) != 3 )
                 return EOF;
             while ( ( count = getblock( fp, buf ) ) != 0 && count != EOF )
             {
                 buf[ count ] = '\0';
-                M_info( 0, buf );
+                M_info( __func__, buf );
             }
             break;
 
         default :
-            M_err( f, "%s: Bogus extension byte 0x%02x", im->infile, label );
+            M_err( __func__, "%s: Bogus extension byte 0x%02x",
+                   im->infile, label );
             break;
     }
 
@@ -548,8 +549,7 @@ skip_extension( FILE     * fp,
                 break;
 
             default :
-                M_warn( "GIFextension", "%s: Bogus byte 0x%02x",
-                        im->infile, pchar );
+                M_warn( __func__, "%s: Bogus byte 0x%02x", im->infile, pchar );
                 return EOF;
         }
     }
@@ -587,7 +587,6 @@ GIF_load( FL_IMAGE * im )
     unsigned char *ch,
                   buf[ 257 ];
     SPEC *sp = im->io_spec;
-    const char *func = "GIFReadPix";
     FILE *fp = im->fpin;
 
     sp->ctext = 0;
@@ -651,7 +650,7 @@ GIF_load( FL_IMAGE * im )
                   && fread( buf, 1, 50, fp )
                   && getc( fp ) != EOF )
         {
-            M_info( func, "%s: Garbage(> 50bytes) at end", im->infile );
+            M_info( __func__, "%s: Garbage(> 50bytes) at end", im->infile );
         }
     }
 
@@ -664,7 +663,7 @@ GIF_load( FL_IMAGE * im )
         int leftover;
         leftover = lbuf - lhead;
 
-        M_warn( func, "total %ld should be %d", sp->cur_total + leftover,
+        M_warn( __func__, "total %ld should be %d", sp->cur_total + leftover,
                 im->w * im->h );
 
         if ( leftover )
@@ -1102,13 +1101,13 @@ write_desc( FL_IMAGE * im,
 
     if ( bpp < 1 || bpp > 8 )
     {
-        M_err( "GIF_dump", "%s: Bad bpp=%d", im->outfile, bpp );
+        M_err( __func__, "%s: Bad bpp=%d", im->outfile, bpp );
         bpp = 1;
     }
 
     if ( Badfwrite("GIF89a", 1, 6, ffp ) )
     {
-        M_err( "GIF_dump", im->outfile );
+        M_err( __func__, im->outfile );
         return -1;
     }
 

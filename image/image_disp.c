@@ -74,13 +74,13 @@ get_colors( Colormap   colormap,
 
     if ( map_len <= 0 )
     {
-        M_err( "get_colors", "bad map length %d\n", map_len );
+        M_err( __func__, "bad map length %d\n", map_len );
         return 0;
     }
 
     if ( ! ( newpixels = fl_malloc( map_len * sizeof *newpixels ) ) )
     {
-        M_err( "get_colors", "malloc failed while getting colors" );
+        M_err( __func__, "malloc failed while getting colors" );
         return 0;
     }
 
@@ -135,7 +135,7 @@ get_all_colors( FL_IMAGE      * im,
 
         if ( ! mapentry )
         {
-            M_err( "get_all_colors", "malloc failure(%d entries)", max_colors );
+            M_err( __func__, "malloc failure(%d entries)", max_colors );
             return;
         }
 
@@ -299,7 +299,7 @@ fl_display_ci( FL_IMAGE * im,
     ximage->data = ( char * ) xpixels;
 
 #if IMAGEDEBUG
-    M_err( "fl_display_ci", "w=%d bytes_per_line=%d bits_per_pixel=%d",
+    M_err( __func__, "w=%d bytes_per_line=%d bits_per_pixel=%d",
            im->w, ximage->bytes_per_line, ximage->bits_per_pixel );
 #endif
 
@@ -309,7 +309,7 @@ fl_display_ci( FL_IMAGE * im,
         {
             XFree( ximage );
             fl_free( xpixels );
-            M_err("fl_display_ci", "malloc failed");
+            M_err( __func__, "malloc failed" );
             return -1;
         }
 
@@ -406,7 +406,7 @@ fl_display_ci( FL_IMAGE * im,
         npixels = 0;
 
 #if IMAGEDEBUG
-        M_err( "fl_display_ci", "Grayscale: maplen=%d", im->map_len );
+        M_err( __func__, "Grayscale: maplen=%d", im->map_len );
 #endif
 
         for ( i = 0; i < im->map_len; i++ )
@@ -422,7 +422,7 @@ fl_display_ci( FL_IMAGE * im,
         im->colors = npixels;
 
 #if TRACE
-        M_err( "fl_display_ci", "Done colormap" );
+        M_err( __func__, "Done colormap" );
 #endif
 
         if ( ximage->bits_per_pixel == 1 )
@@ -453,14 +453,14 @@ fl_display_ci( FL_IMAGE * im,
         else if ( ximage->bits_per_pixel == 8 )
         {
 #if TRACE
-            M_err( "fl_display_ci", "Converting %d pixels", im->w * im->h );
+            M_err( __func__, "Converting %d pixels", im->w * im->h );
 #endif
 
             for ( i = 0, total = im->w * im->h; i < total; i++ )
                 xpixels[ i ] = ( unsigned char ) xc[ ipixels[ i ] ].pixel;
         }
         else
-            M_err( "fl_display_ci", "unhandled bits_per_pixel=%d depth=%d",
+            M_err( __func__, "unhandled bits_per_pixel=%d depth=%d",
                    ximage->bits_per_pixel, im->depth );
     }
     else if ( im->vclass == StaticColor || im->vclass == PseudoColor )
@@ -474,14 +474,14 @@ fl_display_ci( FL_IMAGE * im,
             for ( i = 0; i < total; i++ )
                 xpixels[ i ] = ( unsigned char ) xc[ ipixels[ i ] ].pixel;
         else
-            M_err( "fl_display_ci", "unhandled bits_per_pixel=%d depth=%d",
+            M_err( __func__, "unhandled bits_per_pixel=%d depth=%d",
                    ximage->bits_per_pixel, im->depth );
     }
     else
-        M_err( "fl_display_ci", "unhandled visual class" );
+        M_err( __func__, "unhandled visual class" );
 
 #if TRACE
-    M_err( "fl_display_ci", "about to XPutImage" );
+    M_err( __func__, "about to XPutImage" );
 #endif
 
     if ( ximage && ximage->data )
@@ -496,7 +496,7 @@ fl_display_ci( FL_IMAGE * im,
         fl_free( xmapped );
 
 #if TRACE
-    M_err( "fl_display_ci", "Leaving" );
+    M_err( __func__, "Leaving" );
 #endif
 
     return 0;
@@ -561,14 +561,14 @@ fl_display_gray( FL_IMAGE * im,
     unsigned short *ci = im->gray[ 0 ];
 
 #if TRACE
-    M_err( "DisplayGray", "Entering" );
+    M_err( __func__, "Entering" );
 #endif
 
     /* To avoid scaling of the original data, we create display type */
 
     if ( ! ( im->pixels = fl_get_matrix( im->h, im->w, sizeof **im->pixels ) ) )
     {
-        M_err( "DisplayGray", "can't get memory" );
+        M_err( __func__, "can't get memory" );
         return -1;
     }
 
@@ -630,7 +630,7 @@ fl_display_gray( FL_IMAGE * im,
     fl_display_ci( im, win );
 
 #if TRACE
-    M_err( "DisplayGray", "Leaving" );
+    M_err( __func__, "Leaving" );
 #endif
 
     return 0;
@@ -776,12 +776,12 @@ fl_display_rgb( FL_IMAGE * im,
     }
     else if ( im->vclass == GrayScale || im->vclass == StaticGray )
     {
-        M_err( "fl_display_rgb", "RGB with grayscale display" );
+        M_err( __func__, "RGB with grayscale display" );
         return -1;
     }
     else if ( im->vclass == PseudoColor || im->vclass == StaticColor )
     {
-        M_err( "fl_display_rgb", "Internal error" );
+        M_err( __func__, "Internal error" );
         return -1;
     }
     else
@@ -1458,7 +1458,7 @@ convert_ximage( FL_IMAGE * im,
 
     if ( ximage->bits_per_pixel != 1 && ximage->bits_per_pixel % 8 )
     {
-        M_err( "ConvertImage", "unsupported bpp=%d",
+        M_err( __func__, "unsupported bpp = %d",
                ximage->bits_per_pixel );
         return -1;
     }
@@ -1510,7 +1510,7 @@ convert_ximage( FL_IMAGE * im,
             {
                 /* Probably very rare */
 
-                M_err( "ConvertXImage", "16bpp grayscale not handled" );
+                M_err( __func__, "16 bpp grayscale not handled" );
                 return -1;
             }
 
@@ -1596,7 +1596,7 @@ convert_ximage( FL_IMAGE * im,
             break;
 
         default:
-            M_err( "XImageConvert", "unsupported bpp %d", ximage->depth );
+            M_err( __func__, "unsupported bpp %d", ximage->depth );
             im->modified = 0;
             return -1;
     }

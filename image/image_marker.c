@@ -170,7 +170,7 @@ flimage_add_marker( FL_IMAGE     * im,
 
     if ( ! im )
     {
-        M_err( "AddMarker", "Bad image" );
+        M_err( __func__, "Bad image" );
         return -1;
     }
 
@@ -225,7 +225,7 @@ flimage_add_marker_struct( FL_IMAGE             * im,
 
     if ( ! min->name || ! ( m  = get_marker( min->name ) ) )
     {
-        M_err( "AddMarker", "bad marker name: %s", min->name );
+        M_err( __func__, "bad marker name: %s", min->name );
         return -1;
     }
 

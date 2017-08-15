@@ -106,7 +106,7 @@ flimage_replace_pixel( FL_IMAGE     * im,
     }
     else
     {
-        M_err( "ReplaceColor", "InternalError: bad type %d", im->type );
+        M_err( __func__, "InternalError: bad type %d", im->type );
         return -1;
     }
 

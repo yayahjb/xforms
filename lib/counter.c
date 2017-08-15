@@ -226,7 +226,7 @@ void fl_set_counter_repeat( FL_OBJECT * ob,
 {
     if ( millisec <= 0 )
     {
-        M_warn( "fl_set_counter_repeat", "Invalid argument, disregarded" );
+        M_warn( __func__, "Invalid argument, disregarded" );
         return;
     }
 
@@ -251,7 +251,7 @@ void fl_set_counter_min_repeat( FL_OBJECT * ob,
 {
     if ( millisec <= 0 )
     {
-        M_warn( "fl_set_counter_min_repeat", "Invalid argument, disregarded" );
+        M_warn( __func__, "Invalid argument, disregarded" );
         return;
     }
 
@@ -579,8 +579,7 @@ fl_set_counter_value( FL_OBJECT * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_COUNTER ) )
     {
-        M_err( "fl_set_counter_value", "%s not a counter",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s not a counter", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -623,8 +622,7 @@ fl_set_counter_bounds( FL_OBJECT * ob,
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_COUNTER ) )
     {
-        M_err( "fl_set_counter_bounds", "%s not a counter",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s not a counter", ob ? ob->label : "" );
         return;
     }
 #endif
@@ -714,8 +712,7 @@ fl_get_counter_value( FL_OBJECT * ob )
 #if FL_DEBUG >= ML_ERR
     if ( ! IsValidClass( ob, FL_COUNTER ) )
     {
-        M_err( "fl_get_counter_value", "%s not a counter",
-               ob ? ob->label : "" );
+        M_err( __func__, "object %s not a counter", ob ? ob->label : "" );
         return 0;
     }
 #endif

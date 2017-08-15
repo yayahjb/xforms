@@ -422,11 +422,11 @@ handle_applresdir( const char * rstr,
     for ( tok = strtok( rbuf, ":" ); tok; tok = strtok( 0, ":" ) )
     {
         fli_snprintf( buf, sizeof buf,"%s/%s", tok,appclass );
-        M_info( "handle_applresdir", "Trying XAPPLRESDIR: %s", buf );
+        M_info( __func__, "Trying XAPPLRESDIR: %s", buf );
         if ( ( fdb = XrmGetFileDatabase( buf ) ) )
         {
             XrmMergeDatabases( fdb, &fldatabase );
-            M_warn( "handle_applresdir", "XAPPLRESDIR %s loaded", buf );
+            M_warn( __func__, "XAPPLRESDIR %s loaded", buf );
         }
     }
 }
@@ -446,7 +446,7 @@ init_resource_database( const char *appclass )
 
     if ( ! fl_display )
     {
-        M_err( "init_resource_database", "fl_initialize is not called" );
+        M_err( __func__, "fl_initialize is not called" );
         return;
     }
 
@@ -465,63 +465,63 @@ init_resource_database( const char *appclass )
     */
 
     fli_snprintf( buf, sizeof buf, "DECW$SYSTEM_DEFAULTS:%s.DAT", appclass );
-    M_info( "init_resource_database", "Trying Sys_default: %s", buf );
+    M_info( __func__, "Trying Sys_default: %s", buf );
     if ( ( fdb = XrmGetFileDatabase( buf ) ) )
     {
         XrmMergeDatabases( fdb, &fldatabase );
-        M_warn( "init_resource_database", "System default %s loaded", buf );
+        M_warn( __func__, "System default %s loaded", buf );
     }
 
     fli_snprintf( buf, sizeof buf, "DECW$USER_DEFAULTS:%s.DAT", appclass );
-    M_info( "init_resource_database", "Trying User_default: %s", buf );
+    M_info( __func__, "Trying User_default: %s", buf );
     if ( ( fdb = XrmGetFileDatabase( buf ) ) )
     {
         XrmMergeDatabases( fdb, &fldatabase );
-        M_warn( "init_resource_database", "System default %s loaded", buf );
+        M_warn( __func__, "System default %s loaded", buf );
     }
 
     fli_snprintf( buf, sizeof buf, "DECW$USER_DEFAULTS:DECW$XDEFAULTS.DAT" );
-    M_info( "init_resource_database", "Trying Sys_default: %s", buf );
+    M_info( __func__, "Trying Sys_default: %s", buf );
     if ( ( fdb = XrmGetFileDatabase( buf ) ) )
     {
         XrmMergeDatabases( fdb, &fldatabase );
-        M_warn( "init_resource_database", "System default %s loaded", buf );
+        M_warn( __func__, "System default %s loaded", buf );
     }
 
-    M_info( "init_resource_database", "Trying RESOURCE_MANAGER" );
+    M_info( __func__, "Trying RESOURCE_MANAGER" );
     if ( ( rstr = XResourceManagerString( fl_display ) ) )
     {
         if ( ( fdb = XrmGetStringDatabase( rstr ) ) )
         {
             XrmMergeDatabases( fdb, &fldatabase );
-            M_warn( "init_resource_database", "RESOURCE_MANAGER loaded" );
+            M_warn( __func__, "RESOURCE_MANAGER loaded" );
         }
     }
 #else /* !VMS */
 
     fli_snprintf( buf, sizeof buf, "/usr/lib/X11/app-defaults/%s", appclass );
-    M_info( "init_resource_database", "Trying Sys_default: %s", buf );
+    M_info( __func__, "Trying Sys_default: %s", buf );
     if ( ( fdb = XrmGetFileDatabase( buf ) ) )
     {
         XrmMergeDatabases( fdb, &fldatabase );
-        M_warn( "init_resource_database", "System default %s loaded", buf );
+        M_warn( __func__, "System default %s loaded", buf );
     }
 
     /* try XAPPLRESDIR */
 
-    M_info( "init_resource_database", "Trying XAPPLRESDIR" );
+    M_info( __func__, "Trying XAPPLRESDIR" );
     if ( ( rstr = getenv( "XAPPLRESDIR" ) ) )
         handle_applresdir( rstr, appclass );
 
     /* try server defined resources */
 
-    M_info( "init_resource_database", "Trying RESOURCE_MANAGER" );
+    M_info( __func__, "Trying RESOURCE_MANAGER" );
     if ( ( rstr = XResourceManagerString( fl_display ) ) )
     {
         if ( ( fdb = XrmGetStringDatabase( rstr ) ) )
         {
             XrmMergeDatabases( fdb, &fldatabase );
-            M_warn( "init_resource_database", "RESOURCE_MANAGER loaded" );
+            M_warn( __func__, "RESOURCE_MANAGER loaded" );
         }
     }
     else
@@ -531,32 +531,31 @@ init_resource_database( const char *appclass )
         if ( ( rstr = getenv( "HOME" ) ) )
         {
             fli_snprintf( buf, sizeof buf,"%s/.Xdefaults", rstr );
-            M_info( "init_resource_database", "Trying %s", buf );
+            M_info( __func__, "Trying %s", buf );
             if ( ( fdb = XrmGetFileDatabase( buf ) ) )
             {
                 XrmMergeDatabases( fdb, &fldatabase );
-                M_warn( "init_resource_database", "%s loaded", buf );
+                M_warn( __func__, "%s loaded", buf );
             }
         }
     }
 
     /* Load file XENVIRONMENT */
 
-    M_info( "init_resource_database",
-            "Trying environment variable XEVIRONMENT" );
+    M_info( __func__, "Trying environment variable XEVIRONMENT" );
     if ( ( rstr = getenv( "XENVIRONMENT" ) ) )
     {
         if ( ( fdb = XrmGetFileDatabase( rstr ) ) )
         {
             XrmMergeDatabases( fdb, &fldatabase );
-            M_warn( "init_resource_database", "%s loaded", rstr );
+            M_warn( __func__, "%s loaded", rstr );
         }
     }
     else
     {
         /* ~/.Xdefaults-<hostname> */
 
-        M_info( "init_resource_database", "Trying ~/.Xdefaults-<hostname>" );
+        M_info( __func__, "Trying ~/.Xdefaults-<hostname>" );
         if ( ( rstr = getenv( "HOME" ) ) )
         {
             int l;
@@ -564,11 +563,11 @@ init_resource_database( const char *appclass )
             fli_snprintf( buf, sizeof buf,"%s/.Xdefaults", rstr );
             l = strlen( strcat( buf, "-" ) );
             gethostname( buf + l, sizeof buf - l );
-            M_info( "init_resource_database", "Trying %s", buf );
+            M_info( __func__, "Trying %s", buf );
             if ( ( fdb = XrmGetFileDatabase( buf ) ) )
             {
                 XrmMergeDatabases( fdb, &fldatabase );
-                M_warn( "init_resource_database", "%s loaded", buf );
+                M_warn( __func__, "%s loaded", buf );
             }
         }
     }
@@ -578,8 +577,7 @@ init_resource_database( const char *appclass )
 
     if ( ! fldatabase )
     {
-        M_warn( "init_resource_database",
-                "Can't find any resource databases!" );
+        M_warn( __func__, "Can't find any resource databases!" );
         return;
     }
 }
@@ -643,12 +641,11 @@ fl_get_resource( const char * rname,    /* resource name */
          || strcmp( type, "String" )
          || ! entry.addr )
     {
-        M_warn( "fl_get_resource", "%s (%s): not found", res_name, res_class );
+        M_warn( __func__, "%s (%s): not found", res_name, res_class );
         entry.addr = ( XPointer ) defval;
     }
     else
-        M_info( "fl_get_resource", "%s (%s): %s", res_name, res_class,
-                entry.addr );
+        M_info( __func__, "%s (%s): %s", res_name, res_class, entry.addr );
 
     if ( dtype == FL_NONE || ! entry.addr )
         return entry.addr;
@@ -684,7 +681,7 @@ fl_get_resource( const char * rname,    /* resource name */
             break;
 
         default:
-            M_err( "fl_get_resource", "Unknown type %d", dtype );
+            M_err( __func__, "Unknown type %d", dtype );
             return NULL;
     }
 
@@ -738,7 +735,7 @@ fli_init_resources( void )
     if ( fli_cntl.sync )
     {
         XSynchronize( fl_display, 1 );
-        M_err( "fli_init_resources", "**** Synchronous Mode ********" );
+        M_err( __func__, "**** Synchronous Mode ********" );
         fli_set_debug_level( 4 );
     }
 }
@@ -866,7 +863,7 @@ fli_init_context( void )
 
     if ( ! ( fli_context = fl_calloc( 1, sizeof *fli_context ) ) )
     {
-        M_err( "fli_init_context", "Running out of memory" );
+        M_err( __func__, "Running out of memory" );
         exit( 1 );
     }
 
@@ -916,7 +913,7 @@ fl_initialize( int        * na,
 
     if ( fl_display )
     {
-        M_warn( "fl_initialize", "XForms: already initialized" );
+        M_warn( __func__, "XForms: already initialized" );
         return fl_display;
     }
 
@@ -924,8 +921,7 @@ fl_initialize( int        * na,
 
     if ( ! na || ! *na )
     {
-        M_err( "fl_initialize",
-               "XForms: argc == 0 or argv == NULL detected\n" );
+        M_err( __func__, "XForms: argc == 0 or argv == NULL detected\n" );
         exit( 1 );
     }
 
@@ -991,7 +987,7 @@ fl_initialize( int        * na,
         /* if no display is set, there is no guarantee that buf
            is long enough to contain the DISPLAY setting */
 
-        M_err( "fl_initialize", "%s: Can't open display %s", fli_argv[ 0 ],
+        M_err( __func__, "%s: Can't open display %s", fli_argv[ 0 ],
                XDisplayName( buf[ 0 ] ? buf : 0 ) );
         return 0;
     }
@@ -1040,12 +1036,12 @@ fl_initialize( int        * na,
     fli_snprintf( disp_name, sizeof disp_name, "%s.name", fl_app_name );
     fli_snprintf( disp_cls,  sizeof disp_cls , "%s.Name", fl_app_class );
 
-    M_warn( "fl_initialize", "Trying display %s", disp_name );
+    M_warn( __func__, "Trying display %s", disp_name );
 
     if ( XrmGetResource( cmddb, disp_name, disp_cls, &type, &xval ) )
     {
         fl_app_name = fl_strdup( xval.addr );
-        M_warn( "fl_initialize", "Changed AppName from %s to %s",
+        M_warn( __func__, "Changed AppName from %s to %s",
                 fl_ori_app_name, fl_app_name );
     }
 
@@ -1123,7 +1119,7 @@ fl_initialize( int        * na,
 
     if ( fl_root != fl_vroot )
     {
-        M_warn( "fl_initialize", "fl_root = %lu fl_vroot = %lu",
+        M_warn( __func__, "fl_root = %lu fl_vroot = %lu",
                 fl_root, fl_vroot );
 
         /* tvtwm requires this to position a window relative to the current
@@ -1139,7 +1135,7 @@ fl_initialize( int        * na,
     ydpi = fl_scrh * 25.4 / DisplayHeightMM( fl_display, fl_screen );
 
     if ( xdpi / ydpi > 1.05 || ydpi / xdpi < 0.95 )
-        M_warn( "fl_initialize", "NonSquarePixel %.1f %.1f", xdpi, ydpi );
+        M_warn( __func__, "NonSquarePixel %.1f %.1f", xdpi, ydpi );
 
     fl_dpi = FL_nint( FL_nint( 10 * ( xdpi + ydpi ) / 2 ) / 10.0  );
 
@@ -1149,7 +1145,7 @@ fl_initialize( int        * na,
 //
 //    printf( "screen DPI = %f", fl_dpi );
 
-    M_info( "fl_initialize", "screen DPI = %f", fl_dpi );
+    M_info( __func__, "screen DPI = %f", fl_dpi );
 
     fl_vmode = fli_initialize_program_visual( );
     fli_init_colormap( fl_vmode );
@@ -1179,12 +1175,12 @@ fl_initialize( int        * na,
 
             if ( ! fli_context->xic )
             {
-                M_err( "fl_initialize", "Could not create an input context" );
+                M_err( __func__, "Could not create an input context" );
                 XCloseIM( fli_context->xim );
             }
         }
         else
-            M_err( "fl_initialize", "Could not create an input method" );
+            M_err( __func__, "Could not create an input method" );
     }
 #endif
 
@@ -1229,7 +1225,7 @@ fl_initialize( int        * na,
 
     if ( fli_context->max_request_size < 4096 )
     {
-        M_err( "fl_initialize", "Something is wrong with max_request_size: %ld",
+        M_err( __func__, "Something is wrong with max_request_size: %ld",
                fli_context->max_request_size );
         fli_context->max_request_size = 4096;
     }
@@ -1451,7 +1447,7 @@ fli_get_app_resource( FL_resource * appresource,
 
     for ( ; flr < flrs; flr++ )
         if ( flr->type == FL_STRING && flr->nbytes == 0 )
-            M_err( "fl_get_app_resources", "%s: buflen == 0", flr->res_name );
+            M_err( __func__, "%s: buflen == 0", flr->res_name );
     else
         fl_get_resource( flr->res_name, flr->res_class,
                          flr->type, flr->defval, flr->var, flr->nbytes );
@@ -1487,7 +1483,7 @@ fl_flip_yorigin( void )
     if ( ! fl_display )
         fli_inverted_y = 1;
     else
-        M_err( "fl_flip_yorigin", "Only supported before fl_initialize" );
+        M_err( __func__, "Only supported before fl_initialize" );
 }
 
 

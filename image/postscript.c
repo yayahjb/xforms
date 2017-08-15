@@ -161,7 +161,7 @@ fl_object_ps_dump( FL_OBJECT  * ob,
 
     if ( ! *fname )
     {
-        M_err( "PS_dump", "null filename" );
+        M_err( __func__, "null filename" );
         return -1;
     }
 
@@ -172,7 +172,7 @@ fl_object_ps_dump( FL_OBJECT  * ob,
 
     if ( ! flps->fp )
     {
-        M_err( "PS_dump", "can't open %s", fname );
+        M_err( __func__, "can't open %s", fname );
         return -1;
     }
 
@@ -260,7 +260,7 @@ fl_object_ps_dump( FL_OBJECT  * ob,
             break;
 
         default :
-            M_err( "PS_dump", "unsupported object class: %d", ob->objclass );
+            M_err( __func__, "unsupported object class: %d", ob->objclass );
             break;
     }
 
@@ -784,7 +784,7 @@ ps_draw_xyplot( FL_OBJECT * ob )
 
     if ( ! ob->visible || ! ob->form->visible )
     {
-        M_err( "PSDrawXYPlot", "object must be visible" );
+        M_err( __func__, "object must be visible" );
         return;
     }
 

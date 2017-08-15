@@ -121,7 +121,7 @@ fl_clear_select( FL_OBJECT * obj )
 
     if ( obj == NULL )
     {
-        M_err( "fl_clear_select_popup", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -162,7 +162,7 @@ fl_add_select_items( FL_OBJECT  * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_add_select_items", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -206,7 +206,7 @@ fl_insert_select_items( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_add_select_items", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -218,7 +218,7 @@ fl_insert_select_items( FL_OBJECT      * obj,
 
     if ( after != NULL && fli_check_popup_entry_exists( after ) != 0 )
     {
-        M_err( "fl_add_select_items", "Item to insert after doesn't exist" );
+        M_err( __func__, "Item to insert after doesn't exist" );
         return NULL;
     }
 
@@ -254,13 +254,13 @@ fl_replace_select_item( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_replace_select_items", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
     if ( ! items || ! *items )
     {
-        M_err( "fl_replace_select_items", "Items string NULL or empty" );
+        M_err( __func__, "Items string NULL or empty" );
         return NULL;
     }
 
@@ -274,7 +274,7 @@ fl_replace_select_item( FL_OBJECT      * obj,
 
     if ( fli_check_popup_entry_exists( old_item ) )
     {
-        M_err( "fl_replace_select_items", "Item to replace doesn't exist" );
+        M_err( __func__, "Item to replace doesn't exist" );
         return NULL;
     }
 
@@ -319,7 +319,7 @@ fl_delete_select_item( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_delete_select_item", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -331,7 +331,7 @@ fl_delete_select_item( FL_OBJECT      * obj,
 
     if ( fli_check_popup_entry_exists( item ) != 0 )
     {
-        M_err( "fl_delete_select_item", "Item doesn't exist" );
+        M_err( __func__, "Item doesn't exist" );
         return -1;
     }
 
@@ -365,7 +365,7 @@ fl_set_select_items( FL_OBJECT     * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_select_items", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -459,7 +459,7 @@ fl_set_select_popup( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_select_popup", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -469,7 +469,7 @@ fl_set_select_popup( FL_OBJECT * obj,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_set_select_popup", "Popup doesn't exist" );
+        M_err( __func__, "Popup doesn't exist" );
         return -1;
     }
 
@@ -478,14 +478,14 @@ fl_set_select_popup( FL_OBJECT * obj,
 
     if ( popup->parent != NULL )
     {
-        M_err( "fl_set_select_popup", "Popup is a sub-popup" );
+        M_err( __func__, "Popup is a sub-popup" );
         return -1;
     }
 
     for ( e = popup->entries; e != NULL; e = e->next )
         if ( e->type != FL_POPUP_NORMAL )
         {
-            M_err( "fl_set_select_popup", "Invalid entries in popup" );
+            M_err( __func__, "Invalid entries in popup" );
             return -1;
         }
 
@@ -516,7 +516,7 @@ fl_get_select_item( FL_OBJECT * obj )
 {
     if ( obj == NULL )
     {
-        M_err( "fl_get_select_item", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -538,13 +538,13 @@ fl_set_select_item( FL_OBJECT      * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_select_item", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
     if ( entry == NULL )
     {
-        M_err( "fl_set_select_item", "NULL entry" );
+        M_err( __func__, "NULL entry" );
         return NULL;
     }
 
@@ -560,13 +560,13 @@ fl_set_select_item( FL_OBJECT      * obj,
 
     if ( e == NULL )
     {
-        M_err( "fl_set_select_item", "Entry does not exist" );
+        M_err( __func__, "Entry does not exist" );
         return NULL;
     }
 
     if ( ! IS_ACTIVATABLE( entry ) )
     {
-        M_err( "fl_set_select_item", "Entry can't be set as selected" );
+        M_err( __func__, "Entry can't be set as selected" );
         return NULL;
     }
 
@@ -587,7 +587,7 @@ fl_get_select_item_by_value( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_select_item_by_value", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -612,7 +612,7 @@ fl_get_select_item_by_label( FL_OBJECT  * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_select_item_by_label", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -655,7 +655,7 @@ fl_get_select_item_by_text( FL_OBJECT  * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_select_item_by_text", "NULL object" );
+        M_err( __func__, "NULL object" );
         return NULL;
     }
 
@@ -698,7 +698,7 @@ fl_get_select_text_color( FL_OBJECT * obj )
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_select_color", "NULL object" );
+        M_err( __func__, "NULL object" );
         return FL_MAX_COLORS;
     }
 
@@ -721,13 +721,13 @@ fl_set_select_text_color( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_select_color", "NULL object" );
+        M_err( __func__, "NULL object" );
         return FL_MAX_COLORS;
     }
 
     if ( color >= FL_MAX_COLORS )
     {
-        M_err( "fl_select_set_color", "Invalid color argument" );
+        M_err( __func__, "Invalid color argument" );
         return FL_MAX_COLORS;
     }
 
@@ -754,7 +754,7 @@ fl_get_select_text_font( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_get_select_font", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -782,7 +782,7 @@ fl_set_select_text_font( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_select_font", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -805,7 +805,7 @@ fl_get_select_text_align( FL_OBJECT * obj )
 {
     if ( obj == NULL )
     {
-        M_err( "fl_set_select_text_align", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
@@ -826,20 +826,20 @@ fl_set_select_text_align( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_select_text_align", "NULL object" );
+        M_err( __func__, "NULL object" );
         return -1;
     }
 
     if ( fl_is_outside_lalign( align ) )
     {
-        M_warn( "fl_set_select_text_align", "Adding FL_ALIGN_INSIDE flag" );
+        M_warn( __func__, "Adding FL_ALIGN_INSIDE flag" );
         align = fl_to_inside_lalign( align );
     }
 
     if (    fl_to_outside_lalign( align ) < FL_ALIGN_CENTER
          || fl_to_outside_lalign( align ) > FL_ALIGN_RIGHT_BOTTOM )
     {
-        M_err( "fl_set_select_text_align", "Invalid value for align" );
+        M_err( __func__, "Invalid value for align" );
         return -1;
     }
 
@@ -866,13 +866,13 @@ fl_set_select_policy( FL_OBJECT * obj,
 
     if ( obj == NULL )
     {
-        M_err( "fl_set_select_policy", "NULL object" );
+        M_err( __func__, "NULL object" );
         return INT_MIN;
     }
 
     if ( policy < FL_POPUP_NORMAL_SELECT || policy > FL_POPUP_DRAG_SELECT )
     {
-        M_err( "fl_set_select_policy", "Invalid policy argument" );
+        M_err( __func__, "Invalid policy argument" );
         return -1;
     }
 

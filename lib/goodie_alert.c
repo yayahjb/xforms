@@ -225,7 +225,7 @@ fl_hide_alert( void )
     if ( fd_alert && fd_alert->form->visible )
         fl_trigger_object( fd_alert->but );
     else
-        M_warn( "fl_hide_alert", "No alert box is shown" );
+        M_warn( __func__, "No alert box is shown" );
 }
 
 

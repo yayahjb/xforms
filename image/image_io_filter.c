@@ -124,7 +124,7 @@ flimage_description_via_filter( FL_IMAGE     * im,
 
     if ( status )
     {
-        M_err( "", "%s failed", cmd );
+        M_err( __func__, "%s failed", cmd );
         return -1;
     }
 

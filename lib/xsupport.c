@@ -54,7 +54,7 @@ fli_check_key_focus( const char * s,
     if ( fli_cntl.debug > 1 )
     {
         XGetInputFocus( flx->display, &w, &r );
-        M_info( "fli_check_key_focus", "%s:%s FWin = %lu ReqW = %lu",
+        M_info( __func__, "%s:%s FWin = %lu ReqW = %lu",
                 s ? s : "", w == win ? "OK" : "Wrong", w, win );
     }
 }
@@ -242,9 +242,9 @@ xerror_handler( Display     * d  FL_UNUSED_ARG,
                 XErrorEvent * xev )
 {
     if ( xev->error_code == BadAlloc )
-        M_err( "xerror_handler", "XError: can't allocate - ignored " );
+        M_err( __func__, "XError: can't allocate - ignored " );
     else
-        M_err( "xerror_handler", "XError: %d", xev->error_code );
+        M_err( __func__, "XError: %d", xev->error_code );
 
     xerror_detected = 1;
     return 0;

@@ -543,7 +543,7 @@ fl_draw_box( int      style,
             if ( style & FLI_BROKEN_BOX )
                 fl_foldertab_box( style, x, y, w, h, c, bw_in );
             else
-                M_err( "fl_draw_box", "Unkonwn boxtype: %d", style );
+                M_err( __func__, "Unkonwn boxtype: %d", style );
             break;
     }
 }
@@ -800,7 +800,7 @@ fli_add_vertex( FL_Coord x,
 {
     if ( npt >= MAX_BUF_POINT )
     {
-        M_err( "fli_add_vertex", "Vertices Out of bounds" );
+        M_err( __func__, "Vertices Out of bounds" );
         return;
     }
 
@@ -818,7 +818,7 @@ fli_add_float_vertex( float x,
 {
     if ( npt >= MAX_BUF_POINT )
     {
-        M_err( "fli_add_float_vertex", "Vertices Out of bounds" );
+        M_err( __func__, "Vertices Out of bounds" );
         return;
     }
 
@@ -846,7 +846,7 @@ fli_endline( void )
 {
     if ( npt >= MAX_BUF_POINT )
     {
-        M_err( "fli_endline", "Vertices Out of bounds" );
+        M_err( __func__, "Vertices Out of bounds" );
         return;
     }
 
@@ -862,7 +862,7 @@ fli_endclosedline( void )
 {
     if ( npt + 1 >= MAX_BUF_POINT )
     {
-        M_err( "fli_endclosedline", "Vertices Out of bounds" );
+        M_err( __func__, "Vertices Out of bounds" );
         return;
     }
 
@@ -878,7 +878,7 @@ fli_endpolygon( void )
 {
     if ( npt + 1 >= MAX_BUF_POINT )
     {
-        M_err( "fli_endpolygon", "Vertices Out of bounds" );
+        M_err( __func__, "Vertices Out of bounds" );
         return;
     }
 

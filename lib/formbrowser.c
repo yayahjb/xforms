@@ -183,8 +183,7 @@ fl_get_formbrowser_topform( FL_OBJECT * ob )
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_get_formbrowser_topform", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return NULL;
     }
 
@@ -253,20 +252,19 @@ fl_addto_formbrowser( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_addto_formbrowser", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return 0;
     }
 
     if ( ! form )
     {
-        M_err( "fl_addto_formbrowser", "Invalid argument" );
+        M_err( __func__, "Invalid argument" );
         return 0;
     }
 
     if ( form->attached )
     {
-        M_err( "fl_addto_formbrowser", "Already attached ?" );
+        M_err( __func__, "Already attached ?" );
         return 0;
     }
 
@@ -308,14 +306,13 @@ fl_find_formbrowser_form_number( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_find_formbrowser_form_number", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return 0;
     }
 
     if ( ! form )
     {
-        M_err( "fl_find_formbrowser_form_number", "Invalid argument" );
+        M_err( __func__, "Invalid argument" );
         return 0;
     }
 
@@ -341,14 +338,13 @@ fl_delete_formbrowser( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_delete_formbrowser", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return -1;
     }
 
     if ( ! form )
     {
-        M_err( "fl_delete_formbrowser", "Invalid argument" );
+        M_err( __func__, "Invalid argument" );
         return -1;
     }
 
@@ -388,8 +384,7 @@ fl_delete_formbrowser_bynumber( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_delete_formbrowser_bynumber", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return NULL;
     }
 
@@ -397,8 +392,7 @@ fl_delete_formbrowser_bynumber( FL_OBJECT * ob,
 
     if ( num <= 0 || num > sp->nforms )
     {
-        M_err( "fl_delete_formbrowser_bynumber",
-               "Invalid argument -- %d not between 1 and %d",
+        M_err( __func__, "Invalid argument -- %d not between 1 and %d",
                num, sp->nforms );
         return NULL;
     }
@@ -423,8 +417,7 @@ fl_replace_formbrowser( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_replace_formbrowser", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "objecy %s not a formbrowser", ob ? ob->label : "" );
         return NULL;
     }
 
@@ -432,8 +425,7 @@ fl_replace_formbrowser( FL_OBJECT * ob,
 
     if ( num <= 0 || num > sp->nforms )
     {
-        M_err( "fl_replace_formbrowser",
-               "Invalid argument -- %d not between 1 and %d",
+        M_err( __func__, "Invalid argument -- %d not between 1 and %d",
                num, sp->nforms );
         return NULL;
     }
@@ -462,8 +454,7 @@ fl_get_formbrowser_area( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_get_formbrowser_area", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return 0;
     }
 
@@ -493,8 +484,7 @@ fl_insert_formbrowser( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_insert_formbrowser", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "objecy %s not a formbrowser", ob ? ob->label : "" );
         return -1;
     }
 
@@ -503,7 +493,7 @@ fl_insert_formbrowser( FL_OBJECT * ob,
 
     if ( line <= 0 || line > nforms )
     {
-        M_err( "fl_insert_formbrowser", "Invalid argument" );
+        M_err( __func__, "Invalid argument" );
         return -1;
     }
 
@@ -511,7 +501,7 @@ fl_insert_formbrowser( FL_OBJECT * ob,
 
     if ( ! form )
     {
-        M_err( "fl_insert_formbrowser", "Running out of memory" );
+        M_err( __func__, "Running out of memory" );
         return -1;
     }
 
@@ -592,8 +582,7 @@ fl_set_formbrowser_xoffset( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_set_formbrowser_xoffset", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return 0;
     }
 
@@ -623,8 +612,7 @@ fl_get_formbrowser_xoffset( FL_OBJECT * ob )
 {
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_get_formbrowser_xoffset", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return 0;
     }
 
@@ -646,8 +634,7 @@ fl_set_formbrowser_yoffset( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_set_formbrowser_yoffset", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return 0;
     }
 
@@ -687,8 +674,7 @@ fl_get_formbrowser_yoffset( FL_OBJECT * ob )
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_get_formbrowser_yoffset", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return 0;
     }
 
@@ -708,8 +694,7 @@ fl_get_formbrowser_numforms( FL_OBJECT * ob )
 {
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_get_formbrowser_numforms", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return -1;
     }
 
@@ -729,8 +714,7 @@ fl_get_formbrowser_form( FL_OBJECT * ob,
 
     if ( ! IsFormBrowserClass( ob ) )
     {
-        M_err( "fl_get_formbrowser_form", "%s not a formbrowser",
-               ob ? ob->label : "null" );
+        M_err( __func__, "object %s not a formbrowser", ob ? ob->label : "" );
         return NULL;
     }
 
@@ -739,8 +723,7 @@ fl_get_formbrowser_form( FL_OBJECT * ob,
     if ( n >= 1 && n <= sp->nforms )
         form = sp->form[ n - 1 ];
     else
-        M_err( "fl_get_formbrowser_form",
-               "%d is not an allowable form number", n );
+        M_err( __func__, "%d is not an allowable form number", n );
 
     return form;
 }

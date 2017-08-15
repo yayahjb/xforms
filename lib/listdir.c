@@ -543,7 +543,7 @@ fl_free_dirlist( const FL_Dirlist * dl )
 
     if ( i == cache_size )
     {
-        M_err( "fl_free_dirlist", "Bad list" );
+        M_err( __func__, "Bad list" );
         return;
     }
             
@@ -953,7 +953,7 @@ tc_scandir( const char      * dirname,
 
     if ( sizeof( struct DIRENT ) < 100 && ! dname_is_1 )
     {
-        M_warn("tc_scandir", "Bad dirent -- will fix it on the fly" );
+        M_warn( __func__, "Bad dirent -- will fix it on the fly" );
         dname_is_1 = 1;
     }
 

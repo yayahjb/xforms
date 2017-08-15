@@ -200,7 +200,7 @@ xyplot_emit_spec_c_code( FILE      * fp,
 
     if ( ob->objclass != FL_XYPLOT )
     {
-        M_err( "EmitXYPlotCode", "not xyplot class!" );
+        M_err( __func__, "object not xyplot class!" );
         return;
     }
 

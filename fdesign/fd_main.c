@@ -568,7 +568,7 @@ handle_expose( XEvent * xev,
 {
     if ( xev->xexpose.count == 0 )
     {
-        M_warn( "FD_Expose", "" );
+        M_warn( __func__, "" );
 
         /* If we have ignored a previous configure event, need the window
            size might not be correct. Re-read */
@@ -905,7 +905,8 @@ main( int    argc,
         convertor[ fdopt.language ].init( );
 
     fd_bwidth = fli_cntl.borderWidth;
-    M_warn( "fdesign", "UNIT=%s BW=%d", unit_name( fdopt.unit ), fd_bwidth );
+    M_warn( "fdesign main" ,
+            "UNIT=%s BW=%d", unit_name( fdopt.unit ), fd_bwidth );
 
     create_the_forms( );
     fl_set_atclose( delete_handler, 0 );

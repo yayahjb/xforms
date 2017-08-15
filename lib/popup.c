@@ -814,7 +814,7 @@ fl_popup_add_items( FL_POPUP      * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_add_items", "Popup does not exist" );
+        M_err( __func__, "Popup does not exist" );
         return NULL;
     }
 
@@ -855,7 +855,7 @@ fl_popup_delete( FL_POPUP * popup )
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_delete", "Popup does not exist" );
+        M_err( __func__, "Popup does not exist" );
         return -1;
     }
 
@@ -863,7 +863,7 @@ fl_popup_delete( FL_POPUP * popup )
 
     if ( popup->win != None )
     {
-        M_err( "fl_popup_delete", "Can't free popup that is still shown" );
+        M_err( __func__, "Can't free popup that is still shown" );
         return -1;
     }
 
@@ -902,7 +902,7 @@ fl_popup_entry_delete( FL_POPUP_ENTRY * entry )
 {
     if ( entry == NULL )
     {
-        M_err( "fl_popup_entry_delete", "Invalid argument" );
+        M_err( __func__, "Invalid argument" );
         return -1;
     }
 
@@ -910,7 +910,7 @@ fl_popup_entry_delete( FL_POPUP_ENTRY * entry )
 
     if ( entry->popup->win != None )
     {
-        M_err( "fl_popup_entry_delete", "Can't free entry of a popup that is "
+        M_err( __func__, "Can't free entry of a popup that is "
                 "shown" );
         return -1;
     }
@@ -954,7 +954,7 @@ fl_popup_do( FL_POPUP * popup )
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_do", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return NULL;
     }
 
@@ -962,7 +962,7 @@ fl_popup_do( FL_POPUP * popup )
 
     if ( popup->parent != NULL )
     {
-        M_err( "fl_popup_do", "Can't do direct interaction with sub-popup" );
+        M_err( __func__, "Can't do direct interaction with sub-popup" );
         return NULL;
     }
 
@@ -984,7 +984,7 @@ fl_popup_set_position( FL_POPUP * popup,
 {
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_position", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return;
     }
 
@@ -1007,7 +1007,7 @@ fl_popup_get_policy( FL_POPUP * popup )
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_get_title_font", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return -1;
     }
 
@@ -1028,7 +1028,7 @@ fl_popup_set_policy( FL_POPUP * popup,
 
     if ( policy < FL_POPUP_NORMAL_SELECT || policy > FL_POPUP_DRAG_SELECT )
     {
-        M_err( "fl_popup_set_policy", "Invalid policy argument" );
+        M_err( __func__, "Invalid policy argument" );
         return -1;
     }
 
@@ -1041,7 +1041,7 @@ fl_popup_set_policy( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_policy", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return -1;
     }
 
@@ -1069,7 +1069,7 @@ fl_popup_entry_set_text( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_text", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return -1;
     }
 
@@ -1077,7 +1077,7 @@ fl_popup_entry_set_text( FL_POPUP_ENTRY * entry,
 
     if ( text == NULL )
     {
-        M_err( "fl_popup_entry_set_text", "Invalid text argument" );
+        M_err( __func__, "Invalid text argument" );
         return -1;
     }
 
@@ -1134,7 +1134,7 @@ fl_popup_entry_set_text( FL_POPUP_ENTRY * entry,
         fli_safe_free( entry->text );
         fli_safe_free( entry->label );
         fli_safe_free( entry->accel );
-        M_err( "fl_popup_entry_set_text", "Running out of memory" );
+        M_err( __func__, "Running out of memory" );
     }
 
     for ( old_sc = entry->shortcut; *old_sc != 0; old_sc++ )
@@ -1163,7 +1163,7 @@ fl_popup_entry_set_shortcut( FL_POPUP_ENTRY * entry,
 {
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_shortcut", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return;
     }
 
@@ -1188,7 +1188,7 @@ fl_popup_set_callback( FL_POPUP    * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_callback", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return NULL;
     }
 
@@ -1207,7 +1207,7 @@ fl_popup_get_title( FL_POPUP * popup )
 {
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_title", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return NULL;
     }
 
@@ -1225,7 +1225,7 @@ fl_popup_set_title( FL_POPUP   * popup,
 {
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_title", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return NULL;
     }
 
@@ -1236,7 +1236,7 @@ fl_popup_set_title( FL_POPUP   * popup,
         popup->title = fl_strdup( title );
         if ( popup->title == NULL )
         {
-            M_err( "fl_popup_set_title", "Running out of memory" );
+            M_err( __func__, "Running out of memory" );
             return NULL;
         }
     }
@@ -1286,7 +1286,7 @@ fl_popup_get_title_font( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_get_title_font", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return;
     }
 
@@ -1315,7 +1315,7 @@ fl_popup_set_title_font( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_title_font", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return;
     }
 
@@ -1347,7 +1347,7 @@ fl_popup_entry_get_font( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_entry_get_font", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return;
     }
 
@@ -1376,7 +1376,7 @@ fl_popup_entry_set_font( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_entry_set_font", "Invalid popup" );
+        M_err( __func__, "Invalid popup" );
         return;
     }
 
@@ -1401,7 +1401,7 @@ fl_popup_get_bw( FL_POPUP * popup )
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_get_bw", "Invalid argument" );
+        M_err( __func__, "Invalid argument" );
         return popup_bw;
     }
 
@@ -1425,8 +1425,7 @@ fl_popup_set_bw( FL_POPUP * popup,
     if ( bw == 0 || FL_abs( bw ) > FL_MAX_BW )
     {
         bw = bw == 0 ? -1 : ( bw > 0 ? FL_MAX_BW : - FL_MAX_BW );
-        M_warn( "fl_popup_set_bw", "Adjusting invalid border width to %d",
-                bw ); 
+        M_warn( __func__, "Adjusting invalid border width to %d", bw ); 
     }
 
     if ( popup == NULL )
@@ -1438,7 +1437,7 @@ fl_popup_set_bw( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_bw", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return INT_MIN;
     }
 
@@ -1465,7 +1464,7 @@ fl_popup_get_color( FL_POPUP * popup,
 
     if ( popup != NULL && fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_get_color", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         popup = NULL;
     }
 
@@ -1499,7 +1498,7 @@ fl_popup_get_color( FL_POPUP * popup,
 
     }
 
-    M_err( "fl_popup_get_color", "Invalid color type argument" );
+    M_err( __func__, "Invalid color type argument" );
     return FL_BLACK;
 }
 
@@ -1519,13 +1518,13 @@ fl_popup_set_color( FL_POPUP * popup,
 
     if ( popup != NULL && fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_color", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return FL_MAX_COLORS;
     }
 
     if ( color >= FL_MAX_COLORS )
     {
-        M_err( "fl_popup_set_color", "Invalid color argument" );
+        M_err( __func__, "Invalid color argument" );
         return FL_MAX_COLORS;
     }
 
@@ -1623,7 +1622,7 @@ fl_popup_set_color( FL_POPUP * popup,
             break;
 
         default :
-            M_err( "fl_popup_set_color", "Invalid color type argument" );
+            M_err( __func__, "Invalid color type argument" );
             return FL_MAX_COLORS;
     }
 
@@ -1648,7 +1647,7 @@ fl_popup_set_cursor( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_set_cursor", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return;
     }
 
@@ -1671,7 +1670,7 @@ fl_popup_entry_set_callback( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_enter_callback", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return NULL;
     }
 
@@ -1693,7 +1692,7 @@ fl_popup_entry_set_enter_callback( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_enter_callback", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return NULL;
     }
 
@@ -1715,7 +1714,7 @@ fl_popup_entry_set_leave_callback( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_leave_callback", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return NULL;
     }
 
@@ -1734,7 +1733,7 @@ fl_popup_entry_get_state( FL_POPUP_ENTRY * entry )
 {
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_get_state", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return UINT_MAX;
     }
 
@@ -1754,7 +1753,7 @@ fl_popup_entry_set_state( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_state", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return UINT_MAX;
     }
 
@@ -1817,7 +1816,7 @@ fl_popup_entry_clear_state( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_clear_state", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return UINT_MAX;
     }
 
@@ -1847,7 +1846,7 @@ fl_popup_entry_raise_state( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_raise_state", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return UINT_MAX;
     }
 
@@ -1877,7 +1876,7 @@ fl_popup_entry_toggle_state( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_toggle_state", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return UINT_MAX;
     }
 
@@ -1903,7 +1902,7 @@ fl_popup_entry_set_value( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_value", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return INT_MIN;
     }
 
@@ -1925,7 +1924,7 @@ fl_popup_entry_set_user_data( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_user_data", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return NULL;
     }
 
@@ -1945,7 +1944,7 @@ fl_popup_entry_get_group( FL_POPUP_ENTRY * entry )
 {
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_get_group", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return INT_MAX;
     }
 
@@ -1967,7 +1966,7 @@ fl_popup_entry_set_group( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_group", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return INT_MAX;
     }
 
@@ -2003,13 +2002,13 @@ fl_popup_entry_get_subpopup( FL_POPUP_ENTRY * entry )
 {
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_get_subpopup", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return NULL;
     }
 
     if ( entry->type != FL_POPUP_SUB )
     {
-        M_err( "fl_popup_entry_get_subpopup", "Entry isn't a subpopup entry" );
+        M_err( __func__, "Entry isn't a subpopup entry" );
         return NULL;
     }
 
@@ -2030,13 +2029,13 @@ fl_popup_entry_set_subpopup( FL_POPUP_ENTRY * entry,
 
     if ( fli_check_popup_entry_exists( entry ) )
     {
-        M_err( "fl_popup_entry_set_subpopup", "Invalid entry argument" );
+        M_err( __func__, "Invalid entry argument" );
         return NULL;
     }
 
     if ( entry->type != FL_POPUP_SUB )
     {
-        M_err( "fl_popup_entry_set_subpopup", "Entry isn't a subpopup entry" );
+        M_err( __func__, "Entry isn't a subpopup entry" );
         return NULL;
     }
         
@@ -2045,8 +2044,8 @@ fl_popup_entry_set_subpopup( FL_POPUP_ENTRY * entry,
 
     if ( entry->sub->win != None || subpopup->win != None )
     {
-        M_err( "fl_popup_entry_set_subpopup", "Can't change sub-popup while "
-               "entries sub-popup is shown.");
+        M_err( __func__, "Can't change sub-popup while entries sub-popup is "
+               "shown");
         return NULL;
     }
 
@@ -2055,7 +2054,7 @@ fl_popup_entry_set_subpopup( FL_POPUP_ENTRY * entry,
     if ( check_sub( entry ) )
     {
         entry->sub = old_sub;
-        M_err( "fl_popup_entry_set_subpopup", "Invalid sub-popup argument" );
+        M_err( __func__, "Invalid sub-popup argument" );
         return NULL;
     }
 
@@ -2078,7 +2077,7 @@ fl_popup_entry_get_by_position( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_entry_get_by_position", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return NULL;
     }
 
@@ -2108,7 +2107,7 @@ fl_popup_entry_get_by_value( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_entry_get_by_value", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return NULL;
     }
 
@@ -2142,7 +2141,7 @@ fl_popup_entry_get_by_user_data( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_entry_get_by_value", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return NULL;
     }
 
@@ -2176,7 +2175,7 @@ fl_popup_entry_get_by_text( FL_POPUP   * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_entry_get_by_text", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return NULL;
     }
 
@@ -2229,7 +2228,7 @@ fl_popup_entry_get_by_label( FL_POPUP   * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_entry_get_by_label", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return NULL;
     }
 
@@ -2280,7 +2279,7 @@ fl_popup_get_size( FL_POPUP     * popup,
 {
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_get_size", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return -1;
     }
 
@@ -2303,7 +2302,7 @@ fl_popup_get_min_width( FL_POPUP * popup )
 {
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_get_size", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return -1;
     }
 
@@ -2326,7 +2325,7 @@ fl_popup_set_min_width( FL_POPUP * popup,
 
     if ( fli_check_popup_exists( popup ) )
     {
-        M_err( "fl_popup_get_size", "Invalid popup argument" );
+        M_err( __func__, "Invalid popup argument" );
         return -1;
     }
 
@@ -3314,11 +3313,11 @@ grab( FL_POPUP * popup )
     if ( XGrabPointer( flx->display, popup->win, False, evmask, GrabModeAsync,
                        GrabModeAsync, None, popup->cursor, CurrentTime )
                                                                 != GrabSuccess )
-        M_err( "grab", "Can't grab pointer" );
+        M_err( __func__, "Can't grab pointer" );
     else if ( XGrabKeyboard( flx->display, popup->win, False, GrabModeAsync,
                              GrabModeAsync, CurrentTime ) != GrabSuccess )
     {
-        M_err( "grab", "Can't grab keyboard" );
+        M_err( __func__, "Can't grab keyboard" );
         XUngrabPointer( flx->display, CurrentTime );
     }
 }

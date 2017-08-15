@@ -186,8 +186,7 @@ fl_add_fselector_appbutton( const char * label,
         }
 
     if ( ! ok )
-        M_err( "fl_add_fselector_appbutton", "Only %d allowd. %s ignored",
-               MAX_APPBUTT, label );
+        M_err( __func__, "Only %d allowd. %s ignored", MAX_APPBUTT, label );
 }
 
 
@@ -383,7 +382,7 @@ fl_set_directory( const char * p )
 
     if ( p == NULL )
     {
-        M_err( "fl_set_directory", "invalid NULL argument" );
+        M_err( __func__, "invalid NULL argument" );
         return 1;
     }
 
@@ -395,7 +394,7 @@ fl_set_directory( const char * p )
     fli_fix_dirname( tmpdir );
     if ( ! fli_is_valid_dir( tmpdir ) )
     {
-        M_err( "fl_set_directory", "invalid directory: %s", tmpdir );
+        M_err( __func__, "invalid directory: %s", tmpdir );
         return 1;
     }
 
@@ -498,7 +497,7 @@ fill_entries( FL_OBJECT  * br,
             fl_show_alert( "ReadDir", tmpbuf, fli_get_syserror_msg( ), 0 );
             fl_free( tmpbuf );
         }
-        M_err( "fill_entries", "Can't read %s", lfs->dname );
+        M_err( __func__, "Can't read %s", lfs->dname );
 
         /* Backup */
 

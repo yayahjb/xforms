@@ -339,7 +339,7 @@ fl_winaspect( Window   win,
 
     if ( x <= 0 || y <= 0 )
     {
-        M_err( "fl_winaspect", "Bad aspect ratio" );
+        M_err( __func__, "Bad aspect ratio" );
         return;
     }
 
@@ -541,7 +541,7 @@ wait_mapwin( Window win )
 
     if ( ! ( st_xswa.event_mask & StructureNotifyMask ) )
     {
-        M_err( "wait_mapwin", "XForms improperly initialized" );
+        M_err( __func__, "XForms improperly initialized" );
         exit( 1 );
     }
 
@@ -585,7 +585,7 @@ get_machine_name( Display * d )
 
     if ( gethostname( machine_name, sizeof machine_name - 1 ) )
     {
-        M_err( "get_machine_name", "Unable to get host name" );
+        M_err( __func__, "Unable to get host name" );
         strcpy( machine_name, DisplayString( d ) );
         if ( ( p = strchr( machine_name, ':' ) ) )
             *p = '\0';

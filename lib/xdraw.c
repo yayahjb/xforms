@@ -666,7 +666,7 @@ fl_dashedlinestyle( const char * dash,
         for ( i = 0; i < ndash; i++ )
             if ( dash[ i ] == '\0' )
             {
-                M_warn( "fl_dashedlinestyle", "Invalid '\0' in dash pattern "
+                M_warn( __func__, "Invalid '\0' in dash pattern "
                         "array, using default pattern" );
                 ndash = 0;
                 break;

@@ -287,13 +287,13 @@ fli_insert_composite_after( FL_OBJECT * obj,
 
     if ( ! obj || ! after )
     {
-        M_err( "fli_insert_composite_after", "Bad argument" );
+        M_err( __func__, "Bad argument" );
         return;
     }
 
     if ( ! ( form = after->form ) )
     {
-        M_err( "fli_insert_composite_after", "Null form" );
+        M_err( __func__, "Null form" );
         return;
     }
 
@@ -342,7 +342,7 @@ fl_get_object_component( FL_OBJECT * composite,
                 return tmp;
         }
 
-    M_err( "fl_get_object_component", "Requested object not found" );
+    M_err( __func__, "Requested object not found" );
 
     return NULL;
 }

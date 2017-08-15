@@ -218,7 +218,7 @@ do_shortcut( FL_FORM  * form,
             key1 = key2 = FL_ALT_MASK + key;
     }
 
-    M_info( "do_shortcut", "win = %ld key = %d %d %d",
+    M_info( __func__, "win = %ld key = %d %d %d",
             form->window, key, key1, key2 );
 
     /* Check if an object has this as a shortcut */
@@ -969,7 +969,7 @@ handle_keyboard_event( XEvent * xev,
 
     if ( fli_int.keyform && fli_int.keyform->window != win )
     {
-        M_warn( "handle_keyboard_event", "pointer/keybd focus differ" );
+        M_warn( __func__, "pointer/keybd focus differ" );
 
         if (    fli_int.keyform->child
              && fli_int.keyform->child->window != win
@@ -987,9 +987,9 @@ handle_keyboard_event( XEvent * xev,
     if ( kbuflen < 0 )
     {
         if ( kbuflen != INT_MIN )
-            M_err( "handle_keyboard_event", "keyboad buffer overflow?" );
+            M_err( __func__, "keyboad buffer overflow?" );
         else
-            M_err( "handle_keyboard_event", "fli_XLookupString failed?" );
+            M_err( __func__, "fli_XLookupString failed?" );
 
         return;
     }
@@ -1061,7 +1061,7 @@ handle_EnterNotify_event( FL_FORM * evform )
     }
 #if FL_DEBUG >= ML_DEBUG
     else
-        M_err( "handle_EnterNotify_event", "Null form" );
+        M_err( __func__, "Null form" );
 #endif
 }
 
@@ -1114,7 +1114,7 @@ handle_MotionNotify_event( FL_FORM * evform )
 
     if ( ! fli_int.mouseform )
     {
-        M_warn( "handle_MotionNotify_event", "event win = %ld", win );
+        M_warn( __func__, "event win = %ld", win );
         return;
     }
 
@@ -1242,7 +1242,7 @@ handle_Expose_event( FL_FORM  * evform,
         FL_Coord neww,
                  newh;
 
-        M_warn( "handle_Expose_event", "Run into trouble - correcting it" );
+        M_warn( __func__, "Run into trouble - correcting it" );
         fl_get_winsize( evform->window, &neww, &newh );
         fli_scale_form( evform, ( double ) neww / evform->w,
                         ( double ) newh / evform->h );
@@ -1276,8 +1276,8 @@ handle_ConfigureNotify_event( FL_FORM  * evform,
     {
         evform->x = st_xev.xconfigure.x;
         evform->y = st_xev.xconfigure.y;
-        M_warn( "handle_ConfigureNotify_event", "WMConfigure:x = %d y = %d"
-                "w = %d h = %d", evform->x, evform->y, st_xev.xconfigure.width,
+        M_warn( __func__, "WMConfigure:x = %d y = %d w = %d h = %d",
+                evform->x, evform->y, st_xev.xconfigure.width,
                 st_xev.xconfigure.height );
     }
 
@@ -1452,7 +1452,7 @@ fl_do_only_forms( void )
     }
 
     if ( obj == FL_EVENT )
-        M_warn( "fl_do_only_forms", "Shouldn't happen" );
+        M_warn( __func__, "Shouldn't happen" );
 
     return obj;
 }

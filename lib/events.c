@@ -70,8 +70,7 @@ fli_handle_event_callbacks( XEvent * xev )
         if ( fli_event_callback && ! fli_event_callback( xev, fli_user_data ) )
             return 1;
 
-        M_warn( "fli_handle_event_callbacks", "Unknown window = %ld",
-                xev->xany.window );
+        M_warn( __func__, "Unknown window = %ld", xev->xany.window );
         fli_xevent_name( "Ignored", xev );
         return 1;
     }
@@ -332,7 +331,7 @@ fli_object_qenter( FL_OBJECT * obj,
 {
     if ( ! obj )
     {
-        M_err( "fli_object_qenter", "NULL object" );
+        M_err( __func__, "NULL object" );
         return;
     }
 
@@ -341,7 +340,7 @@ fli_object_qenter( FL_OBJECT * obj,
          && ( ! obj->form || ! obj->visible || obj->active <= 0 ) )
     {
 #if FL_DEBUG >= ML_DEBUG
-        M_err( "fli_object_qenter", "Bad object" );
+        M_err( __func__, "Bad object" );
 #endif
         return;
     }
@@ -719,7 +718,7 @@ fl_XPutBackEvent( XEvent * xev )
     {
         if ( ++mm % 20 == 0 )
         {
-            M_warn( "fl_XPutbackEvent", "20 NoExpose discarded" );
+            M_warn( __func__, "20 NoExpose discarded" );
             mm = 0;
         }
 
@@ -979,7 +978,7 @@ badwin_handler( Display *     dpy  FL_UNUSED_ARG,
                 XErrorEvent * xev )
 {
     if ( xev->type != BadWindow && xev->type != BadDrawable )
-        M_err( "badwin_handler",
+        M_err( __func__,
                "X error happened when expecting only BadWindow/Drawable\n" );
     return 0;
 }
@@ -1087,7 +1086,7 @@ compress_motion( XEvent * xme )
     do
     {
 #if FL_DEBUG >= ML_DEBUG
-        M_info2( "compress_motion", "win = %ld (%d, %d) %s",
+        M_info2( __func__, "win = %ld (%d, %d) %s",
                  xme->xany.window, xme->xmotion.x, xme->xmotion.y,
                  xme->xmotion.is_hint ? "hint" : "" )
 #endif
@@ -1138,7 +1137,7 @@ fl_keysym_pressed( KeySym k )
 
     if ( ( code = XKeysymToKeycode( flx->display, k ) ) == NoSymbol )
     {
-        M_warn( "fl_keysym_pressed", "Bad KeySym %d", ( int ) k );
+        M_warn( __func__, "Bad KeySym %d", ( int ) k );
         return 0;
     }
 

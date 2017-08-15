@@ -55,7 +55,7 @@ make_backup( const char *s )
     if ( access( s, R_OK ) )
     {
         if ( errno != ENOENT )
-            M_err( "make_backup", "Creating backup file %s.bak failed", s );
+            M_err( __func__, "Creating backup file %s.bak failed", s );
         return;
     }
 
@@ -65,14 +65,15 @@ make_backup( const char *s )
 #ifdef  __EMX__
     if ( unlink( buf ) )
     {
-        M_err( "make_backup", "Creating backup file %s failed", buf );
+        M_err( __func__, "Creating backup file %s failed", buf );
         free( buf );
         return;
     }
 #endif
 
     if ( rename( s, buf ) )
-        M_err( "make_backup", "Creating backup file %s failed %s", buf, strerror( errno ) );
+        M_err( __func__, "Creating backup file %s failed: %s",
+               buf, strerror( errno ) );
 
     free( buf );
 }
@@ -149,7 +150,7 @@ C_output( const char * filename,
             fl_show_alert( "Can't create header file!",
                            "Filename is too long:", "", 1 );
         else
-            M_err( "C_output",
+            M_err( __func__,
                    "Can't create header file, filename is too long" );
         return 0;
     }
@@ -161,7 +162,7 @@ C_output( const char * filename,
         if ( ! fdopt.conv_only )
             fl_show_alert( "Can't open header file!", fname, "", 1 );
         else
-            M_err( "C_output", "Can't create open header file '%s'", fname );
+            M_err( __func__, "Can't create open header file '%s'", fname );
         return 0;
     }
 
@@ -225,7 +226,7 @@ C_output( const char * filename,
             fl_show_alert( "Can't create C file!",
                            "Filename is too long.", "", 1 );
         else
-            M_err( "C_output", "Can't create C file, filename is too long" );
+            M_err( __func__, "Can't create C file, filename is too long" );
         return 0;
     }
 
@@ -236,7 +237,7 @@ C_output( const char * filename,
         if ( ! fdopt.conv_only )
             fl_show_alert( "Can't open C file!", fname, "", 1 );
         else
-            M_err( "C_output", "Can't open C file '%s'", fname );
+            M_err( __func__, "Can't open C file '%s'", fname );
         return 0;
     }
 
@@ -267,7 +268,7 @@ C_output( const char * filename,
                 fl_show_alert( "Can't create C file for main() function!",
                                "Filename is too long:", "", 1 );
             else
-                M_err( "C_output", "Can't create C file for main() function, "
+                M_err( __func__, "Can't create C file for main() function, "
                        "filename is too long" );
             reset_dupinfo_cache( );
             return 0;
@@ -281,7 +282,7 @@ C_output( const char * filename,
                 fl_show_alert( "Can't open file for main() function!",
                                "", "", 1 );
             else
-                M_err( "C_output", "Can't open file for main() function!" );
+                M_err( __func__, "Can't open file for main() function!" );
             reset_dupinfo_cache( );
             return 0;
         }
@@ -304,7 +305,7 @@ C_output( const char * filename,
                 fl_show_alert( "Can't create C file for callbacks!",
                                "Filename is too long:", "", 1 );
             else
-                M_err( "C_output", "Can't create C file for callbacks, "
+                M_err( __func__, "Can't create C file for callbacks, "
                        "filename is too long" );
             reset_dupinfo_cache( );
             return 0;
@@ -317,8 +318,8 @@ C_output( const char * filename,
                 fl_show_alert( "Can't open C file for callbacks!", fname,
                                "", 1 );
             else
-                M_err( "C_output",
-                       "Can't open C file for callbacks '%s'", fname );
+                M_err( __func__, "Can't open C file for callbacks '%s'",
+                       fname );
             reset_dupinfo_cache( );
             return 0;
         }
@@ -1574,8 +1575,7 @@ output_object( FILE      * fp,
         defobj = find_class_default( obj->objclass, obj->type );
         if ( ! defobj )
         {
-            M_err( "output_object",
-                   "Failed to create default (class = %s, type = %s)",
+            M_err( __func__, "Failed to create default (class = %s, type = %s)",
                    find_class_name( obj->objclass ),
                    find_type_name( obj->objclass, obj->type ) );
             exit( 1 );
