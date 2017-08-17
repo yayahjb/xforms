@@ -1018,7 +1018,7 @@ copy_shortcut( FL_OBJECT * dest,
 
         if ( i )
         {
-            dest->shortcut = malloc( i * sizeof *dest->shortcut );
+            dest->shortcut = fl_malloc( i * sizeof *dest->shortcut );
             memcpy( dest->shortcut, src->shortcut, i * sizeof *dest->shortcut );
         }
     }

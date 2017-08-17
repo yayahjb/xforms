@@ -61,7 +61,7 @@ main( int    argc,
 
     fl_hide_form( cbform->newbut );
     fl_free_form( cbform->newbut );
-    free( cbform );
+    fl_free( cbform );
 
     fprintf( stderr,"sleeping\n" );
     sleep( 2 );
@@ -83,7 +83,7 @@ FD_newbut *
 create_form_newbut( void )
 {
     FL_OBJECT *obj;
-    FD_newbut *fdui = calloc( 1, sizeof *fdui );
+    FD_newbut *fdui = fl_calloc( 1, sizeof *fdui );
 
     fdui->newbut = fl_bgn_form( FL_NO_BOX, 310, 190 );
 

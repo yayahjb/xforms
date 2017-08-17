@@ -59,14 +59,14 @@ make_backup( const char *s )
         return;
     }
 
-    buf = malloc( strlen( s ) + 5 );
+    buf = fl_malloc( strlen( s ) + 5 );
     sprintf( buf, "%s.bak", s );
 
 #ifdef  __EMX__
     if ( unlink( buf ) )
     {
         M_err( __func__, "Creating backup file %s failed", buf );
-        free( buf );
+        fl_free( buf );
         return;
     }
 #endif
@@ -75,7 +75,7 @@ make_backup( const char *s )
         M_err( __func__, "Creating backup file %s failed: %s",
                buf, strerror( errno ) );
 
-    free( buf );
+    fl_free( buf );
 }
 
 
@@ -826,7 +826,7 @@ check_array_name( char * aname )
     if ( anumb == MAXARNAME )
         return FL_FALSE;
 
-    arnames[ anumb ] = malloc( MAX_VAR_LEN );
+    arnames[ anumb ] = fl_malloc( MAX_VAR_LEN );
     strcpy( arnames[ anumb ], tmpstr);
     arsizes[ anumb++ ] = ind + 1;
     return FL_TRUE;

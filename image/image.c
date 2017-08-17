@@ -1371,7 +1371,7 @@ flimage_dup_( FL_IMAGE * sim,
 
     if ( ! im )
     {
-        flimage_error( sim,"malloc() failed in image_dup()" );
+        flimage_error( sim,"fl_malloc() failed in image_dup()" );
         return 0;
     }
 

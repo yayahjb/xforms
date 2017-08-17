@@ -499,7 +499,7 @@ load_1bit_bmp( FL_IMAGE * im,
 
     if( ! buf )
     {
-        im->error_message( im, "malloc() failed" );
+        im->error_message( im, "fl_malloc() failed" );
         return -1;
     }
 
@@ -508,7 +508,7 @@ load_1bit_bmp( FL_IMAGE * im,
         if ( fread( buf, 1, totalbpl, im->fpin ) != ( size_t ) totalbpl )
         {
             fl_free( buf );
-            im->error_message( im, "malloc() failed" );
+            im->error_message( im, "fl_malloc() failed" );
             return -1;
         }
 
@@ -691,7 +691,7 @@ BMP_write_image( FL_IMAGE * im )
 
         if ( ! tmpbuf )
         {
-            im->error_message( im, "malloc() failed" );
+            im->error_message( im, "fl_malloc() failed" );
             return -1;
         }
 

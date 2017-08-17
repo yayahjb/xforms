@@ -51,7 +51,7 @@ typedef struct
 static FD_yesno *
 create_yesno( void )
 {
-    FD_yesno *fdui = malloc( sizeof *fdui );
+    FD_yesno *fdui = fl_malloc( sizeof *fdui );
     int oldy = fli_inverted_y;
     int oldu = fl_get_coordunit( );
 
@@ -111,7 +111,9 @@ fl_show_question( const char * str,
         fl_free( fd_yesno );
     }
     else
+    {
         fl_deactivate_all_forms( );
+    }
 
     fd_yesno = create_yesno( );
 

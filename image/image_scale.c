@@ -268,7 +268,7 @@ flimage_scale( FL_IMAGE * im,
 
     if ( err )
     {
-        im->error_message( im, "Scale: malloc failed" );
+        im->error_message( im, "Scale: fl_malloc failed" );
         fl_free_matrix( nm[ 0 ]);
         fl_free_matrix( nm[ 1 ]);
         fl_free_matrix( nm[ 2 ]);

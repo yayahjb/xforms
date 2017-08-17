@@ -46,7 +46,7 @@ FD_form *
 create_form_form(void)
 {
     FL_OBJECT *obj;
-    FD_form *fdui = calloc( 1, sizeof *fdui );
+    FD_form *fdui = fl_calloc( 1, sizeof *fdui );
 
     fdui->form = fl_bgn_form( FL_NO_BOX, 470, 370 );
 

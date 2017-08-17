@@ -63,7 +63,7 @@ flimage_add_text( FL_IMAGE     * im,
 
     if ( ! im->text )
     {
-        flimage_error( im, "AddText: malloc failed" );
+        flimage_error( im, "AddText: fl_malloc failed" );
         return -1;
     }
 

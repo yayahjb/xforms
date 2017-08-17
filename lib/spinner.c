@@ -275,8 +275,7 @@ spinner_callback( FL_OBJECT * obj,
         buf = fl_malloc( max_len );
         sprintf( buf, "%d", sp->i_val );
         fl_set_input( sp->input, buf );
-        fl_free( buf );
-        buf = NULL;
+        fli_safe_free( buf );
 
         if ( data != 0 )
         {
@@ -329,11 +328,10 @@ spinner_callback( FL_OBJECT * obj,
                 sp->f_val = sp->f_min;
         }
 
-        buf = malloc( max_len );
+        buf = fl_malloc( max_len );
         sprintf( buf, "%.*f", sp->prec, sp->f_val );
         fl_set_input( sp->input, buf );
-        fl_free( buf );
-        buf = NULL;
+        fli_safe_free( buf );
 
         if ( data != 0 )
         {
@@ -371,7 +369,7 @@ fl_create_spinner( int          type,
     obj->boxtype    = FL_NO_BOX;
     obj->align      = FL_ALIGN_LEFT;
     obj->set_return = set_spinner_return;
-    obj->spec       = sp = malloc( sizeof *sp );
+    obj->spec       = sp = fl_malloc( sizeof *sp );
 
     if ( ( type == FL_INT_SPINNER )
         || ( type == FL_INT_MIDDLE_SPINNER ) )

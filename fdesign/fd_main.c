@@ -647,7 +647,7 @@ pre_connect( int    argc,
         }
         else if ( strncmp( argv[ i ] + 1, "dir", 3 ) == 0 && i + 1 < argc )
         {
-            fdopt.output_dir = malloc( strlen( argv[ ++i ] ) + 1 );
+            fdopt.output_dir = fl_malloc( strlen( argv[ ++i ] ) + 1 );
             strcpy( fdopt.output_dir, argv[ i ] );
         }
         else if ( strncmp( argv[ i ] + 1, "lang", 4 ) == 0 && i + 1 < argc )

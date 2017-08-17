@@ -289,7 +289,7 @@ add_to_freelist( FLI_IO_REC * io )
 {
     struct free_list *cur;
 
-    cur = malloc( sizeof *cur );
+    cur = fl_malloc( sizeof *cur );
     cur->next = fl;
     cur->io   = io;
 

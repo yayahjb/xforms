@@ -80,7 +80,7 @@ get_colors( Colormap   colormap,
 
     if ( ! ( newpixels = fl_malloc( map_len * sizeof *newpixels ) ) )
     {
-        M_err( __func__, "malloc failed while getting colors" );
+        M_err( __func__, "fl_malloc failed while getting colors" );
         return 0;
     }
 
@@ -135,7 +135,7 @@ get_all_colors( FL_IMAGE      * im,
 
         if ( ! mapentry )
         {
-            M_err( __func__, "malloc failure(%d entries)", max_colors );
+            M_err( __func__, "fl_malloc failure(%d entries)", max_colors );
             return;
         }
 
@@ -309,7 +309,7 @@ fl_display_ci( FL_IMAGE * im,
         {
             XFree( ximage );
             fl_free( xpixels );
-            M_err( __func__, "malloc failed" );
+            M_err( __func__, "fl_malloc failed" );
             return -1;
         }
 
@@ -702,7 +702,7 @@ fl_display_rgb( FL_IMAGE * im,
 
         if ( ! xpixels )
         {
-            flimage_error( im, "malloc() failed" );
+            flimage_error( im, "fl_malloc() failed" );
             return -1;
         }
 

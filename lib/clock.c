@@ -197,12 +197,14 @@ draw_digitalclock( FL_OBJECT * ob )
     {
         if ( ! sp->hide_seconds )
             sprintf( buf, "%d:%02d:%02d %s",
-                     sp->hours > 12 ? sp->hours - 12 : sp->hours,
-                     sp-> minutes, sp->seconds, sp->hours > 12 ? "pm" : "am" );
+                     sp->hours == 0 ? 12 : (sp->hours > 12 ?
+                                            sp->hours - 12 : sp->hours),
+                     sp-> minutes, sp->seconds, sp->hours >= 12 ? "pm" : "am" );
         else
             sprintf( buf, "%d:%02d %s",
-                     sp->hours > 12 ? sp->hours - 12 : sp->hours,
-                     sp->minutes, sp->hours > 12 ? "pm" : "am" );
+                     sp->hours == 0 ? 12 : (sp->hours > 12 ?
+                                            sp->hours - 12 : sp->hours),
+                     sp->minutes, sp->hours >= 12 ? "pm" : "am" );
     }
     else
     {
@@ -259,8 +261,7 @@ handle_clock( FL_OBJECT * ob,
 
         case FL_STEP:
             /* Clock has a resolution of about 1 sec. FL_STEP is sent about
-               every 0.05 sec. If there are more than 10 clocks, we might run
-               into trouble */
+               every 0.05 sec. Reduce number of tests to 10 per second. */
 
             if ( ++sp->nstep & 1 )
                 break;
