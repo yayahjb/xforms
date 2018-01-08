@@ -2079,10 +2079,10 @@ allocate_spec( FLI_XYPLOT_SPEC * sp,
     {
         sp->text[ i ]   = sp->key[ i ]         = NULL;
         sp->x[ i ]      = sp->y[ i ]           = NULL;
-        sp->n[ i ]      = sp->type[ i ]        = 0;
+        sp->n[ i ]      = 0;
+        sp->type[ i ]   = -1;
         sp->xt[ i ]     = sp->yt[ i ]          = sp->grid[ i ]     = 0.0;
         sp->col[ i ]    = sp->tcol[ i ]        = 0;
-        sp->type[ i ]   =  sp->n[ i ]          = 0;
         sp->talign[ i ] = sp->interpolate[ i ] = sp->thickness[ i ] = 0;
         sp->symbol[ i ] = NULL;
     }
