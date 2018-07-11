@@ -2117,12 +2117,12 @@ void gui_signal_handler(int sig, void *data) @{
 
 To make all this work, a set-up similar to the following can be used
 @example
+/* setup handler for SIGALRM */
+signal(SIGALRM, timing_critical_tasks);
+
 /* setup the signal */
 fl_app_signal_direct(1);
 setitimer(ITIMER_REAL, interval);
-
-/* setup the OS signal handler */
-signal(SIGALRM, timing_critical_tasks);
 
 /* setup the XForms signal handler */
 fl_add_signal_callback(SIGALRM, gui_signal_handler, &myData);
