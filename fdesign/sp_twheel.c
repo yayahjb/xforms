@@ -38,7 +38,7 @@
 #include "spec/twheel_spec.h"
 
 static FD_twheelattrib * twheel_attrib;
-FL_OBJECT * curobj;
+static FL_OBJECT * curobj;
 
 
 /***************************************

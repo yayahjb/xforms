@@ -422,7 +422,7 @@ fl_draw_box( int      style,
             fl_rectf( x,      y + h - bw, w,      bw - dp,    FL_TOP_BCOL );
             fl_rectf( x,      y,          w,      bw,         FL_BOTTOM_BCOL );
 
-            /* right trapzoid */
+            /* right trapezoid */
 
             SET_POINT( vert,     x + w - bw, y + bw     );
             SET_POINT( vert + 1, x + w - bw, y + h - bw );

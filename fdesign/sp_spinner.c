@@ -30,7 +30,7 @@
 
 
 static FD_spinnerattrib * spn_attrib;
-FL_OBJECT *curobj;
+static FL_OBJECT * curobj;
 
 
 #define IS_INT_SPINNER( o ) \
