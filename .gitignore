@@ -3,7 +3,6 @@ config.log
 config.status
 config/missing
 config/depcomp
-config/install-sh
 TAGS
 *~
 *.o
