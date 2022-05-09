@@ -1,8 +1,6 @@
 autom4te.cache/
 config.log
 config.status
-config/missing
-config/depcomp
 TAGS
 *~
 *.o
