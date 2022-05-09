@@ -1,6 +1,6 @@
 dnl Process with autoconf to generate configure script   -*- sh -*-
 
-AC_PREREQ(2.59)
+AC_PREREQ([2.71])
 
 dnl !!! THIS NEEDS CHANCHING FOR EACH RELEASE !!!
 
@@ -86,8 +86,8 @@ AC_PROG_MAKE_SET
 
 ### Check for special systems
 
-AC_ISC_POSIX
-AC_AIX
+AC_SEARCH_LIBS([strerror],[cposix])
+AC_USE_SYSTEM_EXTENSIONS
 
 ### Check for some Cygwin-specific details.
 
@@ -105,7 +105,7 @@ INSTALL_SCRIPT='${INSTALL}'
 AC_PROG_LIBTOOL
 
 #AC_REQUIRE([AC_CANONICAL_HOST])_LT_SET_OPTION([LT_INIT],[win32-dll])
-#AC_DIAGNOSE([obsolete],[AC_LIBTOOL_WIN32_DLL: Remove this warning and the call to _LT_SET_OPTION when you
+#m4_warn([obsolete],[AC_LIBTOOL_WIN32_DLL: Remove this warning and the call to _LT_SET_OPTION when you
 #put the `win32-dll' option into LT_INIT's first parameter.])
 
 LT_INIT([])
@@ -167,7 +167,19 @@ XFORMS_CHECK_LIB_JPEG
 
 # Checks for library functions.
 
-AC_TYPE_SIGNAL
+m4_warn([obsolete],
+[your code may safely assume C89 semantics that RETSIGTYPE is void.
+Remove this warning and the `AC_CACHE_CHECK' when you adjust the code.])dnl
+AC_CACHE_CHECK([return type of signal handlers],[ac_cv_type_signal],[AC_COMPILE_IFELSE(
+[AC_LANG_PROGRAM([#include <sys/types.h>
+#include <signal.h>
+],
+		 [return *(signal (0, 0)) (0) == 1;])],
+		   [ac_cv_type_signal=int],
+		   [ac_cv_type_signal=void])])
+AC_DEFINE_UNQUOTED([RETSIGTYPE],[$ac_cv_type_signal],[Define as the return type of signal handlers
+		    (`int' or `void').])
+
 if test $ac_cv_type_signal = "void" ; then
   AC_DEFINE(RETSIGTYPE_IS_VOID, 1, [Define if the return type of signal handlers is void])
 fi
